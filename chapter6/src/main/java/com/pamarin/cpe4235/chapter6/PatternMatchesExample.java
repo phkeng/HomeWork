@@ -14,7 +14,7 @@ import java.util.regex.Pattern;
 public class PatternMatchesExample {
 
     private static boolean hasText(String source, String check) {
-        return Pattern.matches(".*" + check + ".*", source); //".*program.*s"
+        return Pattern.matches(".*" + check + ".*", source); //".*program.*"
     }
 
     public static void main(String[] args) {
