@@ -5,16 +5,15 @@
  */
 package com.pamarin.cpe4235.chapter6;
 
-import java.io.IOException;
-import java.util.Scanner;
-
 /**
  *
  * @author anonymous
  */
-public class ExceptionExample {
+public class RegExExample {
 
-    public static void main(String[] args) throws IOException {
-        
+    public static void main(String[] args) {
+        String text = "service@omsalung.com";
+        String pattern = "[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\\.[a-zA-Z]{2,4}";
+        System.out.println(text.matches(pattern));
     }
 }

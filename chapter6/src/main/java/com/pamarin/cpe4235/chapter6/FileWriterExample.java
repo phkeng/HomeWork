@@ -5,27 +5,30 @@
  */
 package com.pamarin.cpe4235.chapter6;
 
-import java.io.FileInputStream;
 import java.io.FileOutputStream;
+import java.io.FileWriter;
 import java.io.IOException;
-import java.io.InputStream;
 import java.io.OutputStream;
+import java.io.OutputStreamWriter;
+import java.io.Writer;
 
 /**
  *
  * @author anonymous
  */
-public class StreamExample {
+public class FileWriterExample {
 
     public static void main(String[] args) throws IOException {
-        InputStream inputStream = null;
+        Writer writer = null;
         try {
-            inputStream = new FileInputStream("C:/temp/my-file.txt");
-            System.out.println("size --> " + inputStream.available());
-            
+            writer = new FileWriter("C:/temp/my-file.txt");
+            writer.append('4');
+            writer.append('2');
+            writer.append('3');
+            writer.append('5');
         } finally {
-            if (inputStream != null) {
-                inputStream.close();
+            if (writer != null) {
+                writer.close();
             }
         }
     }
