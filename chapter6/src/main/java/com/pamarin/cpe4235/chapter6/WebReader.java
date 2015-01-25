@@ -22,13 +22,19 @@ import java.util.regex.Pattern;
  */
 public class WebReader {
 
-    private String url;
+    private final String REGEX_LINK_PATTERN = "(\\b(https?|ftp|file)://[-a-zA-Z0-9+&@#/%?=~_|!:,.;]*[-a-zA-Z0-9+&@#/%=~_|])";
+    private final String url;
+    private String html;
 
-    public WebReader(String url) {
+    private WebReader(String url) {
         this.url = url;
     }
 
-    public String getHtml() throws IOException {
+    public static WebReader fromURL(String url) {
+        return new WebReader(url);
+    }
+
+    public void reloadHtml() throws IOException {
         InputStream inputStream = null;
         Reader reader = null;
         BufferedReader bff = null;
@@ -57,19 +63,29 @@ public class WebReader {
             }
         }
 
-        return builder.toString();
+        html = builder.toString();
     }
 
-    public Set<String> getLinks() throws IOException {
+    public String getHtml() throws IOException {
+        if (html == null) {
+            reloadHtml();
+        }
+
+        return html;
+    }
+
+    private Set<String> findGroupMatches(String pattern) throws IOException {
         Set<String> set = new HashSet<>();
-        String pattern = "href=\"(.*?)\"";
         Pattern compiled = Pattern.compile(pattern);
-        String html = getHtml();
-        Matcher matcher = compiled.matcher(html);
+        Matcher matcher = compiled.matcher(getHtml());
         while (matcher.find()) {
             set.add(matcher.group(1));
         }
 
         return set;
+    }
+
+    public Set<String> getLinks() throws IOException {
+        return findGroupMatches(REGEX_LINK_PATTERN);
     }
 }
