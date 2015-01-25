@@ -34,7 +34,7 @@ public class WebReader {
         return new WebReader(url);
     }
 
-    public void reloadHtml() throws IOException {
+    public WebReader reloadHtml() throws IOException {
         InputStream inputStream = null;
         Reader reader = null;
         BufferedReader bff = null;
@@ -64,6 +64,8 @@ public class WebReader {
             
             html = builder.toString();
         }
+        
+        return this;
     }
 
     public String getHtml() throws IOException {
