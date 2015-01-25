@@ -19,7 +19,7 @@ import java.util.regex.Pattern;
 public class WebReader {
 
     private final String REGEX_LINK_PATTERN = "(\\b(https?|ftp|file)://[-a-zA-Z0-9+&@#/%?=~_|!:,.;]*[-a-zA-Z0-9+&@#/%=~_|])";
-    private final String PAGE_TITLE = "\\<title\\>(.*?)\\<\\/title\\>";
+    private final String REGEX_PAGE_TITLE = "\\<title\\>(.*?)\\<\\/title\\>";
     private final String url;
     private String html;
 
@@ -89,7 +89,7 @@ public class WebReader {
     }
 
     public String getPageTile() throws IOException {
-        Set<String> set = findGroupMatches(PAGE_TITLE);
+        Set<String> set = findGroupMatches(REGEX_PAGE_TITLE);
         Iterator<String> iterator = set.iterator();
         while (iterator.hasNext()) {
             return iterator.next();
