@@ -61,9 +61,9 @@ public class WebReader {
             if (inputStream != null) {
                 inputStream.close();
             }
+            
+            html = builder.toString();
         }
-
-        html = builder.toString();
     }
 
     public String getHtml() throws IOException {
