@@ -7,6 +7,8 @@ package com.pamarin.cpe4235.chapter6;
 
 import java.io.IOException;
 import java.util.Scanner;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 /**
  *
@@ -14,7 +16,14 @@ import java.util.Scanner;
  */
 public class ExceptionExample {
 
-    public static void main(String[] args) throws IOException {
+    public static void main(String[] args) {
+        try {
+            throw new NullPointerException("is Null");
+        } catch(Exception ex){
+            ///
+        }
         
+        System.out.println("chapter6 Exception Handling.");
+
     }
 }
