@@ -1,8 +1,3 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package com.pamarin.cpe4235.chapter6;
 
 import java.io.BufferedReader;
@@ -12,6 +7,7 @@ import java.io.InputStreamReader;
 import java.io.Reader;
 import java.net.URL;
 import java.util.HashSet;
+import java.util.Iterator;
 import java.util.Set;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
@@ -23,6 +19,7 @@ import java.util.regex.Pattern;
 public class WebReader {
 
     private final String REGEX_LINK_PATTERN = "(\\b(https?|ftp|file)://[-a-zA-Z0-9+&@#/%?=~_|!:,.;]*[-a-zA-Z0-9+&@#/%=~_|])";
+    private final String PAGE_TITLE = "\\<title\\>(.*?)\\<\\/title\\>";
     private final String url;
     private String html;
 
@@ -61,10 +58,10 @@ public class WebReader {
             if (inputStream != null) {
                 inputStream.close();
             }
-            
+
             html = builder.toString();
         }
-        
+
         return this;
     }
 
@@ -89,5 +86,15 @@ public class WebReader {
 
     public Set<String> getLinks() throws IOException {
         return findGroupMatches(REGEX_LINK_PATTERN);
+    }
+
+    public String getPageTile() throws IOException {
+        Set<String> set = findGroupMatches(PAGE_TITLE);
+        Iterator<String> iterator = set.iterator();
+        while (iterator.hasNext()) {
+            return iterator.next();
+        }
+
+        return null;
     }
 }

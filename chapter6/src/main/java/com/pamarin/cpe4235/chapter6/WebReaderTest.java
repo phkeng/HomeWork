@@ -16,6 +16,8 @@ public class WebReaderTest {
 
     public static void main(String[] args) throws IOException {
         WebReader reader = WebReader.fromURL("https://google.com");
+        System.out.println("title = " + reader.getPageTile());
+        System.out.println("");
         Set<String> links = reader.getLinks();
         for (String link : links) {
             System.out.println("link = " + link);
@@ -24,6 +26,7 @@ public class WebReaderTest {
 }
 
 /**
+title = Google  
  
 link = https://www.google.co.th/setprefs?sig=0_wvQ_0lQVw4QtGGQ3mbC8ACyfkRw%3D&amp;hl=en&amp;source=homepage
 link = https://translate.google.co.th/?hl=th&tab=wT
@@ -40,5 +43,4 @@ link = https://www.youtube.com/?gl=TH&tab=w1
 link = https://accounts.google.com/ServiceLogin?hl=th&continue=https://www.google.co.th/%3Fgws_rd%3Dcr%26ei%3DfuPEVJU9wu3wBb7MgsgL
 link = http://www.google.co.th/history/optout?hl=th
 link = https://mail.google.com/mail/?tab=wm
-
- */
+*/
