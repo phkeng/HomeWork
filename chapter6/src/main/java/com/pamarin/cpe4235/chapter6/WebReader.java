@@ -18,7 +18,7 @@ import java.util.regex.Pattern;
  */
 public class WebReader {
 
-    private final String REGEX_LINK_PATTERN = "(\\b(https?|ftp|file)://[-a-zA-Z0-9+&@#/%?=~_|!:,.;]*[-a-zA-Z0-9+&@#/%=~_|])";
+    private final String REGEX_LINK = "(\\b(https?|ftp|file)://[-a-zA-Z0-9+&@#/%?=~_|!:,.;]*[-a-zA-Z0-9+&@#/%=~_|])";
     private final String REGEX_PAGE_TITLE = "\\<title\\>(.*?)\\<\\/title\\>";
     private final String url;
     private String html;
@@ -28,7 +28,7 @@ public class WebReader {
     }
 
     //use static method for code meaning and protect refactoring constructor on the future
-    public static WebReader fromURL(String url) { 
+    public static WebReader fromURL(String url) {
         return new WebReader(url);
     }
 
@@ -86,17 +86,19 @@ public class WebReader {
     }
 
     public Set<String> getLinks() throws IOException {
-        return findGroupMatches(REGEX_LINK_PATTERN);
+        return findGroupMatches(REGEX_LINK);
     }
 
-    public String getPageTile() throws IOException {
-        Set<String> set = findGroupMatches(REGEX_PAGE_TITLE);
-        //will return first element of Set
+    private String firstElement(Set<String> set) {
         Iterator<String> iterator = set.iterator();
         while (iterator.hasNext()) {
             return iterator.next();
         }
 
         return null;
+    }
+
+    public String getPageTile() throws IOException {
+        return firstElement(findGroupMatches(REGEX_PAGE_TITLE));
     }
 }
