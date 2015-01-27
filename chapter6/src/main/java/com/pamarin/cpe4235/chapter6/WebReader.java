@@ -91,7 +91,7 @@ public class WebReader {
 
     public String getPageTile() throws IOException {
         Set<String> set = findGroupMatches(REGEX_PAGE_TITLE);
-        //will return first element 
+        //will return first element of Set
         Iterator<String> iterator = set.iterator();
         while (iterator.hasNext()) {
             return iterator.next();
