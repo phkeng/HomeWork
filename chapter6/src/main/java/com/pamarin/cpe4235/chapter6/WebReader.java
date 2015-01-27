@@ -27,7 +27,7 @@ public class WebReader {
         this.url = url;
     }
 
-    //use static method for code Meaning and protect refactor constructor on the future
+    //use static method for code meaning and protect refactor constructor on the future
     public static WebReader fromURL(String url) { 
         return new WebReader(url);
     }
