@@ -27,7 +27,8 @@ public class WebReader {
         this.url = url;
     }
 
-    public static WebReader fromURL(String url) {
+    //use static method for code Meaning and protect refactor constructor on the future
+    public static WebReader fromURL(String url) { 
         return new WebReader(url);
     }
 
@@ -44,7 +45,7 @@ public class WebReader {
             bff = new BufferedReader(reader);
             String data;
             while ((data = bff.readLine()) != null) {
-                builder.append(data);
+                builder.append(data); //protect create new String Pool
             }
         } finally {
             if (bff != null) {
@@ -90,6 +91,7 @@ public class WebReader {
 
     public String getPageTile() throws IOException {
         Set<String> set = findGroupMatches(REGEX_PAGE_TITLE);
+        //will return first element 
         Iterator<String> iterator = set.iterator();
         while (iterator.hasNext()) {
             return iterator.next();
