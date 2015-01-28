@@ -12,8 +12,7 @@ import java.io.InputStreamReader;
 import java.io.Reader;
 
 /**
- *
- * @author anonymous
+ * @author redcrow
  */
 public class InputStreamReaderExample {
 

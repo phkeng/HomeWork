@@ -11,8 +11,7 @@ import java.io.IOException;
 import java.io.Reader;
 
 /**
- *
- * @author anonymous
+ * @author redcrow
  */
 public class BufferedReaderExample {
 

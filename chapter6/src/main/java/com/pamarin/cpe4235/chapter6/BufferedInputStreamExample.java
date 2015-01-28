@@ -5,34 +5,34 @@
  */
 package com.pamarin.cpe4235.chapter6;
 
+import java.io.BufferedInputStream;
 import java.io.FileInputStream;
+import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
 
 /**
- * @author redcrow
+ *
+ * @author anonymous
  */
-public class StreamExample {
+public class BufferedInputStreamExample {
 
     public static void main(String[] args) throws IOException {
+
         InputStream inputStream = null;
-        OutputStream outputStream = null;
+        BufferedInputStream bufferedInputStream = null;
         try {
             inputStream = new FileInputStream("C:/temp/my-file.txt");
-            outputStream = new FileOutputStream("C:/temp/my-file-copy.txt");
+            bufferedInputStream = new BufferedInputStream(inputStream);
             byte[] bytes = new byte[1024];
             int index;
-            while ((index = inputStream.read(bytes)) != -1) {
-                outputStream.write(bytes, 0, index);
+            while ((index = bufferedInputStream.read(bytes)) != -1) {
+                
             }
 
         } finally {
-            if(outputStream != null){
-                outputStream.close();
-            }
-            
             if (inputStream != null) {
                 inputStream.close();
             }

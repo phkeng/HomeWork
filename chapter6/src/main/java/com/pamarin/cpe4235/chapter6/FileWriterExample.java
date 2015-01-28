@@ -5,16 +5,12 @@
  */
 package com.pamarin.cpe4235.chapter6;
 
-import java.io.FileOutputStream;
 import java.io.FileWriter;
 import java.io.IOException;
-import java.io.OutputStream;
-import java.io.OutputStreamWriter;
 import java.io.Writer;
 
 /**
- *
- * @author anonymous
+ * @author redcrow
  */
 public class FileWriterExample {
 
