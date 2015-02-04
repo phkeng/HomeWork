@@ -18,7 +18,7 @@ import java.util.List;
  *
  * @author anonymous
  */
-public class Querys {
+public class Query1 {
 
     public static <T> List<T> executeReturnList(String sqlCode, Class<T> clazz) throws Exception {
         List<T> results = null;

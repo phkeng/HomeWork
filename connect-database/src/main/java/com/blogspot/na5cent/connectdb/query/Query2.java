@@ -20,7 +20,7 @@ import java.util.Map;
  *
  * @author anonymous
  */
-public class QueryUtil {
+public class Query2 {
 
     private static void setParameter(PreparedStatement statement, Map.Entry<Integer, Object> entry) throws SQLException {
         if (entry.getValue() instanceof String) {

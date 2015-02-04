@@ -6,18 +6,39 @@
 package com.blogspot.na5cent.connectdb.query;
 
 import com.blogspot.na5cent.connectdb.DBConfig;
+import com.blogspot.na5cent.connectdb.mapping.GenericAnnotationMapping;
+import static com.blogspot.na5cent.connectdb.util.CollectionUtils.isEmpty;
 import java.sql.Connection;
 import java.sql.Date;
 import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.LinkedList;
+import java.util.List;
 
 /**
  *
  * @author anonymous
  */
-public class QueryUtils {
+public class Query4 {
+
+    private final String sqlCode;
+    private final List<Object> params;
+
+    private Query4(String sqlCode) {
+        this.sqlCode = sqlCode;
+        params = new LinkedList<>();
+    }
+
+    public static Query4 fromSQL(String sqlCode) {
+        return new Query4(sqlCode);
+    }
+
+    public Query4 addParam(Object value) {
+        params.add(value);
+        return this;
+    }
 
     private static void setParameter(PreparedStatement statement, int index, Object value) throws SQLException {
         if (value instanceof String) {
@@ -35,21 +56,30 @@ public class QueryUtils {
         }
     }
 
-    private static boolean isEmpty(Object[] array) {
-        return array == null || array.length == 0;
-    }
-
-    private static void setParameters(PreparedStatement statement, Object... parameters) throws SQLException {
+    private static void setParameters(PreparedStatement statement, List<Object> parameters) throws SQLException {
         if (isEmpty(parameters)) {
             return;
         }
 
-        for (int i = 0; i < parameters.length; i++) {
-            setParameter(statement, i + 1, parameters[i]);
+        for (int i = 0; i < parameters.size(); i++) {
+            setParameter(statement, i + 1, parameters.get(i));
         }
     }
 
-    public static void executeQuery(String sqlCode, Callback callback, Object... parameters) throws Exception {
+    public <T> List<T> executeforList(final Class<T> clazz) throws Exception {
+        final List<T> results = new LinkedList<>();
+        execute(new Callback() {
+
+            @Override
+            public void processing(ResultSet resultSet) throws Exception {
+                results.addAll(GenericAnnotationMapping.fromResultSet(resultSet, clazz));
+            }
+        });
+
+        return results;
+    }
+
+    public void execute(Callback callback) throws Exception {
         Connection connection = null;
         PreparedStatement statement = null;
         ResultSet resultSet = null;
@@ -63,7 +93,7 @@ public class QueryUtils {
             );
 
             statement = connection.prepareStatement(sqlCode);
-            setParameters(statement, parameters);
+            setParameters(statement, params);
             resultSet = statement.executeQuery();
             callback.processing(resultSet);
         } finally {

@@ -17,7 +17,12 @@ import java.util.List;
 public class T5SelectFromService3 {
 
     public static void main(String[] args) throws Exception {
-        List<Country> results = CountryService.findInAsia();
-        GenericPrinter.prints(results);
+        System.out.println("======================== Asia ========================");
+        List<Country> asia = CountryService.findInAsia();
+        GenericPrinter.prints(asia);
+        
+        System.out.println("======================= Europe =======================");
+        List<Country> europe = CountryService.findInEurope();
+        GenericPrinter.prints(europe);
     }
 }

@@ -6,8 +6,8 @@
 package com.blogspot.na5cent.connectdb.service;
 
 import com.blogspot.na5cent.connectdb.model.EmployeeMap;
-import com.blogspot.na5cent.connectdb.query.QueryUtil;
-import com.blogspot.na5cent.connectdb.query.Querys;
+import com.blogspot.na5cent.connectdb.query.Query2;
+import com.blogspot.na5cent.connectdb.query.Query1;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -19,14 +19,14 @@ import java.util.Map;
 public class StaticEmployeeService2 {
 
     public static List<EmployeeMap> findEmployees() throws Exception {
-        return Querys.executeReturnList(
+        return Query1.executeReturnList(
                 "SELECT * FROM Employees",
                 EmployeeMap.class
         );
     }
 
     public static List<EmployeeMap> findProgrammers() throws Exception {
-        return Querys.executeReturnList(
+        return Query1.executeReturnList(
                 "SELECT * FROM Employees WHERE JOB_ID = 'IT_PROG'",
                 EmployeeMap.class
         );
@@ -37,7 +37,7 @@ public class StaticEmployeeService2 {
         params.put(1, "SA_MAN");
         params.put(2, 12000);
 
-        return QueryUtil.executeReturnList(
+        return Query2.executeReturnList(
                 "SELECT * FROM Employees WHERE JOB_ID = ? AND SALARY >= ?",
                 EmployeeMap.class,
                 params

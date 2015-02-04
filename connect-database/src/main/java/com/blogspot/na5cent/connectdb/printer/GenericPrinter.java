@@ -40,7 +40,7 @@ public class GenericPrinter {
 
         for (T object : objects) {
             print(object);
-            System.out.println("-------------------------------------------------");
+            System.out.println("--------------------------");
         }
     }
 }
