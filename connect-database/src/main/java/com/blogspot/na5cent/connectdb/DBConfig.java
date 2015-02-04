@@ -11,9 +11,14 @@ package com.blogspot.na5cent.connectdb;
  */
 public class DBConfig {
 
+    private static final String DRIVER = "oracle.jdbc.OracleDriver";
     private static final String URL = "jdbc:oracle:thin:@localhost:1521:cpe4235";
     private static final String USERNAME = "HR";
     private static final String PASSWORD = "HR";
+    
+    public static String getDriver(){
+        return DRIVER;
+    }
 
     public static String getUrl() {
         return URL;

@@ -22,7 +22,7 @@ public class T2SelectFrom {
         Statement statement = null;
         ResultSet resultSet = null;
         try {
-            Class.forName("oracle.jdbc.OracleDriver");
+            Class.forName(DBConfig.getDriver());
             connection = DriverManager.getConnection(
                     DBConfig.getUrl(),
                     DBConfig.getUsername(),

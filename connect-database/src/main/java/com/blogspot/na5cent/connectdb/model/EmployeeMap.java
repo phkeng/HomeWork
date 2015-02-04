@@ -21,6 +21,9 @@ public class EmployeeMap {
     @Column(name = "last_name")
     private String lastName;
     private String email;
+    @Column(name = "job_id")
+    private String jobId;
+    private Float salary;
 
     public Integer getEmployeeId() {
         return employeeId;
@@ -52,6 +55,22 @@ public class EmployeeMap {
 
     public void setEmail(String email) {
         this.email = email;
+    }
+
+    public String getJobId() {
+        return jobId;
+    }
+
+    public void setJobId(String jobId) {
+        this.jobId = jobId;
+    }
+
+    public Float getSalary() {
+        return salary;
+    }
+
+    public void setSalary(Float salary) {
+        this.salary = salary;
     }
 
     @Override

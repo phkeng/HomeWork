@@ -21,13 +21,13 @@ import java.util.List;
 public class T5SelectFromAnnotationMapping {
 
     private static List<EmployeeMap> findEmployees() throws Exception {
-        List<EmployeeMap> result = null;
+        List<EmployeeMap> results = null;
         Connection connection = null;
         Statement statement = null;
         ResultSet resultSet = null;
 
         try {
-            Class.forName("oracle.jdbc.OracleDriver");
+            Class.forName(DBConfig.getDriver());
             connection = DriverManager.getConnection(
                     DBConfig.getUrl(),
                     DBConfig.getUsername(),
@@ -36,7 +36,7 @@ public class T5SelectFromAnnotationMapping {
 
             statement = connection.createStatement();
             resultSet = statement.executeQuery("SELECT * FROM Employees");
-            result = EmployeeAnnotationMapping.fromResultSet(resultSet);
+            results = EmployeeAnnotationMapping.fromResultSet(resultSet);
         } finally {
             if (resultSet != null) {
                 resultSet.close();
@@ -51,11 +51,11 @@ public class T5SelectFromAnnotationMapping {
             }
         }
 
-        return result;
+        return results;
     }
 
     public static void main(String[] args) throws Exception {
-        List<EmployeeMap> result = findEmployees();
-        EmployeeReflectionPrinter.prints(result);
+        List<EmployeeMap> results = findEmployees();
+        EmployeeReflectionPrinter.prints(results);
     }
 }

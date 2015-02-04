@@ -22,13 +22,13 @@ import java.util.List;
 public class T4SelectFromMapping {
 
     private static List<Employee> findEmployees() throws SQLException, ClassNotFoundException {
-        List<Employee> result = null;
+        List<Employee> results = null;
         Connection connection = null;
         Statement statement = null;
         ResultSet resultSet = null; 
 
         try { 
-            Class.forName("oracle.jdbc.OracleDriver");
+            Class.forName(DBConfig.getDriver());
             connection = DriverManager.getConnection(
                     DBConfig.getUrl(),
                     DBConfig.getUsername(),
@@ -37,7 +37,7 @@ public class T4SelectFromMapping {
 
             statement = connection.createStatement();
             resultSet = statement.executeQuery("SELECT * FROM Employees");
-            result = EmployeeNormalMapping.fromResultSet(resultSet);
+            results = EmployeeNormalMapping.fromResultSet(resultSet);
         } finally {
             if (resultSet != null) {
                 resultSet.close();
@@ -52,11 +52,11 @@ public class T4SelectFromMapping {
             }
         }
 
-        return result;
+        return results;
     }
 
     public static void main(String[] args) throws ClassNotFoundException, SQLException, Exception {
-        List<Employee> result = findEmployees();
-        EmployeeNormalPrinter.prints(result);
+        List<Employee> results = findEmployees();
+        EmployeeNormalPrinter.prints(results);
     }
 }

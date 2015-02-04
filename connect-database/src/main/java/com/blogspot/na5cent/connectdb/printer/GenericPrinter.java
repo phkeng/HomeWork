@@ -5,7 +5,6 @@
  */
 package com.blogspot.na5cent.connectdb.printer;
 
-import com.blogspot.na5cent.connectdb.model.Employee;
 import static com.blogspot.na5cent.connectdb.util.CollectionUtils.isEmpty;
 import java.lang.reflect.Method;
 import java.util.List;

@@ -3,26 +3,29 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package com.blogspot.na5cent.connectdb;
+package com.blogspot.na5cent.connectdb.service;
 
+import com.blogspot.na5cent.connectdb.DBConfig;
+import com.blogspot.na5cent.connectdb.mapping.GenericAnnotationMapping;
+import com.blogspot.na5cent.connectdb.model.EmployeeMap;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.ResultSet;
-import java.sql.SQLException;
 import java.sql.Statement;
+import java.util.List;
 
 /**
  *
  * @author anonymous
  */
-public class T3SelectFromParameter {
-    
-    private static final int EMPLOYEE_ID = 100;
+public class StaticEmployeeService {
 
-    public static void main(String[] args) throws ClassNotFoundException, SQLException {
+    public static List<EmployeeMap> findEmployees() throws Exception {
+        List<EmployeeMap> results = null;
         Connection connection = null;
         Statement statement = null;
         ResultSet resultSet = null;
+
         try {
             Class.forName(DBConfig.getDriver());
             connection = DriverManager.getConnection(
@@ -32,14 +35,8 @@ public class T3SelectFromParameter {
             );
 
             statement = connection.createStatement();
-            resultSet = statement.executeQuery("SELECT * FROM Employees WHERE employee_id = " + EMPLOYEE_ID);
-            while (resultSet.next()) {
-                System.out.println("employee_id = " + resultSet.getInt("employee_id"));
-                System.out.println("first_name = " + resultSet.getString("first_name"));
-                System.out.println("last_name = " + resultSet.getString("last_name"));
-                System.out.println("email = " + resultSet.getString("email"));
-                System.out.println("------------------------------------------");
-            }
+            resultSet = statement.executeQuery("SELECT * FROM Employees");
+            results = GenericAnnotationMapping.fromResultSet(resultSet, EmployeeMap.class);
         } finally {
             if (resultSet != null) {
                 resultSet.close();
@@ -53,5 +50,7 @@ public class T3SelectFromParameter {
                 connection.close();
             }
         }
+
+        return results;
     }
 }

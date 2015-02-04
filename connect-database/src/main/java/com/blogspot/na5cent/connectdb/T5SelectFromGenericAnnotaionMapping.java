@@ -22,13 +22,13 @@ import java.util.List;
 public class T5SelectFromGenericAnnotaionMapping {
 
     private static List<EmployeeMap> findEmployees() throws Exception {
-        List<EmployeeMap> result = null;
+        List<EmployeeMap> results = null;
         Connection connection = null;
         Statement statement = null;
         ResultSet resultSet = null;
 
         try {
-            Class.forName("oracle.jdbc.OracleDriver");
+            Class.forName(DBConfig.getDriver());
             connection = DriverManager.getConnection(
                     DBConfig.getUrl(),
                     DBConfig.getUsername(),
@@ -37,7 +37,7 @@ public class T5SelectFromGenericAnnotaionMapping {
 
             statement = connection.createStatement();
             resultSet = statement.executeQuery("SELECT * FROM Employees");
-            result = GenericAnnotationMapping.fromResultSet(resultSet, EmployeeMap.class);
+            results = GenericAnnotationMapping.fromResultSet(resultSet, EmployeeMap.class);
         } finally {
             if (resultSet != null) {
                 resultSet.close();
@@ -52,11 +52,11 @@ public class T5SelectFromGenericAnnotaionMapping {
             }
         }
 
-        return result;
+        return results;
     }
 
     public static void main(String[] args) throws Exception {
-        List<EmployeeMap> result = findEmployees();
-        EmployeeReflectionPrinter.prints(result);
+        List<EmployeeMap> results = findEmployees();
+        EmployeeReflectionPrinter.prints(results);
     }
 }

@@ -18,7 +18,7 @@ public class T1Connect {
     public static void main(String[] args) throws SQLException, ClassNotFoundException {
         Connection connection = null;
         try {
-            Class.forName("oracle.jdbc.OracleDriver");
+            Class.forName(DBConfig.getDriver());
             connection = DriverManager.getConnection(
                     DBConfig.getUrl(),
                     DBConfig.getUsername(),
