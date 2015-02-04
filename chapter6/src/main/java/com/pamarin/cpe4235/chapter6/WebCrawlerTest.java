@@ -15,7 +15,7 @@ public class WebCrawlerTest {
 
     public static void main(String[] args) {
         Set<String> links = WebCrawler.startFromURL("http://na5cent.blogspot.com")
-                .withDept(5)
+                .withDept(3)
                 .crawl();
 
         System.out.println("size --> " + links.size());
