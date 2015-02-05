@@ -7,17 +7,21 @@ package com.blogspot.na5cent.connectdb;
 
 import com.blogspot.na5cent.connectdb.model.Department;
 import com.blogspot.na5cent.connectdb.printer.GenericPrinter;
+import com.blogspot.na5cent.connectdb.query.Page;
+import com.blogspot.na5cent.connectdb.query.Pagination;
 import com.blogspot.na5cent.connectdb.service.DepartmentService;
-import java.util.List;
 
 /**
  *
  * @author anonymous
  */
-public class S4FindFromService {
+public class S5QueryPagination {
 
     public static void main(String[] args) throws Exception {
-        List<Department> departments = DepartmentService.findDepartmentsHasManagerInCitySeattle();
-        GenericPrinter.prints(departments);
+        Page<Department> page = DepartmentService.findAll(new Pagination(2, 5));
+        
+        System.out.println("total elements = " + page.getTotalElements());
+        System.out.println("total pages = " + page.getTotolPages());
+        GenericPrinter.prints(page.getContents());
     }
 }

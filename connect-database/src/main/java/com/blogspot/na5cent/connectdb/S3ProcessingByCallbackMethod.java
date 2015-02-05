@@ -14,7 +14,7 @@ import java.util.List;
  *
  * @author anonymous
  */
-public class S3FindFromService {
+public class S3ProcessingByCallbackMethod {
 
     public static void main(String[] args) throws Exception {
         System.out.println("======================== Asia ========================");

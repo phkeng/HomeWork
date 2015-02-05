@@ -16,7 +16,7 @@ import java.sql.SQLException;
  *
  * @author anonymous
  */
-public class Query3 {
+public class QueryUtils3 {
 
     private static boolean isEmpty(Object[] array) {
         return array == null || array.length == 0;

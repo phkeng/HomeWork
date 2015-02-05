@@ -7,7 +7,7 @@ package com.blogspot.na5cent.connectdb.service;
 
 import com.blogspot.na5cent.connectdb.mapping.GenericAnnotationMapping;
 import com.blogspot.na5cent.connectdb.model.Country;
-import com.blogspot.na5cent.connectdb.query.Query3;
+import com.blogspot.na5cent.connectdb.query.QueryUtils3;
 import java.sql.ResultSet;
 import java.util.LinkedList;
 import java.util.List;
@@ -20,9 +20,9 @@ public class CountryService {
 
     public static List<Country> findInRegion(Integer regionId) throws Exception {
         final List<Country> countries = new LinkedList<>();
-        Query3.executeQuery(
+        QueryUtils3.executeQuery(
                 "SELECT * FROM Countries WHERE region_id = ? ORDER BY country_name",
-                new Query3.Callback() {
+                new QueryUtils3.Callback() {
 
                     @Override
                     public void processing(ResultSet resultSet) throws Exception {

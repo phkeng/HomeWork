@@ -41,4 +41,11 @@ public class Page<T> {
         this.contents = contents;
     }
 
+    public int getTotolPages() {
+        if (pagination.getPageSize() == 0) {
+            return 0;
+        }
+
+        return (int) Math.ceil(totalElements / (float)pagination.getPageSize());
+    }
 }
