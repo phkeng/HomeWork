@@ -5,22 +5,23 @@
  */
 package com.blogspot.na5cent.connectdb.plsql;
 
-import com.blogspot.na5cent.connectdb.query.ProcedureBuilder;
+import com.blogspot.na5cent.connectdb.query.OutputCallback;
+import com.blogspot.na5cent.connectdb.query.Procedures;
 
 /**
  *
  * @author anonymous
  */
-public class Ex1AddTwoNumber {
+public class Ex1AddTwoNumbers {
 
     public static void main(String[] args) throws Exception {
-        ProcedureBuilder.fromProcedure("add_two_number(?, ?, ?)")
+        Procedures.fromProcedure("add_two_numbers(?, ?, ?)")
                 .addParam(1)
                 .addParam(2)
-                .registerOutput(new ProcedureBuilder.Callback<Integer>() {
+                .addOutput(new OutputCallback<Integer>() {
 
                     @Override
-                    public void result(Integer value) {
+                    public void output(Integer value) {
                         System.out.println("value = " + value);
                     }
                 })

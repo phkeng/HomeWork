@@ -20,7 +20,7 @@ import java.util.Map;
  *
  * @author anonymous
  */
-public class ProcedureBuilder {
+public class Procedures {
 
     private final String sqlCode;
     private final List<ParameterHolder> params;
@@ -35,16 +35,16 @@ public class ProcedureBuilder {
         typeMapping.put(Boolean.class, java.sql.Types.BOOLEAN);
     }
 
-    private ProcedureBuilder(String sqlCode) {
+    private Procedures(String sqlCode) {
         this.sqlCode = sqlCode;
         params = new LinkedList<>();
     }
 
-    public static ProcedureBuilder fromProcedure(String sqlCode) {
-        return new ProcedureBuilder(sqlCode);
+    public static Procedures fromProcedure(String sqlCode) {
+        return new Procedures(sqlCode);
     }
 
-    public ProcedureBuilder addParam(Object value) {
+    public Procedures addParam(Object value) {
         params.add(new ParameterHolder(
                 ParameterType.IN,
                 value,
@@ -54,7 +54,7 @@ public class ProcedureBuilder {
         return this;
     }
 
-    public ProcedureBuilder registerOutput(Callback callback) {
+    public Procedures addOutput(OutputCallback callback) {
         params.add(new ParameterHolder(
                 ParameterType.OUT,
                 null,
@@ -79,7 +79,7 @@ public class ProcedureBuilder {
         for (int i = 0; i < params.size(); i++) {
             ParameterHolder holder = params.get(i);
             if (holder.getType() == ParameterType.OUT) {
-                holder.callback.result(statement.getObject(i + 1));
+                holder.callback.output(statement.getObject(i + 1));
             }
         }
     }
@@ -111,18 +111,13 @@ public class ProcedureBuilder {
         }
     }
 
-    public static interface Callback<T> {
-
-        void result(T value);
-    }
-
     private static class ParameterHolder {
 
         private final ParameterType type;
         private final Object value;
-        private final Callback callback;
+        private final OutputCallback callback;
 
-        public ParameterHolder(ParameterType type, Object value, Callback callback) {
+        public ParameterHolder(ParameterType type, Object value, OutputCallback callback) {
             this.type = type;
             this.value = value;
             this.callback = callback;
@@ -136,14 +131,14 @@ public class ProcedureBuilder {
             return value;
         }
 
-        public Callback getCallback() {
+        public OutputCallback getOutputCallback() {
             return callback;
         }
 
         public int getSqlType() throws Exception {
             Class clazz = ReflectionUtils.findMethod(
                     callback.getClass(),
-                    "result"
+                    "output"
             ).getParameterTypes()[0];
 
             Integer typ = typeMapping.get(clazz);
