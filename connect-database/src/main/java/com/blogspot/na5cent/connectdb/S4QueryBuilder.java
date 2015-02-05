@@ -6,7 +6,7 @@
 package com.blogspot.na5cent.connectdb;
 
 import com.blogspot.na5cent.connectdb.model.Department;
-import com.blogspot.na5cent.connectdb.printer.GenericPrinter;
+import com.blogspot.na5cent.connectdb.printer.GenericReflectPrinter;
 import com.blogspot.na5cent.connectdb.service.DepartmentService;
 import java.util.List;
 
@@ -18,6 +18,6 @@ public class S4QueryBuilder {
 
     public static void main(String[] args) throws Exception {
         List<Department> departments = DepartmentService.findDepartmentsHasManagerInCitySeattle();
-        GenericPrinter.prints(departments);
+        GenericReflectPrinter.prints(departments);
     }
 }

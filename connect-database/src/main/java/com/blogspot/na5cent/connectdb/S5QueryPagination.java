@@ -6,7 +6,7 @@
 package com.blogspot.na5cent.connectdb;
 
 import com.blogspot.na5cent.connectdb.model.Department;
-import com.blogspot.na5cent.connectdb.printer.GenericPrinter;
+import com.blogspot.na5cent.connectdb.printer.GenericReflectPrinter;
 import com.blogspot.na5cent.connectdb.query.Page;
 import com.blogspot.na5cent.connectdb.query.Pagination;
 import com.blogspot.na5cent.connectdb.service.DepartmentService;
@@ -25,6 +25,6 @@ public class S5QueryPagination {
         System.out.println("current page = " + page.getCurrentPageNumber());
         System.out.println("current page size = " + page.getCurrentPageSize());
 
-        GenericPrinter.prints(page.getContents());
+        GenericReflectPrinter.prints(page.getContents());
     }
 }

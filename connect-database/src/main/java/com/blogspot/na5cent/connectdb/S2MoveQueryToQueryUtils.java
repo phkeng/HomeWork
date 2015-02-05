@@ -6,7 +6,7 @@
 package com.blogspot.na5cent.connectdb;
 
 import com.blogspot.na5cent.connectdb.model.Location;
-import com.blogspot.na5cent.connectdb.printer.GenericPrinter;
+import com.blogspot.na5cent.connectdb.printer.GenericReflectPrinter;
 import com.blogspot.na5cent.connectdb.service.LocationService;
 import java.util.List;
 
@@ -18,12 +18,12 @@ public class S2MoveQueryToQueryUtils {
 
     public static void main(String[] args) throws Exception {
 //        List<Location> locations = LocationService.findAll();
-//        GenericPrinter.prints(locations);
+//        GenericReflectPrinter.prints(locations);
 //        
 //        List<Location> locationInAmerica = LocationService.findInAmerica();
-//        GenericPrinter.prints(locationInAmerica);
+//        GenericReflectPrinter.prints(locationInAmerica);
 //        
         List<Location> searchResults = LocationService.searchByStreetAddress("In");
-        GenericPrinter.prints(searchResults);
+        GenericReflectPrinter.prints(searchResults);
     }
 }

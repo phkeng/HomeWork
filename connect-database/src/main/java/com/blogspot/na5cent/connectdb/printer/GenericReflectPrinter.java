@@ -5,7 +5,9 @@
  */
 package com.blogspot.na5cent.connectdb.printer;
 
+import com.blogspot.na5cent.connectdb.annotation.Column;
 import static com.blogspot.na5cent.connectdb.util.CollectionUtils.isEmpty;
+import java.lang.reflect.Field;
 import java.lang.reflect.Method;
 import java.util.List;
 
@@ -13,7 +15,7 @@ import java.util.List;
  *
  * @author anonymous
  */
-public class GenericPrinter {
+public class GenericReflectPrinter {
 
     private static String getFieldName(Method method) {
         String name = method.getName().replace("get", "");
@@ -25,10 +27,17 @@ public class GenericPrinter {
             return;
         }
 
-        Method[] methods = object.getClass().getDeclaredMethods();
+        Class<T> clazz = (Class<T>) object.getClass();
+        Method[] methods = clazz.getDeclaredMethods();
         for (Method method : methods) {
             if (method.getName().startsWith("get")) {
-                System.out.println(getFieldName(method) + " = " + method.invoke(object));
+                String fieldName = getFieldName(method);
+                Field field = clazz.getDeclaredField(fieldName);
+                if (field.isAnnotationPresent(Column.class)) {
+                    fieldName = field.getAnnotation(Column.class).name();
+                }
+
+                System.out.println(fieldName + " = " + method.invoke(object));
             }
         }
     }

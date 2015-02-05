@@ -6,7 +6,7 @@
 package com.blogspot.na5cent.connectdb;
 
 import com.blogspot.na5cent.connectdb.model.Country;
-import com.blogspot.na5cent.connectdb.printer.GenericPrinter;
+import com.blogspot.na5cent.connectdb.printer.GenericReflectPrinter;
 import com.blogspot.na5cent.connectdb.service.CountryService;
 import java.util.List;
 
@@ -19,10 +19,10 @@ public class S3ProcessingByCallbackMethod {
     public static void main(String[] args) throws Exception {
         System.out.println("======================== Asia ========================");
         List<Country> asia = CountryService.findInAsia();
-        GenericPrinter.prints(asia);
+        GenericReflectPrinter.prints(asia);
         
         System.out.println("======================= Europe =======================");
         List<Country> europe = CountryService.findInEurope();
-        GenericPrinter.prints(europe);
+        GenericReflectPrinter.prints(europe);
     }
 }
