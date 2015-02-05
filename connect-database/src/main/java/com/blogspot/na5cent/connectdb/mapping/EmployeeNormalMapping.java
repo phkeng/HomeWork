@@ -19,7 +19,7 @@ public class EmployeeNormalMapping {
 
     private static Employee transformResultReset(ResultSet resultSet) throws SQLException {
         Employee employee = new Employee();
-        employee.setEmployeeId(resultSet.getInt("employee_id"));
+        employee.setId(resultSet.getInt("employee_id"));
         employee.setFirstName(resultSet.getString("first_name"));
         employee.setLastName(resultSet.getString("last_name"));
         employee.setEmail(resultSet.getString("email"));

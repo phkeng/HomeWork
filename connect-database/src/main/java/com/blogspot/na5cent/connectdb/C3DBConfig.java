@@ -17,8 +17,6 @@ import java.util.logging.Logger;
  */
 public class C3DBConfig {
 
-    private static final Logger LOG = Logger.getLogger(C3DBConfig.class.getName());
-
     private static String driver;
     private static String url;
     private static String username;
@@ -55,9 +53,12 @@ public class C3DBConfig {
         username = prop.getProperty("connection.username");
         password = prop.getProperty("connection.password");
         
-        LOG.log(Level.INFO, "driver = {0}", driver);
-        LOG.log(Level.INFO, "url = {0}", url);
-        LOG.log(Level.INFO, "username = {0}", username);
-        LOG.log(Level.INFO, "password = {0}", password);
+        System.out.println("*************************************************");
+        System.out.println("driver = " + driver);
+        System.out.println("url = " + url);
+        System.out.println("username = " + username);
+        System.out.println("password = " + password);
+        System.out.println("*************************************************");
+        System.out.println("");
     }
 }

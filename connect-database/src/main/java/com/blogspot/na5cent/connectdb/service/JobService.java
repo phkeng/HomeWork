@@ -7,7 +7,7 @@ package com.blogspot.na5cent.connectdb.service;
 
 import com.blogspot.na5cent.connectdb.C3DBConfig;
 import com.blogspot.na5cent.connectdb.mapping.GenericAnnotationMapping;
-import com.blogspot.na5cent.connectdb.model.EmployeeMap;
+import com.blogspot.na5cent.connectdb.model.Job;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.ResultSet;
@@ -18,12 +18,12 @@ import java.util.List;
  *
  * @author anonymous
  */
-public class StaticEmployeeService {
+public class JobService {
 
-    public static List<EmployeeMap> findEmployees() throws Exception {
+    public static List<Job> findAll() throws Exception {
         Class.forName(C3DBConfig.getDriver());
 
-        List<EmployeeMap> results = null;
+        List<Job> results = null;
 
         Connection connection = null;
         Statement statement = null;
@@ -35,8 +35,8 @@ public class StaticEmployeeService {
                     C3DBConfig.getPassword()
             );
             statement = connection.createStatement();
-            resultSet = statement.executeQuery("SELECT * FROM Employees");
-            results = GenericAnnotationMapping.fromResultSet(resultSet, EmployeeMap.class);
+            resultSet = statement.executeQuery("SELECT * FROM Jobs");
+            results = GenericAnnotationMapping.fromResultSet(resultSet, Job.class);
         } finally {
             if (resultSet != null) {
                 resultSet.close();

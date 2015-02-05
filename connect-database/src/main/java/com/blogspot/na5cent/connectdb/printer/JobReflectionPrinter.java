@@ -5,7 +5,7 @@
  */
 package com.blogspot.na5cent.connectdb.printer;
 
-import com.blogspot.na5cent.connectdb.model.EmployeeMap;
+import com.blogspot.na5cent.connectdb.model.Job;
 import static com.blogspot.na5cent.connectdb.util.CollectionUtils.isEmpty;
 import java.lang.reflect.Method;
 import java.util.List;
@@ -14,14 +14,14 @@ import java.util.List;
  *
  * @author anonymous
  */
-public class EmployeeReflectionPrinter {
+public class JobReflectionPrinter {
 
     private static String getFieldName(Method method) {
         String name = method.getName().replace("get", "");
         return name.substring(0, 1).toLowerCase() + name.substring(1);
     }
 
-    public static void print(EmployeeMap object) throws Exception {
+    public static void print(Job object) throws Exception {
         if (object == null) {
             return;
         }
@@ -34,12 +34,13 @@ public class EmployeeReflectionPrinter {
         }
     }
 
-    public static void prints(List<EmployeeMap> objects) throws Exception {
+    public static void prints(List<Job> objects) throws Exception {
         if (isEmpty(objects)) {
             return;
         }
 
         for (int i = 0; i < objects.size(); i++) {
+            System.out.println("");
             System.out.println((i + 1) + ") --------------------------");
             print(objects.get(i));
         }

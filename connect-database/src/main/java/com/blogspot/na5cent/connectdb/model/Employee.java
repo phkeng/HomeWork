@@ -13,17 +13,17 @@ import java.util.Objects;
  */
 public class Employee {
 
-    private Integer employeeId;
+    private Integer id;
     private String firstName;
     private String lastName;
     private String email;
 
-    public Integer getEmployeeId() {
-        return employeeId;
+    public Integer getId() {
+        return id;
     }
 
-    public void setEmployeeId(Integer employeeId) {
-        this.employeeId = employeeId;
+    public void setId(Integer id) {
+        this.id = id;
     }
 
     public String getFirstName() {
@@ -53,7 +53,7 @@ public class Employee {
     @Override
     public int hashCode() {
         int hash = 7;
-        hash = 53 * hash + Objects.hashCode(this.employeeId);
+        hash = 53 * hash + Objects.hashCode(this.id);
         return hash;
     }
 
@@ -66,7 +66,7 @@ public class Employee {
             return false;
         }
         final Employee other = (Employee) obj;
-        if (!Objects.equals(this.employeeId, other.employeeId)) {
+        if (!Objects.equals(this.id, other.id)) {
             return false;
         }
         return true;

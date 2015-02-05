@@ -9,31 +9,23 @@ import com.blogspot.na5cent.connectdb.C3DBConfig;
 import com.blogspot.na5cent.connectdb.mapping.GenericAnnotationMapping;
 import java.sql.Connection;
 import java.sql.DriverManager;
-import java.sql.PreparedStatement;
 import java.sql.ResultSet;
-import java.sql.SQLException;
+import java.sql.Statement;
 import java.util.List;
-import java.util.Map;
 
 /**
  *
  * @author anonymous
  */
-public class Query2 {
+public class QueryUtils1 {
 
-    private static void setParameters(PreparedStatement statement, Map<Integer, Object> parameters) throws SQLException {
-        for (Map.Entry<Integer, Object> entry : parameters.entrySet()) {
-            statement.setObject(entry.getKey(), entry.getValue());
-        }
-    }
-
-    public static <T> List<T> executeReturnList(String sqlCode, Class<T> clazz, Map<Integer, Object> parameters) throws Exception {
+    public static <T> List<T> executeReturnList(String sqlCode, Class<T> clazz) throws Exception {
         Class.forName(C3DBConfig.getDriver());
-        
+
         List<T> results = null;
         
         Connection connection = null;
-        PreparedStatement statement = null;
+        Statement statement = null;
         ResultSet resultSet = null;
         try {
             connection = DriverManager.getConnection(
@@ -42,9 +34,8 @@ public class Query2 {
                     C3DBConfig.getPassword()
             );
 
-            statement = connection.prepareStatement(sqlCode);
-            setParameters(statement, parameters);
-            resultSet = statement.executeQuery();
+            statement = connection.createStatement();
+            resultSet = statement.executeQuery(sqlCode);
             results = GenericAnnotationMapping.fromResultSet(resultSet, clazz);
         } finally {
             if (resultSet != null) {

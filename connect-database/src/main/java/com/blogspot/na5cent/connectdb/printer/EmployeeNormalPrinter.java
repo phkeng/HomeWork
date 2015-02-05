@@ -20,7 +20,7 @@ public class EmployeeNormalPrinter {
             return;
         }
 
-        System.out.println("employeeId = " + employee.getEmployeeId());
+        System.out.println("employeeId = " + employee.getId());
         System.out.println("firstName = " + employee.getFirstName());
         System.out.println("lastName = " + employee.getLastName());
         System.out.println("email = " + employee.getEmail());
@@ -31,9 +31,10 @@ public class EmployeeNormalPrinter {
             return;
         }
 
-        for (Employee employee : employees) {
-            print(employee);
-            System.out.println("-------------------------------------------------");
+        for (int i = 0; i < employees.size(); i++) {
+            System.out.println("");
+            System.out.println((i + 1) + ") --------------------------");
+            print(employees.get(i));
         }
     }
 }

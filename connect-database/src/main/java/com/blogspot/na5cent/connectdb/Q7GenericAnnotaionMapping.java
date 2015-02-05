@@ -5,10 +5,9 @@
  */
 package com.blogspot.na5cent.connectdb;
 
-import com.blogspot.na5cent.connectdb.mapping.EmployeeAnnotationMapping;
 import com.blogspot.na5cent.connectdb.mapping.GenericAnnotationMapping;
-import com.blogspot.na5cent.connectdb.model.EmployeeMap;
-import com.blogspot.na5cent.connectdb.printer.EmployeeReflectionPrinter;
+import com.blogspot.na5cent.connectdb.model.Job;
+import com.blogspot.na5cent.connectdb.printer.JobReflectionPrinter;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.ResultSet;
@@ -21,10 +20,10 @@ import java.util.List;
  */
 public class Q7GenericAnnotaionMapping {
 
-    private static List<EmployeeMap> findEmployees() throws Exception {
+    private static List<Job> findJobs() throws Exception {
         Class.forName(C3DBConfig.getDriver());
 
-        List<EmployeeMap> results = null;
+        List<Job> results = null;
         
         Connection connection = null;
         Statement statement = null;
@@ -37,8 +36,8 @@ public class Q7GenericAnnotaionMapping {
             );
 
             statement = connection.createStatement();
-            resultSet = statement.executeQuery("SELECT * FROM Employees");
-            results = GenericAnnotationMapping.fromResultSet(resultSet, EmployeeMap.class);
+            resultSet = statement.executeQuery("SELECT * FROM Jobs");
+            results = GenericAnnotationMapping.fromResultSet(resultSet, Job.class);
         } finally {
             if (resultSet != null) {
                 resultSet.close();
@@ -57,7 +56,7 @@ public class Q7GenericAnnotaionMapping {
     }
 
     public static void main(String[] args) throws Exception {
-        List<EmployeeMap> results = findEmployees();
-        EmployeeReflectionPrinter.prints(results);
+        List<Job> results = findJobs();
+        JobReflectionPrinter.prints(results);
     }
 }

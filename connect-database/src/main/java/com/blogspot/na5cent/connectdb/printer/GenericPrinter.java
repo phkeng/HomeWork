@@ -39,6 +39,7 @@ public class GenericPrinter {
         }
 
         for (int i = 0; i < objects.size(); i++) {
+            System.out.println("");
             System.out.println((i + 1) + ") --------------------------");
             print(objects.get(i));
         }
