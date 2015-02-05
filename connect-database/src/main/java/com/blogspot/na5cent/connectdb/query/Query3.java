@@ -5,13 +5,14 @@
  */
 package com.blogspot.na5cent.connectdb.query;
 
-import com.blogspot.na5cent.connectdb.DBConfig;
+import com.blogspot.na5cent.connectdb.C3DBConfig;
 import java.sql.Connection;
 import java.sql.Date;
 import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.List;
 
 /**
  *
@@ -50,16 +51,16 @@ public class Query3 {
     }
 
     public static void executeQuery(String sqlCode, Callback callback, Object... parameters) throws Exception {
+        Class.forName(C3DBConfig.getDriver());
+ 
         Connection connection = null;
         PreparedStatement statement = null;
         ResultSet resultSet = null;
-
         try {
-            Class.forName(DBConfig.getDriver());
             connection = DriverManager.getConnection(
-                    DBConfig.getUrl(),
-                    DBConfig.getUsername(),
-                    DBConfig.getPassword()
+                    C3DBConfig.getUrl(),
+                    C3DBConfig.getUsername(),
+                    C3DBConfig.getPassword()
             );
 
             statement = connection.prepareStatement(sqlCode);

@@ -5,7 +5,7 @@
  */
 package com.blogspot.na5cent.connectdb.query;
 
-import com.blogspot.na5cent.connectdb.DBConfig;
+import com.blogspot.na5cent.connectdb.C3DBConfig;
 import com.blogspot.na5cent.connectdb.mapping.GenericAnnotationMapping;
 import java.sql.Connection;
 import java.sql.Date;
@@ -45,17 +45,18 @@ public class Query2 {
     }
 
     public static <T> List<T> executeReturnList(String sqlCode, Class<T> clazz, Map<Integer, Object> parameters) throws Exception {
+        Class.forName(C3DBConfig.getDriver());
+        
         List<T> results = null;
+        
         Connection connection = null;
         PreparedStatement statement = null;
         ResultSet resultSet = null;
-
         try {
-            Class.forName(DBConfig.getDriver());
             connection = DriverManager.getConnection(
-                    DBConfig.getUrl(),
-                    DBConfig.getUsername(),
-                    DBConfig.getPassword()
+                    C3DBConfig.getUrl(),
+                    C3DBConfig.getUsername(),
+                    C3DBConfig.getPassword()
             );
 
             statement = connection.prepareStatement(sqlCode);

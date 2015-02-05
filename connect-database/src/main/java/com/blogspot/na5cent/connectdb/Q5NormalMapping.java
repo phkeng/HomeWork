@@ -22,7 +22,7 @@ import java.util.List;
 public class Q5NormalMapping {
 
     private static List<Employee> findEmployees() throws SQLException, ClassNotFoundException {
-        Class.forName(DBConfig.getDriver());
+        Class.forName(C3DBConfig.getDriver());
         
         List<Employee> results = null;
         
@@ -31,9 +31,9 @@ public class Q5NormalMapping {
         ResultSet resultSet = null; 
         try { 
             connection = DriverManager.getConnection(
-                    DBConfig.getUrl(),
-                    DBConfig.getUsername(),
-                    DBConfig.getPassword()
+                    C3DBConfig.getUrl(),
+                    C3DBConfig.getUsername(),
+                    C3DBConfig.getPassword()
             );
 
             statement = connection.createStatement();

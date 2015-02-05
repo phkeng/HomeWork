@@ -22,7 +22,7 @@ import java.util.List;
 public class Q7GenericAnnotaionMapping {
 
     private static List<EmployeeMap> findEmployees() throws Exception {
-        Class.forName(DBConfig.getDriver());
+        Class.forName(C3DBConfig.getDriver());
 
         List<EmployeeMap> results = null;
         
@@ -31,9 +31,9 @@ public class Q7GenericAnnotaionMapping {
         ResultSet resultSet = null;
         try {
             connection = DriverManager.getConnection(
-                    DBConfig.getUrl(),
-                    DBConfig.getUsername(),
-                    DBConfig.getPassword()
+                    C3DBConfig.getUrl(),
+                    C3DBConfig.getUsername(),
+                    C3DBConfig.getPassword()
             );
 
             statement = connection.createStatement();

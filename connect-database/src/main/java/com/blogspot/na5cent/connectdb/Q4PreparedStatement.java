@@ -20,16 +20,16 @@ public class Q4PreparedStatement {
     private static final int EMPLOYEE_ID = 100;
 
     public static void main(String[] args) throws ClassNotFoundException, SQLException {
-        Class.forName(DBConfig.getDriver());
+        Class.forName(C3DBConfig.getDriver());
 
         Connection connection = null;
         PreparedStatement statement = null;
         ResultSet resultSet = null;
         try {
             connection = DriverManager.getConnection(
-                    DBConfig.getUrl(),
-                    DBConfig.getUsername(),
-                    DBConfig.getPassword()
+                    C3DBConfig.getUrl(),
+                    C3DBConfig.getUsername(),
+                    C3DBConfig.getPassword()
             );
 
             statement = connection.prepareStatement("SELECT * FROM Employees WHERE employee_id = ?");

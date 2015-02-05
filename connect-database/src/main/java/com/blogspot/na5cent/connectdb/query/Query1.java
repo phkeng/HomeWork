@@ -5,7 +5,7 @@
  */
 package com.blogspot.na5cent.connectdb.query;
 
-import com.blogspot.na5cent.connectdb.DBConfig;
+import com.blogspot.na5cent.connectdb.C3DBConfig;
 import com.blogspot.na5cent.connectdb.mapping.GenericAnnotationMapping;
 import com.blogspot.na5cent.connectdb.model.EmployeeMap;
 import java.sql.Connection;
@@ -27,11 +27,11 @@ public class Query1 {
         ResultSet resultSet = null;
 
         try {
-            Class.forName(DBConfig.getDriver());
+            Class.forName(C3DBConfig.getDriver());
             connection = DriverManager.getConnection(
-                    DBConfig.getUrl(),
-                    DBConfig.getUsername(),
-                    DBConfig.getPassword()
+                    C3DBConfig.getUrl(),
+                    C3DBConfig.getUsername(),
+                    C3DBConfig.getPassword()
             );
 
             statement = connection.createStatement();
