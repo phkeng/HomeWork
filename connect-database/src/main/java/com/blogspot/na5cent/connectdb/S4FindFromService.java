@@ -19,5 +19,7 @@ public class S4FindFromService {
     public static void main(String[] args) throws Exception {
         List<Department> departments = DepartmentService.findDepartmentsHasManagerInCitySeattle();
         GenericPrinter.prints(departments);
+
+        System.out.println("total department = " + DepartmentService.count());
     }
 }

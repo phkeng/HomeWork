@@ -20,4 +20,8 @@ public class DepartmentService {
                 .addParam(1700)
                 .executeforList(Department.class);
     }
+    
+    public static long count() throws Exception{
+        return Query4.fromSQL("SELECT * FROM Departments").count();
+    }
 }

@@ -7,7 +7,6 @@ package com.blogspot.na5cent.connectdb.query;
 
 import com.blogspot.na5cent.connectdb.C3DBConfig;
 import com.blogspot.na5cent.connectdb.mapping.GenericAnnotationMapping;
-import com.blogspot.na5cent.connectdb.model.EmployeeMap;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.ResultSet;

@@ -14,8 +14,11 @@ import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.HashMap;
+import java.util.HashSet;
 import java.util.LinkedList;
 import java.util.List;
+import java.util.Map;
 
 /**
  *
@@ -23,7 +26,7 @@ import java.util.List;
  */
 public class Query4 {
 
-    private final String sqlCode;
+    private String sqlCode;
     private final List<Object> params;
 
     private Query4(String sqlCode) {
@@ -64,6 +67,26 @@ public class Query4 {
         for (int i = 0; i < parameters.size(); i++) {
             setParameter(statement, i + 1, parameters.get(i));
         }
+    }
+
+    private String wrapBySQLCount(String sqlCode) {
+        return "SELECT count(*) as cnt FROM (" + sqlCode + ")";
+    }
+
+    public long count() throws Exception {
+        final Map<String, Long> map = new HashMap<>();
+        sqlCode = wrapBySQLCount(sqlCode);
+
+        execute(new Callback() {
+
+            public void processing(ResultSet resultSet) throws Exception {
+                if (resultSet.next()) {
+                    map.put("count", resultSet.getLong("cnt"));
+                }
+            }
+        });
+
+        return map.get("count");
     }
 
     public <T> List<T> executeforList(final Class<T> clazz) throws Exception {

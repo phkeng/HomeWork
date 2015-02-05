@@ -6,10 +6,10 @@
 package com.blogspot.na5cent.connectdb.mapping;
 
 import com.blogspot.na5cent.connectdb.annotation.Column;
+import com.blogspot.na5cent.connectdb.util.ResultSetType;
 import java.lang.reflect.Field;
 import java.lang.reflect.Method;
 import java.sql.ResultSet;
-import java.sql.SQLException;
 import java.util.LinkedList;
 import java.util.List;
 
@@ -36,32 +36,18 @@ public class GenericAnnotationMapping {
         }
     }
 
-    private static <T> T getValue(ResultSet resultSet, String columnName, Class<T> clazz) throws SQLException {
-        if (String.class.equals(clazz)) {
-            return (T) resultSet.getString(columnName);
-        } else if (Integer.class.equals(clazz)) {
-            return (T) Integer.valueOf(resultSet.getInt(columnName));
-        } else if (Long.class.equals(clazz)) {
-            return (T) Long.valueOf(resultSet.getLong(columnName));
-        } else if (Float.class.equals(clazz)) {
-            return (T) Float.valueOf(resultSet.getFloat(columnName));
-        } else if (Double.class.equals(clazz)) {
-            return (T) Double.valueOf(resultSet.getDouble(columnName));
-        }
-
-        return null;
-    }
-
     private static <T> T transformResultReset(ResultSet resultSet, Class<T> clazz) throws Exception {
-        T object = clazz.newInstance();
+        T instance = clazz.newInstance();
         Field[] fields = clazz.getDeclaredFields();
+        ResultSetType type = ResultSetType.wrap(resultSet);
+        
         for (Field field : fields) {
             String columnName = getColumnName(field);
-            Method method = getSetterMethodOfField(object, field);
-            method.invoke(object, getValue(resultSet, columnName, field.getType()));
+            Method method = getSetterMethodOfField(instance, field);
+            method.invoke(instance, type.getValue(columnName, field.getType()));
         }
 
-        return object;
+        return instance;
     }
 
     public static <T> List<T> fromResultSet(ResultSet resultSet, Class<T> clazz) throws Exception {

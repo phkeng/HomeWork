@@ -42,6 +42,7 @@ public class EmployeeAnnotationMapping {
         for (Field field : fields) {
             String columnName = getColumnName(field);
             Method method = getSetterMethodOfField(employee, field);
+            
             if (String.class.equals(field.getType())) {
                 method.invoke(employee, resultSet.getString(columnName));
             } else if (Integer.class.equals(field.getType())) {
