@@ -41,7 +41,7 @@ public class Query4 {
         return this;
     }
 
-    private static void setParameters(PreparedStatement statement, List<Object> parameters) throws SQLException {
+    private void setParameters(PreparedStatement statement, List<Object> parameters) throws SQLException {
         if (isEmpty(parameters)) {
             return;
         }

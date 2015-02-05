@@ -20,13 +20,14 @@ import java.util.List;
 public class Query1 {
 
     public static <T> List<T> executeReturnList(String sqlCode, Class<T> clazz) throws Exception {
+        Class.forName(C3DBConfig.getDriver());
+
         List<T> results = null;
+        
         Connection connection = null;
         Statement statement = null;
         ResultSet resultSet = null;
-
         try {
-            Class.forName(C3DBConfig.getDriver());
             connection = DriverManager.getConnection(
                     C3DBConfig.getUrl(),
                     C3DBConfig.getUsername(),
