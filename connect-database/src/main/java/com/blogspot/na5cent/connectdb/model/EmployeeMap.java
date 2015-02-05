@@ -24,6 +24,10 @@ public class EmployeeMap {
     @Column(name = "job_id")
     private String jobId;
     private Float salary;
+    @Column(name = "phone_number")
+    private String phoneNumber;
+    @Column(name = "department_id")
+    private Integer departmentId;
 
     public Integer getEmployeeId() {
         return employeeId;
@@ -71,6 +75,22 @@ public class EmployeeMap {
 
     public void setSalary(Float salary) {
         this.salary = salary;
+    }
+
+    public String getPhoneNumber() {
+        return phoneNumber;
+    }
+
+    public void setPhoneNumber(String phoneNumber) {
+        this.phoneNumber = phoneNumber;
+    }
+
+    public Integer getDepartmentId() {
+        return departmentId;
+    }
+
+    public void setDepartmentId(Integer departmentId) {
+        this.departmentId = departmentId;
     }
 
     @Override
