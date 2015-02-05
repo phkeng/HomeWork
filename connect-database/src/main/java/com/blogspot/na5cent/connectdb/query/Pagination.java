@@ -15,6 +15,10 @@ public class Pagination {
     private int pageSize;
 
     public Pagination(int pageNumber, int pageSize) {
+        if (pageNumber < 1) {
+            throw new IllegalArgumentException("pageNumber must > 0");
+        }
+
         this.pageNumber = pageNumber;
         this.pageSize = pageSize;
     }
@@ -34,4 +38,5 @@ public class Pagination {
     public void setPageSize(int pageSize) {
         this.pageSize = pageSize;
     }
+
 }

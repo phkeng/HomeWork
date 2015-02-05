@@ -5,6 +5,7 @@
  */
 package com.blogspot.na5cent.connectdb.query;
 
+import static com.blogspot.na5cent.connectdb.util.CollectionUtils.isEmpty;
 import java.util.List;
 
 /**
@@ -14,23 +15,29 @@ import java.util.List;
 public class Page<T> {
 
     private Pagination pagination;
-    private long totalElements;
+    private final long totalElements;
+    private int currentPageSize;
     private List<T> contents;
 
-    public Pagination getPagination() {
-        return pagination;
+    public Page(Pagination pagination, long totalElements) {
+        this.pagination = pagination;
+        this.totalElements = totalElements;
     }
 
-    public void setPagination(Pagination pagination) {
-        this.pagination = pagination;
+    public int getCurrentPageNumber() {
+        return pagination.getPageNumber();
+    }
+
+    public int getRequestPageSize() {
+        return pagination.getPageSize();
     }
 
     public long getTotalElements() {
         return totalElements;
     }
 
-    public void setTotalElements(long totalElements) {
-        this.totalElements = totalElements;
+    public int getCurrentPageSize() {
+        return currentPageSize;
     }
 
     public List<T> getContents() {
@@ -38,7 +45,12 @@ public class Page<T> {
     }
 
     public void setContents(List<T> contents) {
+        if (isEmpty(contents)) {
+            return;
+        }
+
         this.contents = contents;
+        this.currentPageSize = contents.size();
     }
 
     public int getTotolPages() {
@@ -46,6 +58,24 @@ public class Page<T> {
             return 0;
         }
 
-        return (int) Math.ceil(totalElements / (float)pagination.getPageSize());
+        return (int) Math.ceil(totalElements / (float) pagination.getPageSize());
+    }
+
+    public boolean hasNext() {
+        return pagination.getPageNumber() <= getTotolPages();
+    }
+
+    public Pagination nextPagination() {
+        pagination = new Pagination(pagination.getPageNumber() + 1, pagination.getPageSize());
+        return pagination;
+    }
+
+    public boolean hasPrev() {
+        return pagination.getPageNumber() > 0;
+    }
+
+    public Pagination prevPagination() {
+        pagination = new Pagination(pagination.getPageNumber() - 1, pagination.getPageSize());
+        return pagination;
     }
 }

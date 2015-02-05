@@ -71,8 +71,8 @@ public class QueryBuilder2 {
     }
 
     private String wrapBySQLPagination(String sqlCode, Pagination pagination) {
-        int first = pagination.getPageNumber() * pagination.getPageSize();
-        int last = (pagination.getPageNumber() + 1) * pagination.getPageSize();
+        int first = (pagination.getPageNumber() - 1) * pagination.getPageSize();
+        int last = pagination.getPageNumber() * pagination.getPageSize();
 
         return new StringBuilder()
                 .append("SELECT item.* ")
@@ -100,20 +100,12 @@ public class QueryBuilder2 {
         return map.get("count") == null ? 0 : map.get("count");
     }
 
-    private <T> Page createPage() throws Exception {
-        Page<T> page = new Page<>();
-        page.setPagination(pagination);
-        page.setTotalElements(executeCount());
-
-        return page;
-    }
-
     public <T> Page<T> executeforPage(final Class<T> clazz) throws Exception {
         if (pagination == null) {
             throw new IllegalArgumentException("require pagination");
         }
 
-        final Page<T> page = createPage();
+        final Page<T> page = new Page<>(pagination, executeCount());
         execute(wrapBySQLPagination(sqlCode, pagination), (ResultSet resultSet) -> {
             page.setContents(GenericAnnotationMapping.fromResultSet(resultSet, clazz));
         });
