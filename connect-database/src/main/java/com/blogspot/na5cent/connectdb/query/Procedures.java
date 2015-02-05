@@ -40,11 +40,11 @@ public class Procedures {
         params = new LinkedList<>();
     }
 
-    public static Procedures fromProcedure(String sqlCode) {
+    public static Procedures call(String sqlCode) {
         return new Procedures(sqlCode);
     }
 
-    public Procedures addParam(Object value) {
+    public Procedures withParam(Object value) {
         params.add(new ParameterHolder(
                 ParameterType.IN,
                 value,
@@ -54,7 +54,7 @@ public class Procedures {
         return this;
     }
 
-    public Procedures addOutput(OutputCallback callback) {
+    public Procedures withOutput(OutputCallback callback) {
         params.add(new ParameterHolder(
                 ParameterType.OUT,
                 null,

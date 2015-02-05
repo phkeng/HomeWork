@@ -15,10 +15,10 @@ import com.blogspot.na5cent.connectdb.query.Procedures;
 public class Ex1AddTwoNumbers {
 
     public static void main(String[] args) throws Exception {
-        Procedures.fromProcedure("add_two_numbers(?, ?, ?)")
-                .addParam(1)
-                .addParam(2)
-                .addOutput(new OutputCallback<Integer>() {
+        Procedures.call("add_two_numbers(?, ?, ?)")
+                .withParam(1)
+                .withParam(2)
+                .withOutput(new OutputCallback<Integer>() {
 
                     @Override
                     public void output(Integer value) {
