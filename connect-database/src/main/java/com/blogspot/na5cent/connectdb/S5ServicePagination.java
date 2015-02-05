@@ -18,9 +18,7 @@ import com.blogspot.na5cent.connectdb.service.DepartmentService;
 public class S5ServicePagination {
 
     public static void main(String[] args) throws Exception {
-        Page<Department> page = DepartmentService.findDepartmentsHasManagerInCitySeattle(
-                new Pagination(2, 5)
-        );
+        Page<Department> page = DepartmentService.findAll(new Pagination(2, 5));
         
         System.out.println("total = " + page.getTotalElements());
         GenericPrinter.prints(page.getContents());

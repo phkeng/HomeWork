@@ -24,7 +24,7 @@ public class DepartmentService {
                 .executeforList(Department.class);
     }
     
-    public static Page<Department> findDepartmentsHasManagerInCitySeattle(Pagination pagination) throws Exception {
+    public static Page<Department> findAll(Pagination pagination) throws Exception {
         return Query5.fromSQL("SELECT * FROM Departments ORDER BY department_id")
                 .withPagination(pagination)
                 .executeforPage(Department.class);
