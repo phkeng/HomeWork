@@ -13,19 +13,19 @@ import java.sql.SQLException;
  *
  * @author anonymous
  */
-public class Ex4Connect {
+public class Ex2ConnectUseConfig {
 
     public static void main(String[] args) throws SQLException, ClassNotFoundException {
-        Class.forName(C3DBConfig.getDriver());
-        
+        Class.forName(C1DBConfig.DRIVER);
+
         Connection connection = null;
         try {
             connection = DriverManager.getConnection(
-                    C3DBConfig.getUrl(),
-                    C3DBConfig.getUsername(),
-                    C3DBConfig.getPassword()
+                    C1DBConfig.URL,
+                    C1DBConfig.USERNAME,
+                    C1DBConfig.PASSWORD
             );
-            
+
             //do something...
         } finally {
             if (connection != null) {

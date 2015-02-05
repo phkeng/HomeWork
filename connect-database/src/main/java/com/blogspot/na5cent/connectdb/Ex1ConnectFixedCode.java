@@ -13,7 +13,7 @@ import java.sql.SQLException;
  *
  * @author anonymous
  */
-public class Ex1Connect {
+public class Ex1ConnectFixedCode {
 
     public static void main(String[] args) throws SQLException, ClassNotFoundException {
         Class.forName("oracle.jdbc.OracleDriver");

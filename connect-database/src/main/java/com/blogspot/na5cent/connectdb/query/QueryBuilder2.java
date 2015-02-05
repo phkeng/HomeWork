@@ -22,27 +22,27 @@ import java.util.Map;
  *
  * @author anonymous
  */
-public class Query5 {
+public class QueryBuilder2 {
 
     private final String sqlCode;
     private final List<Object> params;
     private Pagination pagination;
 
-    private Query5(String sqlCode) {
+    private QueryBuilder2(String sqlCode) {
         this.sqlCode = sqlCode;
         params = new LinkedList<>();
     }
 
-    public static Query5 fromSQL(String sqlCode) {
-        return new Query5(sqlCode);
+    public static QueryBuilder2 fromSQL(String sqlCode) {
+        return new QueryBuilder2(sqlCode);
     }
 
-    public Query5 addParam(Object value) {
+    public QueryBuilder2 addParam(Object value) {
         params.add(value);
         return this;
     }
 
-    public Query5 withPagination(Pagination pagination) {
+    public QueryBuilder2 withPagination(Pagination pagination) {
         this.pagination = pagination;
         return this;
     }

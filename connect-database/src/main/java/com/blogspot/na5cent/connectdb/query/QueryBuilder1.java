@@ -20,21 +20,21 @@ import java.util.List;
  *
  * @author anonymous
  */
-public class Query4 {
+public class QueryBuilder1 {
 
     private final String sqlCode;
     private final List<Object> params;
 
-    private Query4(String sqlCode) {
+    private QueryBuilder1(String sqlCode) {
         this.sqlCode = sqlCode;
         params = new LinkedList<>();
     }
 
-    public static Query4 fromSQL(String sqlCode) {
-        return new Query4(sqlCode);
+    public static QueryBuilder1 fromSQL(String sqlCode) {
+        return new QueryBuilder1(sqlCode);
     }
 
-    public Query4 addParam(Object value) {
+    public QueryBuilder1 addParam(Object value) {
         params.add(value);
         return this;
     }

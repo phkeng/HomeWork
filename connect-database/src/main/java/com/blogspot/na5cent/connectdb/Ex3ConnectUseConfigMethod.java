@@ -13,7 +13,7 @@ import java.sql.SQLException;
  *
  * @author anonymous
  */
-public class Ex3Connect {
+public class Ex3ConnectUseConfigMethod {
 
     public static void main(String[] args) throws SQLException, ClassNotFoundException {
         Class.forName(C2DBConfig.getDriver());

@@ -15,7 +15,7 @@ import java.sql.Statement;
  *
  * @author anonymous
  */
-public class Q3QueryWithParameter {
+public class Q3QueryWithParameters {
 
     private static final int EMPLOYEE_ID = 100;
 
@@ -34,6 +34,7 @@ public class Q3QueryWithParameter {
 
             statement = connection.createStatement();
             resultSet = statement.executeQuery("SELECT * FROM Employees WHERE employee_id = " + EMPLOYEE_ID);
+            
             while (resultSet.next()) {
                 System.out.println("employee_id = " + resultSet.getInt("employee_id"));
                 System.out.println("first_name = " + resultSet.getString("first_name"));
