@@ -100,21 +100,22 @@ public class Query5 {
         return map.get("count") == null ? 0 : map.get("count");
     }
 
+    private <T> Page createPage() throws Exception {
+        Page<T> page = new Page<>();
+        page.setPagination(pagination);
+        page.setTotalElements(executeCount());
+
+        return page;
+    }
+
     public <T> Page<T> executeforPage(final Class<T> clazz) throws Exception {
         if (pagination == null) {
             throw new IllegalArgumentException("require pagination");
         }
 
-        final Page<T> page = new Page<>();
-        page.setPagination(pagination);
-        page.setTotalElements(executeCount());
-
-        execute(wrapBySQLPagination(sqlCode, pagination), new Callback() {
-
-            @Override
-            public void processing(ResultSet resultSet) throws Exception {
-                page.setContents(GenericAnnotationMapping.fromResultSet(resultSet, clazz));
-            }
+        final Page<T> page = createPage();
+        execute(wrapBySQLPagination(sqlCode, pagination), (ResultSet resultSet) -> {
+            page.setContents(GenericAnnotationMapping.fromResultSet(resultSet, clazz));
         });
 
         return page;
@@ -152,7 +153,7 @@ public class Query5 {
         }
     }
 
-    public void execute(String sqlCode, Callback callback) throws Exception {
+    private void execute(String sqlCode, Callback callback) throws Exception {
         execute(sqlCode, callback, params);
     }
 

@@ -94,10 +94,6 @@ public class Query4 {
         }
     }
 
-    public void execute(String sqlCode, Callback callback) throws Exception {
-        execute(sqlCode, callback, params);
-    }
-
     public void execute(Callback callback) throws Exception {
         execute(sqlCode, callback, params);
     }
