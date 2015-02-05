@@ -13,29 +13,37 @@ import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.HashMap;
 import java.util.LinkedList;
 import java.util.List;
+import java.util.Map;
 
 /**
  *
  * @author anonymous
  */
-public class Query4 {
+public class Query5 {
 
     private final String sqlCode;
     private final List<Object> params;
+    private Pagination pagination;
 
-    private Query4(String sqlCode) {
+    private Query5(String sqlCode) {
         this.sqlCode = sqlCode;
         params = new LinkedList<>();
     }
 
-    public static Query4 fromSQL(String sqlCode) {
-        return new Query4(sqlCode);
+    public static Query5 fromSQL(String sqlCode) {
+        return new Query5(sqlCode);
     }
 
-    public Query4 addParam(Object value) {
+    public Query5 addParam(Object value) {
         params.add(value);
+        return this;
+    }
+
+    public Query5 withPagination(Pagination pagination) {
+        this.pagination = pagination;
         return this;
     }
 
@@ -51,15 +59,65 @@ public class Query4 {
 
     public <T> List<T> executeforList(final Class<T> clazz) throws Exception {
         final List<T> results = new LinkedList<>();
-        execute(new Callback() {
-
-            @Override
-            public void processing(ResultSet resultSet) throws Exception {
-                results.addAll(GenericAnnotationMapping.fromResultSet(resultSet, clazz));
-            }
+        execute((ResultSet resultSet) -> {
+            results.addAll(GenericAnnotationMapping.fromResultSet(resultSet, clazz));
         });
 
         return results;
+    }
+
+    private String wrapBySQLCount(String sqlCode) {
+        return "SELECT count(*) as cnt FROM (" + sqlCode + ")";
+    }
+
+    private String wrapBySQLPagination(String sqlCode, Pagination pagination) {
+        int first = pagination.getPageNumber() * pagination.getPageSize();
+        int last = (pagination.getPageNumber() + 1) * pagination.getPageSize();
+
+        return new StringBuilder()
+                .append("SELECT item.* ")
+                .append("FROM ")
+                .append("    ( ")
+                .append("        SELECT item.*, ")
+                .append("               ROWNUM rnum ")
+                .append("        FROM ( ")
+                .append("            ").append(sqlCode)
+                .append("        ) item ")
+                .append("        WHERE ROWNUM <= ").append(last)
+                .append("    ) item ")
+                .append("WHERE rnum > ").append(first)
+                .toString();
+    }
+
+    public long executeCount() throws Exception {
+        final Map<String, Long> map = new HashMap<>();
+        execute(wrapBySQLCount(sqlCode), (ResultSet resultSet) -> {
+            if (resultSet.next()) {
+                map.put("count", resultSet.getLong("cnt"));
+            }
+        });
+
+        return map.get("count") == null ? 0 : map.get("count");
+    }
+
+    public <T> Page<T> executeforPage(final Class<T> clazz) throws Exception {
+        if (pagination == null) {
+            throw new IllegalArgumentException("require pagination");
+        }
+
+        final Page<T> page = new Page<>();
+        page.setPagination(pagination);
+        page.setTotalElements(executeCount());
+
+        execute(wrapBySQLPagination(sqlCode, pagination), new Callback() {
+
+            @Override
+            public void processing(ResultSet resultSet) throws Exception {
+                page.setContents(GenericAnnotationMapping.fromResultSet(resultSet, clazz));
+            }
+        });
+
+        return page;
     }
 
     private void execute(String sqlCode, Callback callback, List<Object> params) throws Exception {

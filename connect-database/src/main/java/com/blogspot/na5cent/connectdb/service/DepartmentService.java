@@ -6,7 +6,10 @@
 package com.blogspot.na5cent.connectdb.service;
 
 import com.blogspot.na5cent.connectdb.model.Department;
+import com.blogspot.na5cent.connectdb.query.Page;
+import com.blogspot.na5cent.connectdb.query.Pagination;
 import com.blogspot.na5cent.connectdb.query.Query4;
+import com.blogspot.na5cent.connectdb.query.Query5;
 import java.util.List;
 
 /**
@@ -21,8 +24,9 @@ public class DepartmentService {
                 .executeforList(Department.class);
     }
     
-    public static long count() throws Exception{
-        return Query4.fromSQL("SELECT * FROM Departments")
-                .executeCount();
+    public static Page<Department> findDepartmentsHasManagerInCitySeattle(Pagination pagination) throws Exception {
+        return Query5.fromSQL("SELECT * FROM Departments ORDER BY department_id")
+                .withPagination(pagination)
+                .executeforPage(Department.class);
     }
 }
