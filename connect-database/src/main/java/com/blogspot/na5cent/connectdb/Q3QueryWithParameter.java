@@ -15,16 +15,17 @@ import java.sql.Statement;
  *
  * @author anonymous
  */
-public class T3SelectFromParameter {
-    
+public class Q3QueryWithParameter {
+
     private static final int EMPLOYEE_ID = 100;
 
     public static void main(String[] args) throws ClassNotFoundException, SQLException {
+        Class.forName(DBConfig.getDriver());
+
         Connection connection = null;
         Statement statement = null;
         ResultSet resultSet = null;
         try {
-            Class.forName(DBConfig.getDriver());
             connection = DriverManager.getConnection(
                     DBConfig.getUrl(),
                     DBConfig.getUsername(),

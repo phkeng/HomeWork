@@ -13,16 +13,17 @@ import java.sql.SQLException;
  *
  * @author anonymous
  */
-public class T1Connect {
+public class Ex1Connect {
 
     public static void main(String[] args) throws SQLException, ClassNotFoundException {
+        Class.forName("oracle.jdbc.OracleDriver");
+        
         Connection connection = null;
         try {
-            Class.forName(DBConfig.getDriver());
             connection = DriverManager.getConnection(
-                    DBConfig.getUrl(),
-                    DBConfig.getUsername(),
-                    DBConfig.getPassword()
+                    "jdbc:oracle:thin:@localhost:1521:cpe4235",
+                    "HR",
+                    "HR"
             );
             
             //do something...

@@ -14,7 +14,7 @@ import java.util.List;
  *
  * @author anonymous
  */
-public class T5SelectFromService3 {
+public class S3FindFromService {
 
     public static void main(String[] args) throws Exception {
         System.out.println("======================== Asia ========================");

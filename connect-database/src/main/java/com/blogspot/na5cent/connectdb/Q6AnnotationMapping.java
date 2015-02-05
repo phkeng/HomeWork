@@ -5,13 +5,12 @@
  */
 package com.blogspot.na5cent.connectdb;
 
-import com.blogspot.na5cent.connectdb.mapping.EmployeeNormalMapping;
-import com.blogspot.na5cent.connectdb.model.Employee;
-import com.blogspot.na5cent.connectdb.printer.EmployeeNormalPrinter;
+import com.blogspot.na5cent.connectdb.mapping.EmployeeAnnotationMapping;
+import com.blogspot.na5cent.connectdb.model.EmployeeMap;
+import com.blogspot.na5cent.connectdb.printer.EmployeeReflectionPrinter;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.ResultSet;
-import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.List;
 
@@ -19,16 +18,17 @@ import java.util.List;
  *
  * @author anonymous
  */
-public class T4SelectFromMapping {
+public class Q6AnnotationMapping {
 
-    private static List<Employee> findEmployees() throws SQLException, ClassNotFoundException {
-        List<Employee> results = null;
+    private static List<EmployeeMap> findEmployees() throws Exception {
+        Class.forName(DBConfig.getDriver());
+        
+        List<EmployeeMap> results = null;
+        
         Connection connection = null;
         Statement statement = null;
-        ResultSet resultSet = null; 
-
+        ResultSet resultSet = null;
         try { 
-            Class.forName(DBConfig.getDriver());
             connection = DriverManager.getConnection(
                     DBConfig.getUrl(),
                     DBConfig.getUsername(),
@@ -37,7 +37,7 @@ public class T4SelectFromMapping {
 
             statement = connection.createStatement();
             resultSet = statement.executeQuery("SELECT * FROM Employees");
-            results = EmployeeNormalMapping.fromResultSet(resultSet);
+            results = EmployeeAnnotationMapping.fromResultSet(resultSet);
         } finally {
             if (resultSet != null) {
                 resultSet.close();
@@ -55,8 +55,8 @@ public class T4SelectFromMapping {
         return results;
     }
 
-    public static void main(String[] args) throws ClassNotFoundException, SQLException, Exception {
-        List<Employee> results = findEmployees();
-        EmployeeNormalPrinter.prints(results);
+    public static void main(String[] args) throws Exception {
+        List<EmployeeMap> results = findEmployees();
+        EmployeeReflectionPrinter.prints(results);
     }
 }

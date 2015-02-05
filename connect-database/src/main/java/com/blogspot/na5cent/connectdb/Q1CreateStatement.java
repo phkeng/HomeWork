@@ -5,29 +5,25 @@
  */
 package com.blogspot.na5cent.connectdb;
 
-import com.blogspot.na5cent.connectdb.mapping.EmployeeAnnotationMapping;
-import com.blogspot.na5cent.connectdb.model.EmployeeMap;
-import com.blogspot.na5cent.connectdb.printer.EmployeeReflectionPrinter;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.ResultSet;
+import java.sql.SQLException;
 import java.sql.Statement;
-import java.util.List;
 
 /**
  *
  * @author anonymous
  */
-public class T5SelectFromAnnotationMapping {
+public class Q1CreateStatement {
 
-    private static List<EmployeeMap> findEmployees() throws Exception {
-        List<EmployeeMap> results = null;
+    public static void main(String[] args) throws ClassNotFoundException, SQLException {
+        Class.forName(DBConfig.getDriver());
+
         Connection connection = null;
         Statement statement = null;
         ResultSet resultSet = null;
-
         try {
-            Class.forName(DBConfig.getDriver());
             connection = DriverManager.getConnection(
                     DBConfig.getUrl(),
                     DBConfig.getUsername(),
@@ -35,8 +31,8 @@ public class T5SelectFromAnnotationMapping {
             );
 
             statement = connection.createStatement();
-            resultSet = statement.executeQuery("SELECT * FROM Employees");
-            results = EmployeeAnnotationMapping.fromResultSet(resultSet);
+            resultSet = statement.executeQuery("SELECT 1 FROM Dual");
+
         } finally {
             if (resultSet != null) {
                 resultSet.close();
@@ -50,12 +46,5 @@ public class T5SelectFromAnnotationMapping {
                 connection.close();
             }
         }
-
-        return results;
-    }
-
-    public static void main(String[] args) throws Exception {
-        List<EmployeeMap> results = findEmployees();
-        EmployeeReflectionPrinter.prints(results);
     }
 }

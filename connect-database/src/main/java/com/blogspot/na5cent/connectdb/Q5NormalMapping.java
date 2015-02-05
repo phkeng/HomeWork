@@ -5,24 +5,31 @@
  */
 package com.blogspot.na5cent.connectdb;
 
+import com.blogspot.na5cent.connectdb.mapping.EmployeeNormalMapping;
+import com.blogspot.na5cent.connectdb.model.Employee;
+import com.blogspot.na5cent.connectdb.printer.EmployeeNormalPrinter;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
+import java.util.List;
 
 /**
  *
  * @author anonymous
  */
-public class T2SelectFrom {
+public class Q5NormalMapping {
 
-    public static void main(String[] args) throws ClassNotFoundException, SQLException {
+    private static List<Employee> findEmployees() throws SQLException, ClassNotFoundException {
+        Class.forName(DBConfig.getDriver());
+        
+        List<Employee> results = null;
+        
         Connection connection = null;
         Statement statement = null;
-        ResultSet resultSet = null;
-        try {
-            Class.forName(DBConfig.getDriver());
+        ResultSet resultSet = null; 
+        try { 
             connection = DriverManager.getConnection(
                     DBConfig.getUrl(),
                     DBConfig.getUsername(),
@@ -31,13 +38,7 @@ public class T2SelectFrom {
 
             statement = connection.createStatement();
             resultSet = statement.executeQuery("SELECT * FROM Employees");
-            while (resultSet.next()) {
-                System.out.println("employee_id = " + resultSet.getInt("employee_id"));
-                System.out.println("first_name = " + resultSet.getString("first_name"));
-                System.out.println("last_name = " + resultSet.getString("last_name"));
-                System.out.println("email = " + resultSet.getString("email"));
-                System.out.println("------------------------------------------");
-            }
+            results = EmployeeNormalMapping.fromResultSet(resultSet);
         } finally {
             if (resultSet != null) {
                 resultSet.close();
@@ -51,5 +52,12 @@ public class T2SelectFrom {
                 connection.close();
             }
         }
+
+        return results;
+    }
+
+    public static void main(String[] args) throws ClassNotFoundException, SQLException, Exception {
+        List<Employee> results = findEmployees();
+        EmployeeNormalPrinter.prints(results);
     }
 }

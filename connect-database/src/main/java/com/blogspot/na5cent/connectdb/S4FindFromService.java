@@ -14,7 +14,7 @@ import java.util.List;
  *
  * @author anonymous
  */
-public class T5SelectFromService4 {
+public class S4FindFromService {
 
     public static void main(String[] args) throws Exception {
         List<Department> departments = DepartmentService.findDepartmentsHasManagerInCitySeattle();

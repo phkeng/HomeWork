@@ -7,7 +7,6 @@ package com.blogspot.na5cent.connectdb;
 
 import java.sql.Connection;
 import java.sql.DriverManager;
-import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
@@ -16,26 +15,23 @@ import java.sql.Statement;
  *
  * @author anonymous
  */
-public class T3SelectFromPrepareStatement {
-    
-    private static final int EMPLOYEE_ID = 100;
+public class Q2QueryAndFetchResult {
 
     public static void main(String[] args) throws ClassNotFoundException, SQLException {
+        Class.forName(DBConfig.getDriver());
+
         Connection connection = null;
-        PreparedStatement statement = null;
+        Statement statement = null;
         ResultSet resultSet = null;
         try {
-            Class.forName(DBConfig.getDriver());
             connection = DriverManager.getConnection(
                     DBConfig.getUrl(),
                     DBConfig.getUsername(),
                     DBConfig.getPassword()
             );
 
-            statement = connection.prepareStatement("SELECT * FROM Employees WHERE employee_id = ?");
-            statement.setInt(1, EMPLOYEE_ID);
-            resultSet = statement.executeQuery();
-            
+            statement = connection.createStatement();
+            resultSet = statement.executeQuery("SELECT * FROM Employees");
             while (resultSet.next()) {
                 System.out.println("employee_id = " + resultSet.getInt("employee_id"));
                 System.out.println("first_name = " + resultSet.getString("first_name"));

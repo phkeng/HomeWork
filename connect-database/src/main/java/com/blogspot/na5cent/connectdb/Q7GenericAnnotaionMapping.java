@@ -19,16 +19,17 @@ import java.util.List;
  *
  * @author anonymous
  */
-public class T5SelectFromGenericAnnotaionMapping {
+public class Q7GenericAnnotaionMapping {
 
     private static List<EmployeeMap> findEmployees() throws Exception {
+        Class.forName(DBConfig.getDriver());
+
         List<EmployeeMap> results = null;
+        
         Connection connection = null;
         Statement statement = null;
         ResultSet resultSet = null;
-
         try {
-            Class.forName(DBConfig.getDriver());
             connection = DriverManager.getConnection(
                     DBConfig.getUrl(),
                     DBConfig.getUsername(),

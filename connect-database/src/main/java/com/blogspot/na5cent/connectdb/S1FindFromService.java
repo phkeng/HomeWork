@@ -14,7 +14,7 @@ import java.util.List;
  *
  * @author anonymous
  */
-public class T5SelectFromService {
+public class S1FindFromService {
 
     public static void main(String[] args) throws Exception {
         List<EmployeeMap> results = StaticEmployeeService.findEmployees();
