@@ -9,13 +9,11 @@ import com.blogspot.na5cent.connectdb.C3DBConfig;
 import com.blogspot.na5cent.connectdb.mapping.GenericAnnotationMapping;
 import static com.blogspot.na5cent.connectdb.util.CollectionUtils.isEmpty;
 import java.sql.Connection;
-import java.sql.Date;
 import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.HashMap;
-import java.util.HashSet;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
@@ -43,29 +41,13 @@ public class Query4 {
         return this;
     }
 
-    private static void setParameter(PreparedStatement statement, int index, Object value) throws SQLException {
-        if (value instanceof String) {
-            statement.setString(index, (String) value);
-        } else if (value instanceof Integer) {
-            statement.setInt(index, (Integer) value);
-        } else if (value instanceof Long) {
-            statement.setLong(index, (Long) value);
-        } else if (value instanceof Float) {
-            statement.setFloat(index, (Float) value);
-        } else if (value instanceof Double) {
-            statement.setDouble(index, (Double) value);
-        } else if (value instanceof Date) {
-            statement.setDate(index, (Date) value);
-        }
-    }
-
     private static void setParameters(PreparedStatement statement, List<Object> parameters) throws SQLException {
         if (isEmpty(parameters)) {
             return;
         }
 
         for (int i = 0; i < parameters.size(); i++) {
-            setParameter(statement, i + 1, parameters.get(i));
+            statement.setObject(i + 1, parameters.get(i));
         }
     }
 
@@ -73,16 +55,13 @@ public class Query4 {
         return "SELECT count(*) as cnt FROM (" + sqlCode + ")";
     }
 
-    public long count() throws Exception {
+    public long executeCount() throws Exception {
         final Map<String, Long> map = new HashMap<>();
         sqlCode = wrapBySQLCount(sqlCode);
 
-        execute(new Callback() {
-
-            public void processing(ResultSet resultSet) throws Exception {
-                if (resultSet.next()) {
-                    map.put("count", resultSet.getLong("cnt"));
-                }
+        execute((ResultSet resultSet) -> {
+            if (resultSet.next()) {
+                map.put("count", resultSet.getLong("cnt"));
             }
         });
 

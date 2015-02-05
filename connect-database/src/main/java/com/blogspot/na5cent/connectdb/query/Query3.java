@@ -7,34 +7,16 @@ package com.blogspot.na5cent.connectdb.query;
 
 import com.blogspot.na5cent.connectdb.C3DBConfig;
 import java.sql.Connection;
-import java.sql.Date;
 import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.util.List;
 
 /**
  *
  * @author anonymous
  */
 public class Query3 {
-
-    private static void setParameter(PreparedStatement statement, int index, Object value) throws SQLException {
-        if (value instanceof String) {
-            statement.setString(index, (String) value);
-        } else if (value instanceof Integer) {
-            statement.setInt(index, (Integer) value);
-        } else if (value instanceof Long) {
-            statement.setLong(index, (Long) value);
-        } else if (value instanceof Float) {
-            statement.setFloat(index, (Float) value);
-        } else if (value instanceof Double) {
-            statement.setDouble(index, (Double) value);
-        } else if (value instanceof Date) {
-            statement.setDate(index, (Date) value);
-        }
-    }
 
     private static boolean isEmpty(Object[] array) {
         return array == null || array.length == 0;
@@ -46,13 +28,13 @@ public class Query3 {
         }
 
         for (int i = 0; i < parameters.length; i++) {
-            setParameter(statement, i + 1, parameters[i]);
+            statement.setObject(i + 1, parameters[i]);
         }
     }
 
     public static void executeQuery(String sqlCode, Callback callback, Object... parameters) throws Exception {
         Class.forName(C3DBConfig.getDriver());
- 
+
         Connection connection = null;
         PreparedStatement statement = null;
         ResultSet resultSet = null;

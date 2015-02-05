@@ -22,6 +22,7 @@ public class DepartmentService {
     }
     
     public static long count() throws Exception{
-        return Query4.fromSQL("SELECT * FROM Departments").count();
+        return Query4.fromSQL("SELECT * FROM Departments")
+                .executeCount();
     }
 }

@@ -8,7 +8,6 @@ package com.blogspot.na5cent.connectdb.query;
 import com.blogspot.na5cent.connectdb.C3DBConfig;
 import com.blogspot.na5cent.connectdb.mapping.GenericAnnotationMapping;
 import java.sql.Connection;
-import java.sql.Date;
 import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -22,25 +21,9 @@ import java.util.Map;
  */
 public class Query2 {
 
-    private static void setParameter(PreparedStatement statement, Map.Entry<Integer, Object> entry) throws SQLException {
-        if (entry.getValue() instanceof String) {
-            statement.setString(entry.getKey(), (String) entry.getValue());
-        } else if (entry.getValue() instanceof Integer) {
-            statement.setInt(entry.getKey(), (Integer) entry.getValue());
-        } else if (entry.getValue() instanceof Long) {
-            statement.setLong(entry.getKey(), (Long) entry.getValue());
-        } else if (entry.getValue() instanceof Float) {
-            statement.setFloat(entry.getKey(), (Float) entry.getValue());
-        } else if (entry.getValue() instanceof Double) {
-            statement.setDouble(entry.getKey(), (Double) entry.getValue());
-        } else if (entry.getValue() instanceof Date) {
-            statement.setDate(entry.getKey(), (Date) entry.getValue());
-        }
-    }
-
     private static void setParameters(PreparedStatement statement, Map<Integer, Object> parameters) throws SQLException {
         for (Map.Entry<Integer, Object> entry : parameters.entrySet()) {
-            setParameter(statement, entry);
+            statement.setObject(entry.getKey(), entry.getValue());
         }
     }
 
