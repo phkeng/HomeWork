@@ -17,6 +17,14 @@ import java.sql.Statement;
  */
 public class Q2QueryAndFetchResult {
 
+    private static Connection getConnection() throws SQLException {
+        return DriverManager.getConnection(
+                C3DBConfig.getUrl(),
+                C3DBConfig.getUsername(),
+                C3DBConfig.getPassword()
+        );
+    }
+
     public static void main(String[] args) throws ClassNotFoundException, SQLException {
         Class.forName(C3DBConfig.getDriver());
 
@@ -24,11 +32,7 @@ public class Q2QueryAndFetchResult {
         Statement statement = null;
         ResultSet resultSet = null;
         try {
-            connection = DriverManager.getConnection(
-                    C3DBConfig.getUrl(),
-                    C3DBConfig.getUsername(),
-                    C3DBConfig.getPassword()
-            );
+            connection = getConnection();
 
             statement = connection.createStatement();
             resultSet = statement.executeQuery("SELECT * FROM Employees");

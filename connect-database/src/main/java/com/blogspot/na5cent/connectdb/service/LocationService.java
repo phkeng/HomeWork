@@ -5,7 +5,6 @@
  */
 package com.blogspot.na5cent.connectdb.service;
 
-import com.blogspot.na5cent.connectdb.model.Job;
 import com.blogspot.na5cent.connectdb.model.Location;
 import com.blogspot.na5cent.connectdb.query.QueryUtils1;
 import com.blogspot.na5cent.connectdb.query.QueryUtils2;

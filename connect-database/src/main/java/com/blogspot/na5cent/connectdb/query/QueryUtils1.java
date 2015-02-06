@@ -10,6 +10,7 @@ import com.blogspot.na5cent.connectdb.mapping.GenericAnnotationMapping;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.ResultSet;
+import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.List;
 
@@ -19,20 +20,24 @@ import java.util.List;
  */
 public class QueryUtils1 {
 
+    private static Connection getConnection() throws SQLException {
+        return DriverManager.getConnection(
+                C3DBConfig.getUrl(),
+                C3DBConfig.getUsername(),
+                C3DBConfig.getPassword()
+        );
+    }
+
     public static <T> List<T> executeReturnList(String sqlCode, Class<T> clazz) throws Exception {
         Class.forName(C3DBConfig.getDriver());
 
         List<T> results = null;
-        
+
         Connection connection = null;
         Statement statement = null;
         ResultSet resultSet = null;
         try {
-            connection = DriverManager.getConnection(
-                    C3DBConfig.getUrl(),
-                    C3DBConfig.getUsername(),
-                    C3DBConfig.getPassword()
-            );
+            connection = getConnection();
 
             statement = connection.createStatement();
             resultSet = statement.executeQuery(sqlCode);

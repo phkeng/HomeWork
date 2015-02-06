@@ -21,20 +21,24 @@ import java.util.List;
  */
 public class Q5NormalMapping {
 
+    private static Connection getConnection() throws SQLException {
+        return DriverManager.getConnection(
+                C3DBConfig.getUrl(),
+                C3DBConfig.getUsername(),
+                C3DBConfig.getPassword()
+        );
+    }
+
     private static List<Employee> findEmployees() throws SQLException, ClassNotFoundException {
         Class.forName(C3DBConfig.getDriver());
-        
+
         List<Employee> results = null;
-        
+
         Connection connection = null;
         Statement statement = null;
-        ResultSet resultSet = null; 
-        try { 
-            connection = DriverManager.getConnection(
-                    C3DBConfig.getUrl(),
-                    C3DBConfig.getUsername(),
-                    C3DBConfig.getPassword()
-            );
+        ResultSet resultSet = null;
+        try {
+            connection = getConnection();
 
             statement = connection.createStatement();
             resultSet = statement.executeQuery("SELECT * FROM Employees");

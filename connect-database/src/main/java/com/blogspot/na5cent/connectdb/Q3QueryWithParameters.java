@@ -19,6 +19,14 @@ public class Q3QueryWithParameters {
 
     private static final int EMPLOYEE_ID = 100;
 
+    private static Connection getConnection() throws SQLException {
+        return DriverManager.getConnection(
+                C3DBConfig.getUrl(),
+                C3DBConfig.getUsername(),
+                C3DBConfig.getPassword()
+        );
+    }
+
     public static void main(String[] args) throws ClassNotFoundException, SQLException {
         Class.forName(C3DBConfig.getDriver());
 
@@ -26,15 +34,11 @@ public class Q3QueryWithParameters {
         Statement statement = null;
         ResultSet resultSet = null;
         try {
-            connection = DriverManager.getConnection(
-                    C3DBConfig.getUrl(),
-                    C3DBConfig.getUsername(),
-                    C3DBConfig.getPassword()
-            );
+            connection = getConnection();
 
             statement = connection.createStatement();
             resultSet = statement.executeQuery("SELECT * FROM Employees WHERE employee_id = " + EMPLOYEE_ID);
-            
+
             while (resultSet.next()) {
                 System.out.println("employee_id = " + resultSet.getInt("employee_id"));
                 System.out.println("first_name = " + resultSet.getString("first_name"));

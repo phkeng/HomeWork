@@ -27,20 +27,24 @@ public class QueryUtils2 {
         }
     }
 
+    private static Connection getConnection() throws SQLException {
+        return DriverManager.getConnection(
+                C3DBConfig.getUrl(),
+                C3DBConfig.getUsername(),
+                C3DBConfig.getPassword()
+        );
+    }
+
     public static <T> List<T> executeReturnList(String sqlCode, Class<T> clazz, Map<Integer, Object> parameters) throws Exception {
         Class.forName(C3DBConfig.getDriver());
-        
+
         List<T> results = null;
-        
+
         Connection connection = null;
         PreparedStatement statement = null;
         ResultSet resultSet = null;
         try {
-            connection = DriverManager.getConnection(
-                    C3DBConfig.getUrl(),
-                    C3DBConfig.getUsername(),
-                    C3DBConfig.getPassword()
-            );
+            connection = getConnection();
 
             statement = connection.prepareStatement(sqlCode);
             setParameters(statement, parameters);

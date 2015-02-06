@@ -32,6 +32,14 @@ public class QueryUtils3 {
         }
     }
 
+    private static Connection getConnection() throws SQLException {
+        return DriverManager.getConnection(
+                C3DBConfig.getUrl(),
+                C3DBConfig.getUsername(),
+                C3DBConfig.getPassword()
+        );
+    }
+
     public static void executeQuery(String sqlCode, Callback callback, Object... parameters) throws Exception {
         Class.forName(C3DBConfig.getDriver());
 
@@ -39,11 +47,7 @@ public class QueryUtils3 {
         PreparedStatement statement = null;
         ResultSet resultSet = null;
         try {
-            connection = DriverManager.getConnection(
-                    C3DBConfig.getUrl(),
-                    C3DBConfig.getUsername(),
-                    C3DBConfig.getPassword()
-            );
+            connection = getConnection();
 
             statement = connection.prepareStatement(sqlCode);
             setParameters(statement, parameters);

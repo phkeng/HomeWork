@@ -10,6 +10,7 @@ import com.blogspot.na5cent.connectdb.util.ReflectionUtils;
 import java.sql.CallableStatement;
 import java.sql.Connection;
 import java.sql.DriverManager;
+import java.sql.SQLException;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.LinkedList;
@@ -117,6 +118,14 @@ public class Procedures {
         }
     }
 
+    private Connection getConnection() throws SQLException {
+        return DriverManager.getConnection(
+                C3DBConfig.getUrl(),
+                C3DBConfig.getUsername(),
+                C3DBConfig.getPassword()
+        );
+    }
+
     public <T> T execute(Class<T> clazz) throws Exception {
         Class.forName(C3DBConfig.getDriver());
 
@@ -125,15 +134,10 @@ public class Procedures {
         Connection connection = null;
         CallableStatement statement = null;
         try {
-            connection = DriverManager.getConnection(
-                    C3DBConfig.getUrl(),
-                    C3DBConfig.getUsername(),
-                    C3DBConfig.getPassword()
-            );
-
+            connection = getConnection();
             statement = createStatement(connection, clazz);
             statement.execute();
-            
+
             value = (T) returnValue(statement, clazz);
         } finally {
             if (statement != null) {

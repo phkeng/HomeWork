@@ -11,6 +11,7 @@ import com.blogspot.na5cent.connectdb.model.Job;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.ResultSet;
+import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.List;
 
@@ -19,6 +20,14 @@ import java.util.List;
  * @author anonymous
  */
 public class JobService {
+
+    private static Connection getConnection() throws SQLException {
+        return DriverManager.getConnection(
+                C3DBConfig.getUrl(),
+                C3DBConfig.getUsername(),
+                C3DBConfig.getPassword()
+        );
+    }
 
     public static List<Job> findAll() throws Exception {
         Class.forName(C3DBConfig.getDriver());
@@ -29,11 +38,8 @@ public class JobService {
         Statement statement = null;
         ResultSet resultSet = null;
         try {
-            connection = DriverManager.getConnection(
-                    C3DBConfig.getUrl(),
-                    C3DBConfig.getUsername(),
-                    C3DBConfig.getPassword()
-            );
+            connection = getConnection();
+            
             statement = connection.createStatement();
             resultSet = statement.executeQuery("SELECT * FROM Jobs");
             results = GenericAnnotationMapping.fromResultSet(resultSet, Job.class);
