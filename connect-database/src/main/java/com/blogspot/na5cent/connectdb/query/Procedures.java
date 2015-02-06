@@ -108,6 +108,15 @@ public class Procedures {
         return statement;
     }
 
+    private Object returnValue(CallableStatement statement, Class clazz) throws Exception {
+        if (clazz == null) {
+            returnValue2Callback(statement);
+            return null;
+        } else {
+            return statement.getObject(1);
+        }
+    }
+
     public <T> T execute(Class<T> clazz) throws Exception {
         Class.forName(C3DBConfig.getDriver());
 
@@ -124,12 +133,8 @@ public class Procedures {
 
             statement = createStatement(connection, clazz);
             statement.execute();
-
-            if (clazz == null) {
-                returnValue2Callback(statement);
-            } else {
-                value = (T) statement.getObject(1);
-            }
+            
+            value = (T) returnValue(statement, clazz);
         } finally {
             if (statement != null) {
                 statement.close();
