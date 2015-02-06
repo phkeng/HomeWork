@@ -8,8 +8,6 @@ package com.blogspot.na5cent.connectdb;
 import com.blogspot.na5cent.connectdb.util.PropertiesUtils;
 import java.io.IOException;
 import java.util.Properties;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 
 /**
  *

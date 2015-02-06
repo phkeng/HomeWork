@@ -23,7 +23,7 @@ public class S6QueryNextPagination {
             page = DepartmentService.findAll(pagination);
             if(page.getCurrentPageNumber() == 1){
                 System.out.println("total elements = " + page.getTotalElements());
-                System.out.println("total pages = " + page.getTotolPages());
+                System.out.println("total pages = " + page.getTotalPages());
                 System.out.println("");
             }
             

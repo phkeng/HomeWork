@@ -53,7 +53,7 @@ public class Page<T> {
         this.currentPageSize = contents.size();
     }
 
-    public int getTotolPages() {
+    public int getTotalPages() {
         if (pagination.getPageSize() == 0) {
             return 0;
         }
@@ -62,7 +62,7 @@ public class Page<T> {
     }
 
     public boolean hasNext() {
-        return pagination.getPageNumber() <= getTotolPages();
+        return pagination.getPageNumber() <= getTotalPages();
     }
 
     public Pagination nextPagination() {
