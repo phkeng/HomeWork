@@ -10,7 +10,6 @@ import com.blogspot.na5cent.connectdb.util.ReflectionUtils;
 import java.sql.CallableStatement;
 import java.sql.Connection;
 import java.sql.DriverManager;
-import java.sql.SQLException;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.LinkedList;
@@ -71,8 +70,8 @@ public class Procedures {
             if (holder.getType() == ParameterType.IN) {
                 statement.setObject(i + 1, holder.getValue());
             } else {
-                int sqlType = holder.getSqlType();
-                if (sqlType != 0) {
+                Integer sqlType = holder.getSqlType();
+                if (sqlType != null) {
                     statement.registerOutParameter(i + 1, sqlType);
                 }
             }
@@ -172,7 +171,7 @@ public class Procedures {
             return callback;
         }
 
-        public int getSqlType() throws Exception {
+        public Integer getSqlType() throws Exception {
             if (callback == null) {
                 return 0;
             }
@@ -182,8 +181,7 @@ public class Procedures {
                     "output"
             ).getParameterTypes()[0];
 
-            Integer typ = typeMapping.get(clazz);
-            return typ == null ? 0 : typ;
+            return typeMapping.get(clazz);
         }
     }
 
