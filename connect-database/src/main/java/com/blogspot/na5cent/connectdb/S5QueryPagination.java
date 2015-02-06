@@ -22,6 +22,7 @@ public class S5QueryPagination {
         Page<Department> page = DepartmentService.findAll(pagination);
         System.out.println("total elements = " + page.getTotalElements());
         System.out.println("total pages = " + page.getTotalPages());
+        System.out.println("page size = " + page.getPageRequestSize());
         System.out.println("current page = " + page.getCurrentPageNumber());
         System.out.println("current page size = " + page.getCurrentPageSize());
 
