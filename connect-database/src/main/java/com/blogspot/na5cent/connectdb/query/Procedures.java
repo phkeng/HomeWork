@@ -79,7 +79,7 @@ public class Procedures {
         }
     }
 
-    private void returnValue(CallableStatement statement) throws Exception {
+    private void returnValue2Callback(CallableStatement statement) throws Exception {
         for (int i = 0; i < params.size(); i++) {
             ParameterHolder holder = params.get(i);
             if (holder.getType() == ParameterType.OUT && holder.callback != null) {
@@ -97,6 +97,18 @@ public class Procedures {
         }
     }
 
+    private CallableStatement createStatement(Connection connection, Class clazz) throws Exception {
+        String returnValue = clazz == null ? "" : "? := ";
+        CallableStatement statement = connection.prepareCall("{ call " + returnValue + sqlCode + " }");
+        if (clazz == null) {
+            setParameters(statement);
+        } else {
+            registerOutputParameter(statement, clazz);
+        }
+
+        return statement;
+    }
+
     public <T> T execute(Class<T> clazz) throws Exception {
         Class.forName(C3DBConfig.getDriver());
 
@@ -111,18 +123,11 @@ public class Procedures {
                     C3DBConfig.getPassword()
             );
 
-            String returnValue = clazz == null ? "" : "? := ";
-            statement = connection.prepareCall("{ call " + returnValue + sqlCode + " }");
-            if (clazz == null) {
-                setParameters(statement);
-            } else {
-                registerOutputParameter(statement, clazz);
-            }
-
+            statement = createStatement(connection, clazz);
             statement.execute();
 
             if (clazz == null) {
-                returnValue(statement);
+                returnValue2Callback(statement);
             } else {
                 value = (T) statement.getObject(1);
             }
