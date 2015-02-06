@@ -28,7 +28,7 @@ public class Page<T> {
         return pagination.getPageNumber();
     }
 
-    public int getRequestPageSize() {
+    public int getPageRequestSize() {
         return pagination.getPageSize();
     }
 

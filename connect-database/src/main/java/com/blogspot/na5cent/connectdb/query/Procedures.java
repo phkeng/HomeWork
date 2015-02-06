@@ -10,6 +10,7 @@ import com.blogspot.na5cent.connectdb.util.ReflectionUtils;
 import java.sql.CallableStatement;
 import java.sql.Connection;
 import java.sql.DriverManager;
+import java.sql.SQLException;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.LinkedList;
@@ -70,7 +71,10 @@ public class Procedures {
             if (holder.getType() == ParameterType.IN) {
                 statement.setObject(i + 1, holder.getValue());
             } else {
-                statement.registerOutParameter(i + 1, holder.getSqlType());
+                int sqlType = holder.getSqlType();
+                if (sqlType != 0) {
+                    statement.registerOutParameter(i + 1, sqlType);
+                }
             }
         }
     }
@@ -78,14 +82,25 @@ public class Procedures {
     private void returnValue(CallableStatement statement) throws Exception {
         for (int i = 0; i < params.size(); i++) {
             ParameterHolder holder = params.get(i);
-            if (holder.getType() == ParameterType.OUT) {
+            if (holder.getType() == ParameterType.OUT && holder.callback != null) {
                 holder.callback.output(statement.getObject(i + 1));
             }
         }
     }
 
-    public void execute() throws Exception {
+    private void registerOutputParameter(CallableStatement statement, Class clazz) throws Exception {
+        Integer sqlType = typeMapping.get(clazz);
+        if (sqlType != null) {
+            params.add(0, new ParameterHolder(ParameterType.OUT, null, null));
+            statement.registerOutParameter(1, sqlType);
+            setParameters(statement);
+        }
+    }
+
+    public <T> T execute(Class<T> clazz) throws Exception {
         Class.forName(C3DBConfig.getDriver());
+
+        T value = null;
 
         Connection connection = null;
         CallableStatement statement = null;
@@ -96,10 +111,21 @@ public class Procedures {
                     C3DBConfig.getPassword()
             );
 
-            statement = connection.prepareCall("{ call " + sqlCode + " }");
-            setParameters(statement);
+            String returnValue = clazz == null ? "" : "? := ";
+            statement = connection.prepareCall("{ call " + returnValue + sqlCode + " }");
+            if (clazz == null) {
+                setParameters(statement);
+            } else {
+                registerOutputParameter(statement, clazz);
+            }
+
             statement.execute();
-            returnValue(statement);
+
+            if (clazz == null) {
+                returnValue(statement);
+            } else {
+                value = (T) statement.getObject(1);
+            }
         } finally {
             if (statement != null) {
                 statement.close();
@@ -109,6 +135,12 @@ public class Procedures {
                 connection.close();
             }
         }
+
+        return value;
+    }
+
+    public void execute() throws Exception {
+        execute(null);
     }
 
     private static class ParameterHolder {
@@ -136,13 +168,17 @@ public class Procedures {
         }
 
         public int getSqlType() throws Exception {
+            if (callback == null) {
+                return 0;
+            }
+
             Class clazz = ReflectionUtils.findMethod(
                     callback.getClass(),
                     "output"
             ).getParameterTypes()[0];
 
             Integer typ = typeMapping.get(clazz);
-            return typ == null ? -1 : typ;
+            return typ == null ? 0 : typ;
         }
     }
 
