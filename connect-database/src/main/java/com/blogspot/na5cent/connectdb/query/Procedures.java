@@ -173,7 +173,7 @@ public class Procedures {
 
         public Integer getSqlType() throws Exception {
             if (callback == null) {
-                return 0;
+                return null;
             }
 
             Class clazz = ReflectionUtils.findMethod(
