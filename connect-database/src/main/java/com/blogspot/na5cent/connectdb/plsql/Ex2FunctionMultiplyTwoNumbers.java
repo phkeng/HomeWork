@@ -15,7 +15,7 @@ import java.sql.SQLException;
  *
  * @author anonymous
  */
-public class Ex2ProcedureAddTwoNumbers {
+public class Ex2FunctionMultiplyTwoNumbers {
 
     private static Connection getConnection() throws SQLException {
         return DriverManager.getConnection(
@@ -34,18 +34,18 @@ public class Ex2ProcedureAddTwoNumbers {
             connection = getConnection();
             //------------------------------------------------------------------
             //1 define statement
-            statement = connection.prepareCall("{ call add_two_numbers(?, ?, ?) }");
+            statement = connection.prepareCall("{ call ? := multiply_two_numbers(?, ?) }");
             
             //2 set input and register output
-            statement.setInt(1, 20);
-            statement.setInt(2, 30);
-            statement.registerOutParameter(3, java.sql.Types.INTEGER);
+            statement.registerOutParameter(1, java.sql.Types.INTEGER);
+            statement.setInt(2, 7);
+            statement.setInt(3, 3);
             
             //3 execute
             statement.executeQuery();
             
             //4 get result
-            System.out.println("output index 3 = " + statement.getInt(3));
+            System.out.println("output index 1 = " + statement.getInt(1));
             //------------------------------------------------------------------
         } finally {
             if (statement != null) {
