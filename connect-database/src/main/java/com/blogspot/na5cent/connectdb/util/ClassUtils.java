@@ -44,7 +44,7 @@ public class ClassUtils {
         return file.getName().endsWith(".class");
     }
 
-    private static void walking(File parent, String parentName, List<String> repo) {
+    private static void walking(File parent, String parentName, List<String> temp) {
         File[] fiels = parent.listFiles();
         if (isEmpty(fiels)) {
             return;
@@ -52,12 +52,12 @@ public class ClassUtils {
 
         for (File file : fiels) {
             String prefix = StringUtils.isEmpty(parentName) ? "" : (parentName + ".");
-            String fileFullName = prefix + file.getName();
+            String fullName = prefix + file.getName();
             if (file.isDirectory()) {
-                walking(file, fileFullName, repo);
+                walking(file, fullName, temp);
             } else {
                 if (isClassFile(file)) {
-                    repo.add(fileFullName.replace(".class", ""));
+                    temp.add(fullName.replace(".class", ""));
                 }
             }
         }

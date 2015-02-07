@@ -14,7 +14,9 @@ import java.lang.annotation.Annotation;
 public class AnnotationUtils {
 
     public static String readProperty(Annotation annotation, String property) {
-        annotation.toString();
-        return RegExUtils.findInPattern(annotation.toString(), "\\(" + property + "\\=(.*?)\\)");
+        return RegExUtils.findInPattern(
+                annotation.toString(),
+                "\\(" + property + "\\=(.*?)\\)"
+        );
     }
 }
