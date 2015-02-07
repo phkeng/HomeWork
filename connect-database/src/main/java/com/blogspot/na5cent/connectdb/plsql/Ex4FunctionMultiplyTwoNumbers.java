@@ -11,7 +11,7 @@ import com.blogspot.na5cent.connectdb.query.Procedures;
  *
  * @author anonymous
  */
-public class Ex2FunctionAddTwoNumbers {
+public class Ex4FunctionMultiplyTwoNumbers {
 
     public static void main(String[] args) throws Exception {
         Integer value = Procedures.call("multiply_two_numbers(?, ?)")

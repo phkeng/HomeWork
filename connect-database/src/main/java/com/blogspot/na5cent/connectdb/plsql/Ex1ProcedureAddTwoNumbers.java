@@ -15,16 +15,6 @@ import com.blogspot.na5cent.connectdb.query.Procedures;
 public class Ex1ProcedureAddTwoNumbers {
 
     public static void main(String[] args) throws Exception {
-        Procedures.call("add_two_numbers(?, ?, ?)")
-                .withParam(3)
-                .withParam(2)
-                .withOutput(new OutputCallback<Integer>() {
-
-                    @Override
-                    public void output(Integer value) {
-                        System.out.println("value = " + value);
-                    }
-                })
-                .execute();
+        
     }
 }
