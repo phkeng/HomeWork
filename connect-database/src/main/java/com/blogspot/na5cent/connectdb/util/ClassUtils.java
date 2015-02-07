@@ -85,7 +85,7 @@ public class ClassUtils {
         }
     }
 
-    public static List<Class> findClassesOfAnnoation(Class annotationClasss) throws ClassNotFoundException {
+    public static List<Class> findClassesOfAnnotation(Class annotationClasss) throws ClassNotFoundException {
         List<Class> results = new LinkedList<>();
         List<String> classess = readAllFullClassName();
         for (String fullName : classess) {
