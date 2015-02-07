@@ -5,8 +5,6 @@
  */
 package com.blogspot.na5cent.connectdb.util;
 
-import com.blogspot.na5cent.connectdb.exception.UncheckedException;
-import static com.blogspot.na5cent.connectdb.util.CollectionUtils.isEmpty;
 import java.util.List;
 
 /**
@@ -15,7 +13,7 @@ import java.util.List;
  */
 public class BeanUtils {
 
-    private static void makeUndefiendException(String value, Class bean) throws ClassNotFoundException {
+    private static void makeUndefineException(String value, Class bean) throws ClassNotFoundException {
         throw new ClassNotFoundException(
                 "Undefine " + (bean.isInterface() ? "implementation" : "sub class") + " " + message(value)
                 + "of " + (bean.isInterface() ? "interface" : "class") + " \"" + bean.getName() + "\""
@@ -36,42 +34,24 @@ public class BeanUtils {
                 : "\"" + propValue + "\" ";
     }
 
-    public static <T> T findBean(Class<T> bean, Class annotation, String property, String value) {
+    public static <T> T findByAnnotationProperty(Class annotation, String property, String value, Class<T> bean) throws Exception {
+        List<Class> classes = null;
         try {
-            // 1. read all classes which match Annotation 
-            List<Class> classes = ClassUtils.findClassesOfAnnotation(annotation);
-
-            if (isEmpty(classes)) {
-                makeUndefiendException(value, bean);
-            }
-
-            // 2. filter classes by Annotation property and Value
-            classes = value == null
-                    ? classes
-                    : ClassUtils.filterClassesByAnnotationProperty(
-                            classes,
-                            annotation,
-                            property,
-                            value
-                    );
-
-            if (isEmpty(classes)) {
-                makeUndefiendException(value, bean);
-            }
-
+            classes = ClassUtils.findClassesOfAnnotationProperty(annotation, property, value);
             if (classes.size() > 1) {
                 makeFoundMoreThanOneException(value, bean);
             }
 
-            // 3. check Inheritance or Implementation
             Class foundClass = classes.get(0);
             if (!bean.isAssignableFrom(foundClass)) {
-                makeUndefiendException(value, bean);
+                throw new ClassNotFoundException();
             }
 
             return (T) foundClass.newInstance();
-        } catch (Exception ex) {
-            throw new UncheckedException(ex);
+        } catch (ClassNotFoundException ex) {
+            makeUndefineException(value, bean);
         }
+
+        return null;
     }
 }

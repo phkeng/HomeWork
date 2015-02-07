@@ -17,28 +17,6 @@ import java.util.List;
  */
 public class ClassUtils {
 
-    public static List<Class> filterClassesByAnnotationProperty(
-            List<Class> classes,
-            Class annotation,
-            String property,
-            String value
-    ) throws Exception {
-
-        List<Class> results = new LinkedList<>();
-        for (Class clazz : classes) {
-            String propValue = AnnotationUtils.readProperty(
-                    clazz.getAnnotation(annotation),
-                    property
-            );
-
-            if (value.equals(propValue)) {
-                results.add(clazz);
-            }
-        }
-
-        return results;
-    }
-
     public static Method findMethod(Class clazz, String methodName) {
         Method[] methods = clazz.getDeclaredMethods();
         for (Method method : methods) {
@@ -85,16 +63,55 @@ public class ClassUtils {
         }
     }
 
-    public static List<Class> findClassesOfAnnotation(Class annotationClasss) throws ClassNotFoundException {
+    private static List<Class> filterClassesByAnnotationProperty(List<Class> classes, Class annotation, String property, String value) throws Exception {
+        if (isEmpty(classes) || StringUtils.isEmpty(value)) {
+            return classes;
+        }
+
         List<Class> results = new LinkedList<>();
-        List<String> classess = readAllFullClassName();
-        for (String fullName : classess) {
-            Class clazz = Class.forName(fullName);
-            if (clazz.isAnnotationPresent(annotationClasss)) {
+        for (Class clazz : classes) {
+            String propValue = AnnotationUtils.readProperty(
+                    clazz.getAnnotation(annotation),
+                    property
+            );
+
+            if (value.equals(propValue)) {
                 results.add(clazz);
             }
         }
 
         return results;
     }
+
+    public static List<Class> findClassesOfAnnotation(Class annotation) throws Exception {
+        List<Class> results = new LinkedList<>();
+        List<String> classess = readAllFullClassName();
+        for (String fullName : classess) {
+            Class clazz = Class.forName(fullName);
+            if (clazz.isAnnotationPresent(annotation)) {
+                results.add(clazz);
+            }
+        }
+
+        return results;
+    }
+
+    public static List<Class> findClassesOfAnnotationProperty(Class annotation, String property, String value) throws Exception {
+        List<Class> classes = findClassesOfAnnotation(annotation);
+        classes = filterClassesByAnnotationProperty(
+                classes,
+                annotation,
+                property,
+                value
+        );
+
+        if (isEmpty(classes)) {
+            throw new ClassNotFoundException(
+                    "Not found classes of annotation " + annotation.getName() + "(" + property + "=" + value + ")"
+            );
+        }
+
+        return classes;
+    }
+
 }

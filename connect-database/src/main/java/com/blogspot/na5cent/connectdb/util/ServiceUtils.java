@@ -6,6 +6,7 @@
 package com.blogspot.na5cent.connectdb.util;
 
 import com.blogspot.na5cent.connectdb.annotation.Service;
+import com.blogspot.na5cent.connectdb.exception.UncheckedException;
 
 /**
  *
@@ -14,12 +15,16 @@ import com.blogspot.na5cent.connectdb.annotation.Service;
 public class ServiceUtils {
 
     public static <T> T findService(String serviceName, Class<T> interfc) {
-        return BeanUtils.findBean(
-                interfc,
-                Service.class,
-                "name",
-                serviceName
-        );
+        try {
+            return BeanUtils.findByAnnotationProperty(
+                    Service.class,
+                    "name",
+                    serviceName,
+                    interfc
+            );
+        } catch (Exception ex) {
+            throw new UncheckedException(ex);
+        }
     }
 
     public static <T> T findService(Class<T> clazz) {
