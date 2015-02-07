@@ -13,15 +13,17 @@ public class EmployeeSearchByCountryService extends AbstractEmployeeSearchServic
 
     @Override
     protected String getSQLCode() {
-        return "SELECT e.* "
-                + "FROM Employees e "
-                + "INNER JOIN Departments d "
-                + "ON (e.department_id = d.department_id) "
-                + "INNER JOIN Locations l "
-                + "ON (d.location_id = l.location_id) "
-                + "INNER JOIN Countries c "
-                + "ON (l.country_id = c.country_id) "
-                + "WHERE LOWER(c.country_name) LIKE ?";
+        return new StringBuilder()
+                .append("SELECT e.* ")
+                .append("FROM Employees e ")
+                .append("INNER JOIN Departments d ")
+                .append("ON (e.department_id = d.department_id) ")
+                .append("INNER JOIN Locations l ")
+                .append("ON (d.location_id = l.location_id) ")
+                .append("INNER JOIN Countries c ")
+                .append("ON (l.country_id = c.country_id) ")
+                .append("WHERE LOWER(c.country_name) LIKE ?")
+                .toString();
     }
 
 }

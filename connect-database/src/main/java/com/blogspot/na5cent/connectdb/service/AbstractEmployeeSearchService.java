@@ -9,9 +9,8 @@ import com.blogspot.na5cent.connectdb.model.EmployeeMap;
 import com.blogspot.na5cent.connectdb.query.Page;
 import com.blogspot.na5cent.connectdb.query.Pagination;
 import com.blogspot.na5cent.connectdb.query.QueryBuilder3;
+import com.blogspot.na5cent.connectdb.util.RegExUtils;
 import com.blogspot.na5cent.connectdb.util.SqlUtils;
-import java.util.regex.Matcher;
-import java.util.regex.Pattern;
 
 /**
  *
@@ -20,23 +19,8 @@ import java.util.regex.Pattern;
 public abstract class AbstractEmployeeSearchService implements EmployeeSearchService {
 
     private static final String QUESTIONMARK = "\\?";
-    private Pattern pattern;
 
     protected abstract String getSQLCode();
-
-    private int countQuestionMark(String keyword) {
-        if (pattern == null) {
-            pattern = Pattern.compile(QUESTIONMARK);
-        }
-
-        Matcher matcher = pattern.matcher(keyword);
-        int counter = 0;
-        while (matcher.find()) {
-            counter = counter + 1;
-        }
-
-        return counter;
-    }
 
     private void addParameters(String keyword, QueryBuilder3 query, int count) {
         for (int i = 0; i < count; i++) {
@@ -47,10 +31,10 @@ public abstract class AbstractEmployeeSearchService implements EmployeeSearchSer
     @Override
     public Page<EmployeeMap> search(String keyword, Pagination pagination) {
         keyword = SqlUtils.wrapKeywordLike(keyword);
-        
+
         String sqlCode = getSQLCode();
-        int count = countQuestionMark(sqlCode);
-        
+        int count = RegExUtils.countPatternFromKeyword(QUESTIONMARK, sqlCode);
+
         QueryBuilder3 query = QueryBuilder3.fromSQL(sqlCode);
         addParameters(keyword, query, count);
 

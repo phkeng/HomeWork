@@ -6,20 +6,20 @@
 package com.blogspot.na5cent.connectdb;
 
 import com.blogspot.na5cent.connectdb.controller.EmployeeSearchCtrl;
-import com.blogspot.na5cent.connectdb.service.EmployeeSearchByDepartmentService;
+import com.blogspot.na5cent.connectdb.service.EmployeeSearchByCountryService2;
 import com.blogspot.na5cent.connectdb.service.EmployeeSearchService;
 
 /**
  *
  * @author anonymous
  */
-public class X3EmployeeSearchServiceCtrl {
+public class X5EmployeeSearchServiceCtrl {
 
     public static void main(String[] args) throws Exception {
-        EmployeeSearchService service = new EmployeeSearchByDepartmentService();
+        EmployeeSearchService service = new EmployeeSearchByCountryService2();
 
         EmployeeSearchCtrl controller = new EmployeeSearchCtrl(service);
-        controller.setKeyword("IT");
+        controller.setKeyword("Canada");
         controller.onSearch(1);
     }
 }
