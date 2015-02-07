@@ -26,7 +26,7 @@ public class RegExUtils {
         return counter;
     }
 
-    public static String findInPattern(String keyword, String patternString) {
+    public static String findOneInPattern(String keyword, String patternString) {
         Pattern pattern = Pattern.compile(patternString);
 
         Matcher matcher = pattern.matcher(keyword);
