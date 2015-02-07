@@ -14,7 +14,6 @@ import java.io.IOException;
  *
  * @author anonymous
  */
-@Service(name = "searchByCountry")
 public class EmployeeSearchByCountryService2 extends AbstractEmployeeSearchService {
 
     @Override

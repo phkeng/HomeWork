@@ -7,7 +7,7 @@ package com.blogspot.na5cent.connectdb.util;
 
 import com.blogspot.na5cent.connectdb.annotation.Service;
 import com.blogspot.na5cent.connectdb.service.EmployeeSearchService;
-import java.io.File;
+import static com.blogspot.na5cent.connectdb.util.CollectionUtils.isEmpty;
 import java.util.LinkedList;
 import java.util.List;
 
@@ -17,21 +17,14 @@ import java.util.List;
  */
 public class ServiceUtils {
 
-    private static List<String> fullClassNames;
-
-    public static List<String> getFullClassNames() {
-        if (fullClassNames == null) {
-            fullClassNames = new LinkedList<>();
-        }
-
-        return fullClassNames;
-    }
-
-    private static List<Class> findServiceByName(String serviceName, List<Class> classes) throws Exception {
+    private static List<Class> findServiceByAnnotationName(String serviceName, List<Class> classes) throws Exception {
         List<Class> clazzez = new LinkedList<>();
         for (Class clazz : classes) {
-            String str = clazz.getAnnotation(Service.class).toString();
-            String name = RegExUtils.findInPattern(str, "\\(name\\=(.*?)\\)");
+            String name = AnnotationUtils.readProperty(
+                    clazz.getAnnotation(Service.class),
+                    "name"
+            );
+
             if (serviceName.equals(name)) {
                 clazzez.add(clazz);
             }
@@ -40,9 +33,10 @@ public class ServiceUtils {
         return clazzez;
     }
 
-    private static void readClasses() {
-        File root = new File(ServiceUtils.class.getResource("/").getPath());
-        walking(root, "");
+    private static void makeClassNotFoundException(String serviceName, Class serviceInterface) throws ClassNotFoundException {
+        throw new ClassNotFoundException(
+                "Undefine service " + message(serviceName) + "of interface \"" + serviceInterface.getName() + "\""
+        );
     }
 
     private static String message(String serviceName) {
@@ -51,101 +45,49 @@ public class ServiceUtils {
                 : "\"" + serviceName + "\" ";
     }
 
-    private static List<Class> findService(String serviceName, List<Class> serviceClasses) throws Exception {
+    private static List<Class> filterByName(String serviceName, List<Class> serviceClasses) throws Exception {
         return serviceName == null
                 ? serviceClasses
-                : findServiceByName(serviceName, serviceClasses);
+                : findServiceByAnnotationName(serviceName, serviceClasses);
     }
 
-    public static <T> T findService(String serviceName, Class<T> clazz) throws Exception {
-        if (getFullClassNames().isEmpty()) {
-            readClasses();
+    public static <T> T findService(String serviceName, Class<T> serviceInterface) throws Exception {
+        // 1. read classes by Service annotation 
+        List<Class> classes = ReflectionUtils.findClassesOfAnnoation(
+                Service.class
+        );
+
+        if (isEmpty(classes)) {
+            makeClassNotFoundException(serviceName, serviceInterface);
         }
 
-        List<Class> serviceClasses = findClassesAnnoationPresent(Service.class);
-        if (CollectionUtils.isEmpty(serviceClasses)) {
-            throw new ClassNotFoundException(
-                    "Undefine service " + message(serviceName) + "of interface \"" + clazz.getName() + "\""
-            );
+        // 2. filter classes by Service annotation name()
+        classes = filterByName(serviceName, classes);
+        if (isEmpty(classes)) {
+            makeClassNotFoundException(serviceName, serviceInterface);
         }
 
-        if (serviceName == null) {
-            if (serviceClasses.size() > 1) {
-                throw new IllegalArgumentException(
-                        "Defined service of interface \"" + clazz.getName() + "\" more than one, "
-                        + "please use method " + RegExUtils.class.getSimpleName() + ".findService(String serviceName, Class<T> clazz)"
-                );
-            }
-        }
-
-        serviceClasses = findService(serviceName, serviceClasses);
-        if (CollectionUtils.isEmpty(serviceClasses)) {
-            throw new ClassNotFoundException(
-                    "Undefine service " + message(serviceName) + "of interface \"" + clazz.getName() + "\""
-            );
-        }
-
-        if (serviceClasses.size() > 1) {
+        if (classes.size() > 1) {
             throw new IllegalArgumentException(
-                    "Defined service " + message(serviceName) + "of interface \"" + clazz.getName() + "\" more than one"
+                    "Defined service " + message(serviceName) + "of interface \"" + serviceInterface.getName() + "\" more than one"
             );
         }
 
-        Class serviceClass = serviceClasses.get(0);
-        if (!clazz.isAssignableFrom(serviceClass)) {
-            throw new ClassNotFoundException(
-                    "Undefine service " + message(serviceName) + "of interface \"" + clazz.getName() + "\""
-            );
+        // 3. check Implementation
+        Class serviceImplementation = classes.get(0);
+        if (!serviceInterface.isAssignableFrom(serviceImplementation)) {
+            makeClassNotFoundException(serviceName, serviceInterface);
         }
 
-        return (T) serviceClass.newInstance();
+        return (T) serviceImplementation.newInstance();
     }
 
     public static <T> T findService(Class<T> clazz) throws Exception {
         return findService(null, clazz);
     }
 
-    private static boolean isEmpty(Object[] array) {
-        return array == null || array.length == 0;
-    }
-
-    private static boolean isClassFile(File file) {
-        return file.getName().endsWith(".class");
-    }
-
-    private static void walking(File parent, String parentName) {
-        File[] fiels = parent.listFiles();
-        if (isEmpty(fiels)) {
-            return;
-        }
-
-        for (File file : fiels) {
-            String prefix = StringUtils.isEmpty(parentName) ? "" : (parentName + ".");
-            String fileFullName = prefix + file.getName();
-            if (file.isDirectory()) {
-                walking(file, fileFullName);
-            } else {
-                if (isClassFile(file)) {
-                    getFullClassNames().add(fileFullName.replace(".class", ""));
-                }
-            }
-        }
-    }
-
-    private static List<Class> findClassesAnnoationPresent(Class annotationClasss) throws ClassNotFoundException {
-        List<Class> clazzez = new LinkedList<>();
-        for (String fullName : getFullClassNames()) {
-            Class clazz = Class.forName(fullName);
-            if (clazz.isAnnotationPresent(annotationClasss)) {
-                clazzez.add(clazz);
-            }
-        }
-
-        return clazzez;
-    }
-
     public static void main(String[] args) throws Exception {
-        EmployeeSearchService service = findService("searchByCountry", EmployeeSearchService.class);
+        EmployeeSearchService service = findService(EmployeeSearchService.class);
         System.out.println("service = " + service.getClass().getName());
     }
 }
