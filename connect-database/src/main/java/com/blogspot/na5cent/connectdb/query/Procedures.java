@@ -6,7 +6,7 @@
 package com.blogspot.na5cent.connectdb.query;
 
 import com.blogspot.na5cent.connectdb.C3DBConfig;
-import com.blogspot.na5cent.connectdb.util.ReflectionUtils;
+import com.blogspot.na5cent.connectdb.util.ClassUtils;
 import java.sql.CallableStatement;
 import java.sql.Connection;
 import java.sql.DriverManager;
@@ -185,7 +185,7 @@ public class Procedures {
                 return null;
             }
 
-            Class clazz = ReflectionUtils.findMethod(
+            Class clazz = ClassUtils.findMethod(
                     callback.getClass(),
                     "output"
             ).getParameterTypes()[0];

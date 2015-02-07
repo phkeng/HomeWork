@@ -15,7 +15,29 @@ import java.util.List;
  *
  * @author anonymous
  */
-public class ReflectionUtils {
+public class ClassUtils {
+
+    public static List<Class> filterClassesByAnnotationProperty(
+            List<Class> classes,
+            Class annotation,
+            String property,
+            String value
+    ) throws Exception {
+
+        List<Class> results = new LinkedList<>();
+        for (Class clazz : classes) {
+            String propValue = AnnotationUtils.readProperty(
+                    clazz.getAnnotation(annotation),
+                    property
+            );
+
+            if (value.equals(propValue)) {
+                results.add(clazz);
+            }
+        }
+
+        return results;
+    }
 
     public static Method findMethod(Class clazz, String methodName) {
         Method[] methods = clazz.getDeclaredMethods();
@@ -28,7 +50,7 @@ public class ReflectionUtils {
         return null;
     }
 
-    public static List<String> readFullClassName() {
+    private static List<String> readAllFullClassName() {
         List<String> repo = new LinkedList<>();
         File root = new File(ServiceUtils.class.getResource("/").getPath());
         walking(
@@ -63,9 +85,10 @@ public class ReflectionUtils {
         }
     }
 
-    public static List<Class> findClassesOfAnnoation(List<String> classes, Class annotationClasss) throws ClassNotFoundException {
+    public static List<Class> findClassesOfAnnoation(Class annotationClasss) throws ClassNotFoundException {
         List<Class> results = new LinkedList<>();
-        for (String fullName : classes) {
+        List<String> classess = readAllFullClassName();
+        for (String fullName : classess) {
             Class clazz = Class.forName(fullName);
             if (clazz.isAnnotationPresent(annotationClasss)) {
                 results.add(clazz);
@@ -73,9 +96,5 @@ public class ReflectionUtils {
         }
 
         return results;
-    }
-
-    public static List<Class> findClassesOfAnnoation(Class annotationClasss) throws ClassNotFoundException {
-        return findClassesOfAnnoation(readFullClassName(), annotationClasss);
     }
 }
