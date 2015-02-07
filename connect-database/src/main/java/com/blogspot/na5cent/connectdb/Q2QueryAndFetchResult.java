@@ -36,6 +36,7 @@ public class Q2QueryAndFetchResult {
 
             statement = connection.createStatement();
             resultSet = statement.executeQuery("SELECT * FROM Employees");
+            
             while (resultSet.next()) {
                 System.out.println("employee_id = " + resultSet.getInt("employee_id"));
                 System.out.println("first_name = " + resultSet.getString("first_name"));

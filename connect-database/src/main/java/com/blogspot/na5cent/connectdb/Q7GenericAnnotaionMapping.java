@@ -42,6 +42,7 @@ public class Q7GenericAnnotaionMapping {
 
             statement = connection.createStatement();
             resultSet = statement.executeQuery("SELECT * FROM Jobs");
+            
             results = GenericAnnotationMapping.fromResultSet(resultSet, Job.class);
         } finally {
             if (resultSet != null) {

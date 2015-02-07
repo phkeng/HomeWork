@@ -42,6 +42,7 @@ public class Q5NormalMapping {
 
             statement = connection.createStatement();
             resultSet = statement.executeQuery("SELECT * FROM Employees");
+            
             results = EmployeeNormalMapping.fromResultSet(resultSet);
         } finally {
             if (resultSet != null) {

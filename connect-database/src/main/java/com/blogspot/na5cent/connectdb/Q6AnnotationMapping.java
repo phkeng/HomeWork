@@ -42,6 +42,7 @@ public class Q6AnnotationMapping {
 
             statement = connection.createStatement();
             resultSet = statement.executeQuery("SELECT * FROM Jobs");
+            
             results = JobAnnotationMapping.fromResultSet(resultSet);
         } finally {
             if (resultSet != null) {
