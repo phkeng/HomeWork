@@ -20,11 +20,11 @@ public class BeanUtils {
         );
     }
 
-    private static void makeFoundMoreThanOneException(String value, Class bean) {
-        throw new IllegalArgumentException(
-                "Defined " + (bean.isInterface() ? "implementation" : "sub class") + " " + message(value)
+    private static void makeDuplicateException(String value, Class bean) {
+        throw new IllegalStateException(
+                "Duplicate " + (bean.isInterface() ? "implementation" : "sub class") + " " + message(value)
                 + "of " + (bean.isInterface() ? "interface" : "class") + " \""
-                + bean.getName() + "\" more than one"
+                + bean.getName() + "\", more than one"
         );
     }
 
@@ -34,12 +34,17 @@ public class BeanUtils {
                 : "\"" + propValue + "\" ";
     }
 
-    public static <T> T findByAnnotationProperty(Class annotation, String property, String value, Class<T> bean) throws Exception {
+    public static <T> T findByAnnotationPropertyName(Class annotation, String value, Class<T> bean) throws Exception {
         List<Class> classes = null;
         try {
-            classes = ClassUtils.findClassesOfAnnotationProperty(annotation, property, value);
+            classes = ClassUtils.findClassesOfAnnotationProperty(
+                    annotation,
+                    "name",
+                    value
+            );
+
             if (classes.size() > 1) {
-                makeFoundMoreThanOneException(value, bean);
+                makeDuplicateException(value, bean);
             }
 
             Class foundClass = classes.get(0);

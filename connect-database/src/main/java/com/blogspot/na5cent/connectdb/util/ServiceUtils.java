@@ -16,9 +16,8 @@ public class ServiceUtils {
 
     public static <T> T findService(String serviceName, Class<T> interfc) {
         try {
-            return BeanUtils.findByAnnotationProperty(
+            return BeanUtils.findByAnnotationPropertyName(
                     Service.class,
-                    "name",
                     serviceName,
                     interfc
             );
