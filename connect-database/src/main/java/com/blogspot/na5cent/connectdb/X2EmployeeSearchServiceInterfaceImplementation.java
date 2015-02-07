@@ -9,7 +9,7 @@ import com.blogspot.na5cent.connectdb.model.EmployeeMap;
 import com.blogspot.na5cent.connectdb.printer.GenericReflectPrinter;
 import com.blogspot.na5cent.connectdb.query.Page;
 import com.blogspot.na5cent.connectdb.query.Pagination;
-import com.blogspot.na5cent.connectdb.service.EmployeeSearchByJobTitleService;
+import com.blogspot.na5cent.connectdb.service.EmployeeSearchByNameService;
 import com.blogspot.na5cent.connectdb.service.EmployeeSearchService;
 
 /**
@@ -48,16 +48,16 @@ class SearchCtrl {
 public class X2EmployeeSearchServiceInterfaceImplementation {
 
     public static void main(String[] args) throws Exception {
-//        EmployeeSearchService service = new EmployeeSearchByNameService();
-//
-//        SearchCtrl controller = new SearchCtrl(service);
-//        controller.setKeyword("Lee");
-//        controller.onSearch(1);
-        
-        EmployeeSearchService service = new EmployeeSearchByJobTitleService();
+        EmployeeSearchService service = new EmployeeSearchByNameService();
 
         SearchCtrl controller = new SearchCtrl(service);
-        controller.setKeyword("Programmer");
+        controller.setKeyword("Lee");
         controller.onSearch(1);
+//        
+//        EmployeeSearchService service = new EmployeeSearchByJobTitleService();
+//
+//        SearchCtrl controller = new SearchCtrl(service);
+//        controller.setKeyword("Programmer");
+//        controller.onSearch(1);
     }
 }
