@@ -45,7 +45,7 @@ class SearchCtrl {
     }
 }
 
-public class X2EmployeeSearchServiceCtrl {
+public class X2EmployeeSearchServiceInterfaceImplementation {
 
     public static void main(String[] args) throws Exception {
 //        EmployeeSearchService service = new EmployeeSearchByNameService();
