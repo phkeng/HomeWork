@@ -5,10 +5,13 @@
  */
 package com.blogspot.na5cent.connectdb.service;
 
+import com.blogspot.na5cent.connectdb.annotation.Service;
+
 /**
  *
  * @author anonymous
  */
+@Service(name = "searchByCountry")
 public class EmployeeSearchByCountryService extends AbstractEmployeeSearchService {
 
     @Override

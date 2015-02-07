@@ -5,6 +5,7 @@
  */
 package com.blogspot.na5cent.connectdb.service;
 
+import com.blogspot.na5cent.connectdb.annotation.Service;
 import com.blogspot.na5cent.connectdb.exception.SQLUncheckedException;
 import com.blogspot.na5cent.connectdb.util.IOUtils;
 import java.io.IOException;
@@ -13,6 +14,7 @@ import java.io.IOException;
  *
  * @author anonymous
  */
+@Service(name = "searchByCountry")
 public class EmployeeSearchByCountryService2 extends AbstractEmployeeSearchService {
 
     @Override

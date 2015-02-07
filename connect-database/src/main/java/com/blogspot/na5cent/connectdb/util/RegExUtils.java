@@ -25,4 +25,15 @@ public class RegExUtils {
 
         return counter;
     }
+
+    public static String findInPattern(String keyword, String patternString) {
+        Pattern pattern = Pattern.compile(patternString);
+
+        Matcher matcher = pattern.matcher(keyword);
+        while (matcher.find()) {
+            return matcher.group(1);
+        }
+
+        return null;
+    }
 }
