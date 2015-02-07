@@ -6,6 +6,7 @@
 package com.blogspot.na5cent.connectdb.query;
 
 import com.blogspot.na5cent.connectdb.C3DBConfig;
+import com.blogspot.na5cent.connectdb.exception.SQLUncheckedException;
 import com.blogspot.na5cent.connectdb.mapping.GenericAnnotationMapping;
 import static com.blogspot.na5cent.connectdb.util.CollectionUtils.isEmpty;
 import java.sql.Connection;
@@ -22,27 +23,27 @@ import java.util.Map;
  *
  * @author anonymous
  */
-public class QueryBuilder2 {
+public class QueryBuilder3 {
 
     private final String sqlCode;
     private final List<Object> params;
     private Pagination pagination;
 
-    private QueryBuilder2(String sqlCode) {
+    private QueryBuilder3(String sqlCode) {
         this.sqlCode = sqlCode;
         params = new LinkedList<>();
     }
 
-    public static QueryBuilder2 fromSQL(String sqlCode) {
-        return new QueryBuilder2(sqlCode);
+    public static QueryBuilder3 fromSQL(String sqlCode) {
+        return new QueryBuilder3(sqlCode);
     }
 
-    public QueryBuilder2 addParam(Object value) {
+    public QueryBuilder3 addParam(Object value) {
         params.add(value);
         return this;
     }
 
-    public QueryBuilder2 withPagination(Pagination pagination) {
+    public QueryBuilder3 withPagination(Pagination pagination) {
         this.pagination = pagination;
         return this;
     }
@@ -57,14 +58,10 @@ public class QueryBuilder2 {
         }
     }
 
-    public <T> List<T> executeforList(final Class<T> clazz) throws Exception {
+    public <T> List<T> executeforList(final Class<T> clazz) {
         final List<T> results = new LinkedList<>();
-        execute(new Callback() {
-
-            @Override
-            public void processing(ResultSet resultSet) throws Exception {
-                results.addAll(GenericAnnotationMapping.fromResultSet(resultSet, clazz));
-            }
+        execute((ResultSet resultSet) -> {
+            results.addAll(GenericAnnotationMapping.fromResultSet(resultSet, clazz));
         });
 
         return results;
@@ -93,33 +90,25 @@ public class QueryBuilder2 {
                 .toString();
     }
 
-    public long executeCount() throws Exception {
+    public long executeCount() {
         final Map<String, Long> map = new HashMap<>();
-        execute(wrapBySQLCount(sqlCode), new Callback() {
-
-            @Override
-            public void processing(ResultSet resultSet) throws Exception {
-                if (resultSet.next()) {
-                    map.put("count", resultSet.getLong("cnt"));
-                }
+        execute(wrapBySQLCount(sqlCode), (ResultSet resultSet) -> {
+            if (resultSet.next()) {
+                map.put("count", resultSet.getLong("cnt"));
             }
         });
 
         return map.get("count") == null ? 0 : map.get("count");
     }
 
-    public <T> Page<T> executeforPage(final Class<T> clazz) throws Exception {
+    public <T> Page<T> executeforPage(final Class<T> clazz) {
         if (pagination == null) {
             throw new IllegalArgumentException("require pagination");
         }
 
         final Page<T> page = new Page<>(pagination, executeCount());
-        execute(wrapBySQLPagination(sqlCode, pagination), new Callback() {
-
-            @Override
-            public void processing(ResultSet resultSet) throws Exception {
-                page.setContents(GenericAnnotationMapping.fromResultSet(resultSet, clazz));
-            }
+        execute(wrapBySQLPagination(sqlCode, pagination), (ResultSet resultSet) -> {
+            page.setContents(GenericAnnotationMapping.fromResultSet(resultSet, clazz));
         });
 
         return page;
@@ -133,39 +122,44 @@ public class QueryBuilder2 {
         );
     }
 
-    private void execute(String sqlCode, Callback callback, List<Object> params) throws Exception {
-        Class.forName(C3DBConfig.getDriver());
-
-        Connection connection = null;
-        PreparedStatement statement = null;
-        ResultSet resultSet = null;
+    private void execute(String sqlCode, Callback callback, List<Object> params) {
         try {
-            connection = getConnection();
+            Class.forName(C3DBConfig.getDriver());
 
-            statement = connection.prepareStatement(sqlCode);
-            setParameters(statement, params);
-            resultSet = statement.executeQuery();
-            callback.processing(resultSet);
-        } finally {
-            if (resultSet != null) {
-                resultSet.close();
-            }
+            Connection connection = null;
+            PreparedStatement statement = null;
+            ResultSet resultSet = null;
+            try {
+                connection = getConnection();
 
-            if (statement != null) {
-                statement.close();
-            }
+                statement = connection.prepareStatement(sqlCode);
+                setParameters(statement, params);
+                resultSet = statement.executeQuery();
+                callback.processing(resultSet);
 
-            if (connection != null) {
-                connection.close();
+            } finally {
+                if (resultSet != null) {
+                    resultSet.close();
+                }
+
+                if (statement != null) {
+                    statement.close();
+                }
+
+                if (connection != null) {
+                    connection.close();
+                }
             }
+        } catch (Exception ex) {
+            throw new SQLUncheckedException(ex);
         }
     }
 
-    private void execute(String sqlCode, Callback callback) throws Exception {
+    private void execute(String sqlCode, Callback callback) {
         execute(sqlCode, callback, params);
     }
 
-    public void execute(Callback callback) throws Exception {
+    public void execute(Callback callback) {
         execute(sqlCode, callback, params);
     }
 
