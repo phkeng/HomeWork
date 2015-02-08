@@ -12,7 +12,7 @@ import java.util.Objects;
  *
  * @author anonymous
  */
-public class Job {
+public class Job {  
 
     @Column(name = "job_id")
     private String id;

@@ -17,6 +17,7 @@ public class X6EmployeeSearchServiceAutoImplementation {
 
     public static void main(String[] args) throws Exception {
         EmployeeSearchService service = ServiceUtils.findService("searchByCountry", EmployeeSearchService.class);
+        System.out.println("service = " + service.getClass().getSimpleName());
 
         EmployeeSearchCtrl controller = new EmployeeSearchCtrl(service);
         controller.setKeyword("Canada");

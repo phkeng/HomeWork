@@ -62,7 +62,7 @@ public class Q5NormalMapping {
     }
 
     public static void main(String[] args) throws ClassNotFoundException, SQLException, Exception {
-        List<Employee> results = findEmployees();
-        EmployeeNormalPrinter.prints(results);
+        List<Employee> employees = findEmployees();
+        EmployeeNormalPrinter.prints(employees);
     }
 }

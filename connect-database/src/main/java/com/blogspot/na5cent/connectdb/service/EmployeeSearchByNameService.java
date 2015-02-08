@@ -5,6 +5,7 @@
  */
 package com.blogspot.na5cent.connectdb.service;
 
+import com.blogspot.na5cent.connectdb.annotation.Service;
 import com.blogspot.na5cent.connectdb.model.EmployeeMap;
 import com.blogspot.na5cent.connectdb.query.Page;
 import com.blogspot.na5cent.connectdb.query.Pagination;
@@ -15,6 +16,7 @@ import com.blogspot.na5cent.connectdb.util.SqlUtils;
  *
  * @author anonymous
  */
+@Service(name = "searchByName")
 public class EmployeeSearchByNameService implements EmployeeSearchService {
 
     private static final String SQL_CODE
