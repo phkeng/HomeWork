@@ -1,0 +1,10 @@
+#NOTE: This is an internal implementation file, its format can be changed without prior notice.
+#Mon Feb 02 11:10:19 ICT 2015
+http\://repo.maven.apache.org/maven2/.lastUpdated=1422850219211
+http\://download.eclipse.org/rt/eclipselink/maven.repo/.lastUpdated=1422850218855
+http\://repo.springsource.org/libs-snapshot/.lastUpdated=1422850218240
+http\://download.eclipse.org/rt/eclipselink/maven.repo/.error=
+http\://repo.springsource.org/libs-snapshot/.error=
+http\://repository.primefaces.org/.error=
+http\://repo.maven.apache.org/maven2/.error=
+http\://repository.primefaces.org/.lastUpdated=1422850218554

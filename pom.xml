@@ -8,7 +8,8 @@
     <modules>
         <module>chapter6</module>
         <module>connect-database</module>
-    </modules>
+    <module>htmlcssjs</module>
+  </modules>
     <properties>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
     </properties>
