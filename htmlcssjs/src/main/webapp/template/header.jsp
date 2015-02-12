@@ -58,6 +58,12 @@
                 height: 300px;
                 border : solid 1px #ccc;
             }
+            
+            .prev-next-button{
+                position: absolute;
+                top: 30px;
+                right: 30px;
+            }
         </style>
     </head>
     <body>
