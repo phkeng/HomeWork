@@ -22,7 +22,7 @@ public class JspUtils {
         return str.replace("<", "&lt;").replace(">", "&gt;");
     }
 
-    public static void fromInputStream2JspWriter(InputStream inputStream, JspWriter writer) throws IOException {
+    public static void readContent(InputStream inputStream, JspWriter writer) throws IOException {
         fromInputStream2JspWriter(inputStream, writer, new String[]{"\n"});
     }
 
@@ -34,7 +34,7 @@ public class JspUtils {
             bff = new BufferedReader(reader);
             String line;
             while ((line = bff.readLine()) != null) {
-                writer.print(newLine[0] + escape(line));
+                writer.println(escape(line));
             }
         } finally {
             if (bff != null) {

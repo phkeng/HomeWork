@@ -1,7 +1,7 @@
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <%@include file="/template/header.jsp" %>
 
-<h1>โครงสร้าง html</h1>
+<h1>1. รู้จักกับ Html (Hyper Text Markup Language)</h1>
 <div class="prev-next-button">
     <button onclick="window.location.href = ''">< ย้อนกลับ</button>
     &nbsp;
@@ -13,21 +13,25 @@
         <pre>
             <code class="html">
                 <%
-                    JspUtils.fromInputStream2JspWriter(
-                            request.getServletContext().getResourceAsStream("/html-structure/code.html"),
+                    JspUtils.readContent(
+                            request.getServletContext().getResourceAsStream("/introduce-html/code.html"),
                             out
                     );
                 %>
             </code>
         </pre>
+        <strong>คำอธิบาย</strong>
         <p>
             ddddddd
         </p>
     </div>
 </div>
 <div class="page-right">
-    <div>ตัวอย่าง</div>
-    <iframe src="code.html"></iframe>
+    <strong>ตัวอย่าง</strong>
+    <div class="example-iframe">
+        <iframe src="code.html"></iframe>
+        <button class="iframe-reload-button">โหลดตัวอย่างใหม่</button>
+    </div>
 </div>
 
 <%@include file="/template/footer.jsp" %>
