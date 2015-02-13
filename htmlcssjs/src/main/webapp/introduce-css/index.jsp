@@ -800,9 +800,99 @@ li มีค่าต่ำสุด  เพราะมีแค่ type select
     </div>
 </div>
 <div class="clear"></div>
-
-
-
+<hr/>
+<h1 id="float">CSS Float <a href="#float">mark</a></h1>
+<p>
+    เป็นการแสดงผลแบบลอยตัว ของ element
+    <br/>
+    ที่ใช้บ่อยๆ มี 2 ตัว คือ 
+    <br/>
+    <br/>
+    float : left
+    <br/>
+    float : right
+</p>
+<br/>
+<br/>
+<h3>float : left</h3>
+<div class="content-left">
+    <div class="content-left-content">
+        <pre>
+            <code class="html">
+                <%
+                    JspUtils.readContent(
+                            request.getServletContext().getResourceAsStream("/introduce-css/example14.html"),
+                            out
+                    );
+                %>
+            </code>
+        </pre>
+        <p>
+            เป็นการวางตำแหน่ง element ให้ลอยชิดซ้าย
+        </p>
+    </div>
+</div>
+<div class="content-right">
+    <strong>ผลลัพธ์</strong>
+    <div class="example-iframe">
+        <iframe src="example14.html"></iframe>
+        <button class="iframe-reload-button">โหลดผลลัพธ์ใหม่</button>
+    </div>
+</div>
+<div class="clear"></div>
+<h3>float : right</h3>
+<div class="content-left">
+    <div class="content-left-content">
+        <pre>
+            <code class="html">
+                <%
+                    JspUtils.readContent(
+                            request.getServletContext().getResourceAsStream("/introduce-css/example15.html"),
+                            out
+                    );
+                %>
+            </code>
+        </pre>
+        <p>
+            เป็นการวางตำแหน่ง element ให้ลอยชิดขวา
+        </p>
+    </div>
+</div>
+<div class="content-right">
+    <strong>ผลลัพธ์</strong>
+    <div class="example-iframe">
+        <iframe src="example15.html"></iframe>
+        <button class="iframe-reload-button">โหลดผลลัพธ์ใหม่</button>
+    </div>
+</div>
+<div class="clear"></div>
+<h3>แบ่งหน้าเว็บออกเป็น 2 ส่วน ซ้ายขวา</h3>
+<div class="content-left">
+    <div class="content-left-content">
+        <pre>
+            <code class="html">
+                <%
+                    JspUtils.readContent(
+                            request.getServletContext().getResourceAsStream("/introduce-css/example16.html"),
+                            out
+                    );
+                %>
+            </code>
+        </pre>
+            <p style="color: red;">
+                ****** ทุกครั้งที่มีการใช้ float  จะต้องมาการ clear float ตบท้าย เสมอ
+เพื่อไม่ให้ element ถัดไป  รับผลกระทบจากการใช้ float นั้นด้วย
+            </p>
+    </div>
+</div>
+<div class="content-right">
+    <strong>ผลลัพธ์</strong>
+    <div class="example-iframe">
+        <iframe src="example16.html"></iframe>
+        <button class="iframe-reload-button">โหลดผลลัพธ์ใหม่</button>
+    </div>
+</div>
+<div class="clear"></div>
 
 
 <style>
