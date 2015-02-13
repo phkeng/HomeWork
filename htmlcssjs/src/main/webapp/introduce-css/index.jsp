@@ -880,7 +880,7 @@ li มีค่าต่ำสุด  เพราะมีแค่ type select
             </code>
         </pre>
             <p style="color: red;">
-                ****** ทุกครั้งที่มีการใช้ float  จะต้องมาการ clear float ตบท้าย เสมอ
+                ****** ทุกครั้งที่มีการใช้ float  จะต้องมีการ clear float ตบท้าย <u style="font-size: 20pt;">เสมอ</u>
 เพื่อไม่ให้ element ถัดไป  รับผลกระทบจากการใช้ float นั้นด้วย
             </p>
     </div>
