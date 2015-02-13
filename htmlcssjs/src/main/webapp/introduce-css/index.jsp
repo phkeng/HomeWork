@@ -368,7 +368,7 @@ span[name^=button][name$=blue]{ /* tag span ซึ่งมี attribute name �
 <div class="content-left">
     <div class="content-left-content">
         <pre>
-            <code class="css">
+            <code class="html">
                 <%
                     JspUtils.readContent(
                             request.getServletContext().getResourceAsStream("/introduce-css/example4.html"),
@@ -401,7 +401,7 @@ span[name^=button][name$=blue]{ /* tag span ซึ่งมี attribute name �
 <div class="content-left">
     <div class="content-left-content">
         <pre>
-            <code class="css">
+            <code class="html">
                 <%
                     JspUtils.readContent(
                             request.getServletContext().getResourceAsStream("/introduce-css/example5.html"),
@@ -428,11 +428,23 @@ span[name^=button][name$=blue]{ /* tag span ซึ่งมี attribute name �
     บันทึกเป็นไฟล์ .css ต่างหาก  แล้วเรียกใช้  CSS นั้นแทน
 <div class="content-left">
     <div class="content-left-content">
+        html
+        <pre>
+            <code class="html">
+                <%
+                    JspUtils.readContent(
+                            request.getServletContext().getResourceAsStream("/introduce-css/example6.html"),
+                            out
+                    );
+                %>
+            </code>
+        </pre>
+        css
         <pre>
             <code class="css">
                 <%
                     JspUtils.readContent(
-                            request.getServletContext().getResourceAsStream("/introduce-css/example6.html"),
+                            request.getServletContext().getResourceAsStream("/introduce-css/example6.css"),
                             out
                     );
                 %>
@@ -477,15 +489,15 @@ span[name^=button][name$=blue]{ /* tag span ซึ่งมี attribute name �
     ถ้าเราให้ 
     <br/>
     a คือ <span class="specific">จำนวน</span>ของ id selector
-<br/>
-b คือ <span class="specific">จำนวน</span>ของ class selector
-<br/>
-c คือ <span class="specific">จำนวน</span>ของ tag (type) selector
-<br/>
-<br/>
-เราจะสามารถคำนวณ  ลำดับความสำคัญของ CSS Selector ได้ดังนี้
-<br/>
-<br/>
+    <br/>
+    b คือ <span class="specific">จำนวน</span>ของ class selector
+    <br/>
+    c คือ <span class="specific">จำนวน</span>ของ tag (type) selector
+    <br/>
+    <br/>
+    เราจะสามารถคำนวณ  ลำดับความสำคัญของ CSS Selector ได้ดังนี้
+    <br/>
+    <br/>
 <pre>
             <code class="css">
     li            {...}  /* a=0 b=0 c=1 -> specificity =   1 */
@@ -527,6 +539,136 @@ li มีค่าต่ำสุด  เพราะมีแค่ type select
     }  
     </code>
 </pre>
+<hr/>
+<h1 id="dsplay">CSS Display <a href="#display">mark</a></h1>
+<p>
+    คือรูปแบบการแสดงผลของ  selector ที่กำหนด
+    <br/>
+    ที่ใช้กันบ่อยๆ มีดังต่อไปนี้
+</p>
+<br/>
+<br/>
+<h3>display : block</h3>
+<div class="content-left">
+    <div class="content-left-content">
+        <pre>
+            <code class="html">
+                <%
+                    JspUtils.readContent(
+                            request.getServletContext().getResourceAsStream("/introduce-css/example7.html"),
+                            out
+                    );
+                %>
+            </code>
+        </pre>
+        tag ไหนที่ถูกใช้ display : block
+        <br/>
+        <br/>
+        tag นั้น  จะสามารถกำหนดความกว้าง  ความสูงได้
+        <br/>
+        และถ้าไม่กำหนดความกว้าง หรือความสูง tag นั้น  จะแสดงผลความกว้างเต็ม parent tag
+        <br/> 
+        แต่ความสูงตาม children tag
+        <br/>
+        <br/>
+        *** tag ถัดไปที่อยู่ต่อจาก display : block จะขึ้นบรรทัดใหม่
+    </div>
+</div>
+<div class="content-right">
+    <strong>ผลลัพธ์</strong>
+    <div class="example-iframe">
+        <iframe src="example7.html" style="height: 500px;"></iframe>
+        <button class="iframe-reload-button">โหลดผลลัพธ์ใหม่</button>
+    </div>
+</div>
+<div class="clear"></div>
+<h3>display : inline</h3>
+<div class="content-left">
+    <div class="content-left-content">
+        <pre>
+            <code class="html">
+                <%
+                    JspUtils.readContent(
+                            request.getServletContext().getResourceAsStream("/introduce-css/example8.html"),
+                            out
+                    );
+                %>
+            </code>
+        </pre>
+        tag ไหนที่ถูกใช้ display : inline
+        <br/>
+        <br/>
+        tag นั้น  จะไม่สามารถกำหนดขนาดได้
+        <br/>
+        tag นั้น  จะแสดงผลขนาดตามขนาดของ children tag เท่านั้น
+        <br/>
+        <br/>
+        *** tag ถัดไปที่อยู่ต่อจาก display : inline จะอยู่ต่อกัน <u>ไม่</u>ขึ้นบรรทัดใหม่
+    </div>
+</div>
+<div class="content-right">
+    <strong>ผลลัพธ์</strong>
+    <div class="example-iframe">
+        <iframe src="example8.html" style="height: 500px;"></iframe>
+        <button class="iframe-reload-button">โหลดผลลัพธ์ใหม่</button>
+    </div>
+</div>
+<div class="clear"></div>
+<br/>
+<br/>
+<h3>display : inline-block</h3>
+<div class="content-left">
+    <div class="content-left-content">
+        <pre>
+            <code class="html">
+                <%
+                    JspUtils.readContent(
+                            request.getServletContext().getResourceAsStream("/introduce-css/example9.html"),
+                            out
+                    );
+                %>
+            </code>
+        </pre>
+        display : inline-block
+        <br/>
+        จะเป็นการรวมคุณสมบัติข้อดีของ inline + block
+        <br/>
+        <br/>
+        คือ ไม่ขึ้นบรรทัดใหม่ เหมือน inline
+        <br/>
+        แต่สามารถกำหนดความกว้าง ความสูง ของ tag ได้เหมือน block
+    </div>
+</div>
+<div class="content-right">
+    <strong>ผลลัพธ์</strong>
+    <div class="example-iframe">
+        <iframe src="example9.html" style="height: 500px;"></iframe>
+        <button class="iframe-reload-button">โหลดผลลัพธ์ใหม่</button>
+    </div>
+</div>
+<div class="clear"></div>
+<hr/>
+<h1 id="position">CSS Position <a href="#position">mark</a></h1>
+<p>
+    คือรูปแบบการจัดตำแหน่งของ tag หรือ element html
+    <br/>
+    มีทั้งหมด 4 แบบ
+    <br/>
+    <br/>
+    1. static
+    <br/>
+    2. fixed
+    <br/>
+    3. relative
+    <br/>
+    3. absolute
+    <br/>
+    <br/>
+</p>
+<h3>static</h3>
+<p>
+    เป็นการจัดตำแหน่งแบบไหลตาม normal flow  ของ element นั้นๆ
+</p>
 <style>
     .selector-topic{
         color : red;
