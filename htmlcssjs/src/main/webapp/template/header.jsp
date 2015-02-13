@@ -110,7 +110,7 @@
                 padding: 10px;
             }
             
-            .sepecific{
+            .specific{
                 color : #3297fd;
                 font-style: italic;
             }

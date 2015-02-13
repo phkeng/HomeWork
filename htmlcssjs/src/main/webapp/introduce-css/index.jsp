@@ -34,6 +34,8 @@
     <br/>
     ก็ขึ้นอยู่กับการทาสี  หรือฝีมือการตกแต่งของเรานั่นเอง
 </div>
+<br/>
+<br/>
 <hr/>
 <h1 id="syntax">Syntax ของ CSS <a href="#syntax">mark</a></h1>
 <p>
@@ -353,7 +355,7 @@ span[name^=button][name$=blue]{ /* tag span ซึ่งมี attribute name �
     <br/>
     1. inline
     <br/>
-    2. embeded
+    2. internal หรือ embeded
     <br/>
     3. external
 </p>
@@ -362,20 +364,20 @@ span[name^=button][name$=blue]{ /* tag span ซึ่งมี attribute name �
 <p>
     เป็นการเขียน CSS บน HTML tag นั้นๆ  โดยตรงเลย
     <br/>
-    เขียนบน attribute <span class="sepecific">"syle"</span> ของ tag นั้น  เช่น
-    <div class="content-left">
+    เขียนบน attribute <span class="specific">"syle"</span> ของ tag นั้น  เช่น
+<div class="content-left">
     <div class="content-left-content">
-    <pre>
+        <pre>
             <code class="css">
-<%
+                <%
                     JspUtils.readContent(
                             request.getServletContext().getResourceAsStream("/introduce-css/example4.html"),
                             out
                     );
                 %>
             </code>
-</pre>
-   </div>
+        </pre>
+    </div>
 </div>
 <div class="content-right">
     <strong>ผลลัพธ์</strong>
@@ -386,29 +388,29 @@ span[name^=button][name$=blue]{ /* tag span ซึ่งมี attribute name �
 </div>
 <div class="clear"></div>
 </p>
-<h3>embeded</h3>
+<h3>internal หรือ embeded</h3>
 <p>
     เป็นการแยก CSS ออกจาก HTML tag  
     <br/>
-เขียนไว้ใน tag &lt;style&gt;
-<br/>
-<br/>
-เพราะการเขียนแบบ inline มัน fixed code จนเกินไป
-<br/>
-แก้ไขยากลำบาก  อีกอย่าง  เราไม่สามารถใช้ซ้ำ CSS ที่เราเขียนขึ้นมาได้
+    เขียนไว้ใน tag &lt;style&gt;
+    <br/>
+    <br/>
+    เพราะการเขียนแบบ inline มัน fixed code จนเกินไป
+    <br/>
+    แก้ไขยากลำบาก  อีกอย่าง  เราไม่สามารถใช้ซ้ำ CSS ที่เราเขียนขึ้นมาได้
 <div class="content-left">
     <div class="content-left-content">
-    <pre>
+        <pre>
             <code class="css">
-<%
+                <%
                     JspUtils.readContent(
                             request.getServletContext().getResourceAsStream("/introduce-css/example5.html"),
                             out
                     );
                 %>
             </code>
-</pre>
-   </div>
+        </pre>
+    </div>
 </div>
 <div class="content-right">
     <strong>ผลลัพธ์</strong>
@@ -423,20 +425,20 @@ span[name^=button][name$=blue]{ /* tag span ซึ่งมี attribute name �
 <p>
     เป็นการแยก CSS ออกจากไฟล์ HTML เลย
     <br/>
-บันทึกเป็นไฟล์ .css ต่างหาก  แล้วเรียกใช้  CSS นั้นแทน
+    บันทึกเป็นไฟล์ .css ต่างหาก  แล้วเรียกใช้  CSS นั้นแทน
 <div class="content-left">
     <div class="content-left-content">
-    <pre>
+        <pre>
             <code class="css">
-<%
+                <%
                     JspUtils.readContent(
                             request.getServletContext().getResourceAsStream("/introduce-css/example6.html"),
                             out
                     );
                 %>
             </code>
-</pre>
-   </div>
+        </pre>
+    </div>
 </div>
 <div class="content-right">
     <strong>ผลลัพธ์</strong>
@@ -447,7 +449,84 @@ span[name^=button][name$=blue]{ /* tag span ซึ่งมี attribute name �
 </div>
 <div class="clear"></div>
 </p>
-
+<hr/>
+<h1 id="priority">ลำดับความสำคัญของ CSS (CSS Priority) <a href="#priority">mark</a></h1>
+<p>
+    CSS  จะมีลำดับความสำคัญของการแสดงผลดังต่อไปนี้
+    <br/>
+    <br/>
+    1. Inline style (สูงสุด)
+    <br/>
+    2. Internal (Embeded) style sheet
+    <br/>
+    3. External style sheet
+    <br/>
+    4. Browser default (ต่ำสุด)
+    <br/>
+    <br/>
+    และจะมีลำดับความสำคัญของ Selector ดังต่อไปนี้
+    <br/>
+    <br/>
+    1. id selector (สูงสุด)
+    <br/>
+    2. class selector
+    <br/>
+    2. tag (type) selector (ต่ำสุด)
+    <br/>
+    <br/>
+    ถ้าเราให้ 
+    <br/>
+    a คือ <span class="specific">จำนวน</span>ของ id selector
+<br/>
+b คือ <span class="specific">จำนวน</span>ของ class selector
+<br/>
+c คือ <span class="specific">จำนวน</span>ของ tag (type) selector
+<br/>
+<br/>
+เราจะสามารถคำนวณ  ลำดับความสำคัญของ CSS Selector ได้ดังนี้
+<br/>
+<br/>
+<pre>
+            <code class="css">
+    li            {...}  /* a=0 b=0 c=1 -> specificity =   1 */
+    ul li         {...}  /* a=0 b=0 c=2 -> specificity =   2 */
+    ul ol li      {...}  /* a=0 b=0 c=3 -> specificity =   3 */
+    li.red        {...}  /* a=0 b=1 c=1 -> specificity =  11 */
+    ul ol li.red  {...}  /* a=0 b=1 c=3 -> specificity =  13 */
+    #list         {...}  /* a=1 b=0 c=0 -> specificity = 100 */
+    </code>
+</pre>
+จากตัวอย่างข้างบน  #list มีลำดับความสำคัญของ Selector สูงที่สุด  เพราะมีค่า a b c เท่ากับ 100
+<br/>
+li มีค่าต่ำสุด  เพราะมีแค่ type selector อันเดียว คือเท่ากับ 1
+</p>
+แต่เราก็สามารถทำให้ Type Selector มี priority สูงกว่า Id Selector ได้  ด้วยการใช้ !important
+<br/>
+<br/>
+ตอนแรก id selector สูงกว่า
+<pre>
+            <code class="css">
+    li { /* a=0 b=0 pec=1 -> specificity =   1 */
+        color : red;
+    }  
+    
+    #list { /* a=1 b=0 c=0 -> specificity = 100 */
+        color : red;
+    }  
+    </code>
+</pre>
+ตอนนี้ type selector สูงกว่า  เพราะมี !important
+<pre>
+            <code class="css">
+    li { 
+        color : red !important;
+    }  
+    
+    #list {
+        color : red;
+    }  
+    </code>
+</pre>
 <style>
     .selector-topic{
         color : red;
