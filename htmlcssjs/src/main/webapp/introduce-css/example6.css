@@ -1,0 +1,25 @@
+.external {
+    width : 200px; 
+    height : 200px; 
+    background-color : blue; 
+    padding: 20px; 
+    color: #fff;
+    float: left;
+    margin-right: 20px;
+}
+
+.external + .external{
+    background-color: green;
+}
+
+.internal{
+    background-color : red; 
+    width: 100px; 
+    height: 100px; 
+    padding: 20px;
+}
+
+.inbox{
+    color : yellow; 
+    font-size: 20pt;
+}

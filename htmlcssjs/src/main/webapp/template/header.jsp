@@ -21,6 +21,20 @@
                 margin : 0 0 20px 0;
                 padding: 0 0 20px 0;
             }
+            
+            h1 a{
+                font-size: 11pt;
+                position: relative;
+                bottom: 5px;
+            }
+            
+            h1 a:before{
+                content: "(";
+            }
+            
+            h1 a:after{
+                content: ")";
+            }
 
             body{
                 margin: 0;
@@ -79,6 +93,10 @@
                 margin-bottom: 60px;
             }
             
+            hr + h1{
+                border-bottom: none;
+            }
+            
             .iframe-reload-button{
                 display: none;
             }
@@ -90,6 +108,11 @@
             .message-block{
                 background-color: rgb(207, 255, 202);
                 padding: 10px;
+            }
+            
+            .sepecific{
+                color : #3297fd;
+                font-style: italic;
             }
         </style>
         <script>

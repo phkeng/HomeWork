@@ -35,7 +35,7 @@
     ก็ขึ้นอยู่กับการทาสี  หรือฝีมือการตกแต่งของเรานั่นเอง
 </div>
 <hr/>
-<h3>Syntax ของ CSS</h3>
+<h1 id="syntax">Syntax ของ CSS <a href="#syntax">mark</a></h1>
 <p>
 
 </p>
@@ -92,10 +92,10 @@
 </div>
 <div class="clear"></div>
 <hr/>
-<h3>CSS Selector</h3>
+<h1 id="selector">CSS Selector <a href="#selector">mark</a></h1>
 <p>
     ในการเขียน CSS นั้น  เราจำเป็นที่จะต้องรู้จักกับ Selector
-    เพื่อเลือกว่า  เราจะตกแต่ง Html tag ไหน
+    เพื่อเลือกว่า  เราจะตกแต่ง Html tag ไหน อย่างไร
     <br/>
     มีทั้งหมด 9 แบบ ได้แก่
     <br/>
@@ -347,7 +347,7 @@ span[name^=button][name$=blue]{ /* tag span ซึ่งมี attribute name �
 
 
 <hr/>
-<h3>รูปแบบการเขียน CSS</h3>
+<h1 id="writing">รูปแบบการเขียน CSS <a href="#writing">mark</a></h1>
 <p>
     การเขียน CSS มีทั้งหมด 3 แบบ ได้แก่
     <br/>
@@ -356,6 +356,96 @@ span[name^=button][name$=blue]{ /* tag span ซึ่งมี attribute name �
     2. embeded
     <br/>
     3. external
+</p>
+
+<h3>inline</h3>
+<p>
+    เป็นการเขียน CSS บน HTML tag นั้นๆ  โดยตรงเลย
+    <br/>
+    เขียนบน attribute <span class="sepecific">"syle"</span> ของ tag นั้น  เช่น
+    <div class="content-left">
+    <div class="content-left-content">
+    <pre>
+            <code class="css">
+<%
+                    JspUtils.readContent(
+                            request.getServletContext().getResourceAsStream("/introduce-css/example4.html"),
+                            out
+                    );
+                %>
+            </code>
+</pre>
+   </div>
+</div>
+<div class="content-right">
+    <strong>ผลลัพธ์</strong>
+    <div class="example-iframe">
+        <iframe src="example4.html"></iframe>
+        <button class="iframe-reload-button">โหลดผลลัพธ์ใหม่</button>
+    </div>
+</div>
+<div class="clear"></div>
+</p>
+<h3>embeded</h3>
+<p>
+    เป็นการแยก CSS ออกจาก HTML tag  
+    <br/>
+เขียนไว้ใน tag &lt;style&gt;
+<br/>
+<br/>
+เพราะการเขียนแบบ inline มัน fixed code จนเกินไป
+<br/>
+แก้ไขยากลำบาก  อีกอย่าง  เราไม่สามารถใช้ซ้ำ CSS ที่เราเขียนขึ้นมาได้
+<div class="content-left">
+    <div class="content-left-content">
+    <pre>
+            <code class="css">
+<%
+                    JspUtils.readContent(
+                            request.getServletContext().getResourceAsStream("/introduce-css/example5.html"),
+                            out
+                    );
+                %>
+            </code>
+</pre>
+   </div>
+</div>
+<div class="content-right">
+    <strong>ผลลัพธ์</strong>
+    <div class="example-iframe">
+        <iframe src="example5.html"></iframe>
+        <button class="iframe-reload-button">โหลดผลลัพธ์ใหม่</button>
+    </div>
+</div>
+<div class="clear"></div>
+</p>
+<h3>external</h3>
+<p>
+    เป็นการแยก CSS ออกจากไฟล์ HTML เลย
+    <br/>
+บันทึกเป็นไฟล์ .css ต่างหาก  แล้วเรียกใช้  CSS นั้นแทน
+<div class="content-left">
+    <div class="content-left-content">
+    <pre>
+            <code class="css">
+<%
+                    JspUtils.readContent(
+                            request.getServletContext().getResourceAsStream("/introduce-css/example6.html"),
+                            out
+                    );
+                %>
+            </code>
+</pre>
+   </div>
+</div>
+<div class="content-right">
+    <strong>ผลลัพธ์</strong>
+    <div class="example-iframe">
+        <iframe src="example6.html"></iframe>
+        <button class="iframe-reload-button">โหลดผลลัพธ์ใหม่</button>
+    </div>
+</div>
+<div class="clear"></div>
 </p>
 
 <style>
