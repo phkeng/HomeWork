@@ -30,7 +30,7 @@ public class JspUtils {
         Reader reader = null;
         BufferedReader bff = null;
         try {
-            reader = new InputStreamReader(inputStream);
+            reader = new InputStreamReader(inputStream, "utf-8");
             bff = new BufferedReader(reader);
             String line;
             while ((line = bff.readLine()) != null) {

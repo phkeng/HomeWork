@@ -28,7 +28,6 @@
             }
             
             .toolbar{
-                background: #EFEFEF;
                 padding: 10px;
                 margin-bottom: 10px;
             }
@@ -70,6 +69,22 @@
 
             .iframe-reload-button{
                 margin-top: 10px;
+            }
+            
+            hr{
+                border-style : solid;
+                border-color: #ccc;
+                border-width: 1px 0 0 0;
+                height: 0;
+                margin-bottom: 60px;
+            }
+            
+            .iframe-reload-button{
+                display: none;
+            }
+            
+            .prev-next-button{
+                display: none;
             }
         </style>
         <script>

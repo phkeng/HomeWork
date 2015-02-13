@@ -20,7 +20,7 @@
         <h1>Learn HTML CSS Javascript / Servet</h1>
         <ul>
             <li>
-                <a href="introduce-html/">การทำงานของ Web Application</a>
+                <a href="web-application/">การทำงานของ Web Application</a>
             </li>
             <li>
                 <a href="introduce-html/">รู้จักกับ HTML</a>
