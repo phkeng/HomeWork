@@ -1,0 +1,52 @@
+
+<!DOCTYPE html>
+<html>
+    <head>
+
+        <style>
+            body{
+                background-color: #f2f2f2;
+                margin: 0;
+                padding: 0;
+                min-width: 400px;
+            }
+            
+            #toolbar{
+                position: fixed;
+                top : 0;
+                left: 0;
+                right : 0;
+                height: 40px;
+                background-color: #3297fd;
+                z-index: 10;
+            }
+            
+            #container{
+                background-color: #fff;
+                width: 400px;
+                min-height: 500px;
+                position: absolute;
+                left: 50%;
+                margin-left: -200px;
+                margin-top: 40px;
+            }
+            
+            .app-name{
+                color: #fff;
+                line-height: 40px;
+                padding: 0 10px; 
+            }
+        </style>
+
+    </head>
+
+    <body>
+        <div id="toolbar">
+            <span class="app-name">CSS Learning</span>
+        </div>
+        <div id="container">
+            content
+        </div>
+
+    </body>
+</html>

@@ -26,7 +26,7 @@
                 <a href="introduce-html/">รู้จักกับ HTML</a>
             </li>
             <li>
-                <a href="introduce-js/">รู้จักกับ CSS</a>
+                <a href="introduce-css/">รู้จักกับ CSS</a>
             </li>
             <li>
                 <a href="introduce-js/">รู้จักกับ Javascript</a>

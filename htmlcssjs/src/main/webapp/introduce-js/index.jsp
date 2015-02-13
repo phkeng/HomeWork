@@ -8,8 +8,8 @@
     <button onclick="window.location.href = ''">ต่อไป > </button>
 </div>
 
-<div class="page-left">
-    <div class="page-left-content">
+<div class="content-left">
+    <div class="content-left-content">
         <pre>
             <code class="html">
                 <%
@@ -26,7 +26,7 @@
         </p>
     </div>
 </div>
-<div class="page-right">
+<div class="content-right">
     <strong>ตัวอย่าง</strong>
     <div class="example-iframe">
         <iframe src="code.html"></iframe>

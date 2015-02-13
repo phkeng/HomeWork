@@ -32,21 +32,21 @@
                 margin-bottom: 10px;
             }
 
-            .page-left{
+            .content-left{
                 float: left;
                 width: 50%;
             }
 
-            .page-left-content{
+            .content-left-content{
                 padding-right: 20px;
             }
 
-            .page-right{
+            .content-right{
                 float: right;
                 width: 50%;
             }
 
-            .page-right > strong{
+            .content-right > strong{
                 margin-bottom: 20px;
                 display: block;
             }
@@ -85,6 +85,11 @@
             
             .prev-next-button{
                 display: none;
+            }
+            
+            .message-block{
+                background-color: rgb(207, 255, 202);
+                padding: 10px;
             }
         </style>
         <script>
