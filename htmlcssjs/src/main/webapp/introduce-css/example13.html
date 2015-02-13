@@ -1,0 +1,45 @@
+
+<style>
+    .parent{
+        width: 250px;
+        height: 250px;
+        background-color: red;
+
+        position: relative;
+        left: 20px;
+        top : 70px;
+        margin-bottom: 20px;
+    }
+
+    .child{
+        width: 50px;
+        height: 50px;
+
+        position: absolute;
+    }
+
+    .child1{
+        right : 50px;
+        bottom : 50px;
+        background-color: yellow;        
+    }
+    
+    .child2{
+        left : 10px;
+        bottom : 20px;
+        background-color: white;        
+    }
+    
+    .child3{
+        right : 0px;
+        top : 0px;
+        background-color: black;        
+        color: #fff;
+    }
+</style>
+
+<div class="parent">
+    <div class="child child1">child1</div>
+    <div class="child child2">child2</div>
+    <div class="child child3">child3</div>
+</div>

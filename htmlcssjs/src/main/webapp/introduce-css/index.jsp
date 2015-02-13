@@ -609,7 +609,7 @@ li มีค่าต่ำสุด  เพราะมีแค่ type select
 <div class="content-right">
     <strong>ผลลัพธ์</strong>
     <div class="example-iframe">
-        <iframe src="example8.html" style="height: 500px;"></iframe>
+        <iframe src="example8.html"></iframe>
         <button class="iframe-reload-button">โหลดผลลัพธ์ใหม่</button>
     </div>
 </div>
@@ -642,17 +642,56 @@ li มีค่าต่ำสุด  เพราะมีแค่ type select
 <div class="content-right">
     <strong>ผลลัพธ์</strong>
     <div class="example-iframe">
-        <iframe src="example9.html" style="height: 500px;"></iframe>
+        <iframe src="example9.html"></iframe>
         <button class="iframe-reload-button">โหลดผลลัพธ์ใหม่</button>
     </div>
 </div>
 <div class="clear"></div>
+<br/>
+<br/>
+<hr/>
+<h1 id="default">Default display <a href="#default">mark</a></h1>
+<h3>&lt;div&gt;</h3>
+<p>
+    div มี default dispaly เป็น block
+</p>
+<h3>&lt;span&gt;</h3>
+<p>
+    span มี default dispaly เป็น inline
+</p>
+<div class="content-left">
+    <div class="content-left-content">
+        <pre>
+            <code class="html">
+                <%
+                    JspUtils.readContent(
+                            request.getServletContext().getResourceAsStream("/introduce-css/example10.html"),
+                            out
+                    );
+                %>
+            </code>
+        </pre>
+    </div>
+</div>
+<div class="content-right">
+    <strong>ผลลัพธ์</strong>
+    <div class="example-iframe">
+        <iframe src="example10.html"></iframe>
+        <button class="iframe-reload-button">โหลดผลลัพธ์ใหม่</button>
+    </div>
+</div>
+<div class="clear"></div>
+<p>
+    แต่เราก็สามารถทำให้เป็น display เป็นแบบอื่นได้  ด้วยการใช้ CSS display : value
+</p>
+<br/>
+<br/>
 <hr/>
 <h1 id="position">CSS Position <a href="#position">mark</a></h1>
 <p>
     คือรูปแบบการจัดตำแหน่งของ tag หรือ element html
     <br/>
-    มีทั้งหมด 4 แบบ
+    มีทั้งหมด 4 แบบ ได้แก่
     <br/>
     <br/>
     1. static
@@ -665,10 +704,107 @@ li มีค่าต่ำสุด  เพราะมีแค่ type select
     <br/>
     <br/>
 </p>
-<h3>static</h3>
+<h3>position : static</h3>
 <p>
     เป็นการจัดตำแหน่งแบบไหลตาม normal flow  ของ element นั้นๆ
+    <br/>
+    เช่น div ที่เป็น block,  span ที่เป็น inline
+
+    <br/>
+    <br/>
+    ใช้เมื่อ  มีคนทำให้ div กลายไปเป็น display แบบอื่น <br/> 
+    แล้วเราต้องการให้  มันกลับคือสู่ default display ของมัน เป็นต้น
 </p>
+<h3>position : fixed</h3>
+<p>
+    เป็นการตรึง  ตำแหน่งของ  elment นั้นๆ  กับหน้าจอ  browser (window)<br/>
+    หรือ เป็นการขยับตัวเอง  ออกจาก หน้าจอ  browser (window)
+    <br/>
+    ไม่ไหลตาม scrollbar
+</p>
+<div class="content-left">
+    <div class="content-left-content">
+        <pre>
+            <code class="html">
+                <%
+                    JspUtils.readContent(
+                            request.getServletContext().getResourceAsStream("/introduce-css/example11.html"),
+                            out
+                    );
+                %>
+            </code>
+        </pre>
+    </div>
+</div>
+<div class="content-right">
+    <strong>ผลลัพธ์</strong>
+    <div class="example-iframe">
+        <iframe src="example11.html"></iframe>
+        <button class="iframe-reload-button">โหลดผลลัพธ์ใหม่</button>
+    </div>
+</div>
+<div class="clear"></div>
+<h3>position : relative</h3>
+<p>
+    เป็นการเคลื่อนย้ายตัวเอง  จากตำแหน่งเดิมที่เคยอยู่
+    <br/>
+    ไหลตาม scrollbar
+</p>
+<div class="content-left">
+    <div class="content-left-content">
+        <pre>
+            <code class="html">
+                <%
+                    JspUtils.readContent(
+                            request.getServletContext().getResourceAsStream("/introduce-css/example12.html"),
+                            out
+                    );
+                %>
+            </code>
+        </pre>
+    </div>
+</div>
+<div class="content-right">
+    <strong>ผลลัพธ์</strong>
+    <div class="example-iframe">
+        <iframe src="example12.html"></iframe>
+        <button class="iframe-reload-button">โหลดผลลัพธ์ใหม่</button>
+    </div>
+</div>
+<div class="clear"></div>
+<h3>position : absolute</h3>
+<p>
+    เป็นการขยับตัวเอง  ออกจาก parent tag ตามที่กำหนดไว้ใน top, left, right, bottom
+    <br/>
+    ไหลตาม scrollbar
+</p>
+<div class="content-left">
+    <div class="content-left-content">
+        <pre>
+            <code class="html">
+                <%
+                    JspUtils.readContent(
+                            request.getServletContext().getResourceAsStream("/introduce-css/example13.html"),
+                            out
+                    );
+                %>
+            </code>
+        </pre>
+    </div>
+</div>
+<div class="content-right">
+    <strong>ผลลัพธ์</strong>
+    <div class="example-iframe">
+        <iframe src="example13.html"></iframe>
+        <button class="iframe-reload-button">โหลดผลลัพธ์ใหม่</button>
+    </div>
+</div>
+<div class="clear"></div>
+
+
+
+
+
 <style>
     .selector-topic{
         color : red;
