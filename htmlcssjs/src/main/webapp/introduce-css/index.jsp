@@ -365,28 +365,28 @@ span[name^=button][name$=blue]{ /* tag span ซึ่งมี attribute name �
     เป็นการเขียน CSS บน HTML tag นั้นๆ  โดยตรงเลย
     <br/>
     เขียนบน attribute <span class="specific">"syle"</span> ของ tag นั้น  เช่น
-<div class="content-left">
-    <div class="content-left-content">
-        <pre>
-            <code class="html">
-                <%
-                    JspUtils.readContent(
-                            request.getServletContext().getResourceAsStream("/introduce-css/example4.html"),
-                            out
-                    );
-                %>
-            </code>
-        </pre>
+    <div class="content-left">
+        <div class="content-left-content">
+            <pre>
+                <code class="html">
+                    <%
+                        JspUtils.readContent(
+                                request.getServletContext().getResourceAsStream("/introduce-css/example4.html"),
+                                out
+                        );
+                    %>
+                </code>
+            </pre>
+        </div>
     </div>
-</div>
-<div class="content-right">
-    <strong>ผลลัพธ์</strong>
-    <div class="example-iframe">
-        <iframe src="example4.html"></iframe>
-        <button class="iframe-reload-button">โหลดผลลัพธ์ใหม่</button>
+    <div class="content-right">
+        <strong>ผลลัพธ์</strong>
+        <div class="example-iframe">
+            <iframe src="example4.html"></iframe>
+            <button class="iframe-reload-button">โหลดผลลัพธ์ใหม่</button>
+        </div>
     </div>
-</div>
-<div class="clear"></div>
+    <div class="clear"></div>
 </p>
 <h3>internal หรือ embeded</h3>
 <p>
@@ -708,17 +708,16 @@ li มีค่าต่ำสุด  เพราะมีแค่ type select
 <p>
     เป็นการจัดตำแหน่งแบบไหลตาม normal flow  ของ element นั้นๆ
     <br/>
-    เช่น div ที่เป็น block,  span ที่เป็น inline
-
     <br/>
+    ตัวอย่างการใช้
     <br/>
-    ใช้เมื่อ  มีคนทำให้ div กลายไปเป็น display แบบอื่น <br/> 
+    เช่น ใช้เมื่อ  มีคนทำให้ div กลายไปเป็น display แบบอื่น <br/> 
     แล้วเราต้องการให้  มันกลับคือสู่ default display ของมัน เป็นต้น
 </p>
 <h3>position : fixed</h3>
 <p>
-    เป็นการตรึง  ตำแหน่งของ  elment นั้นๆ  กับหน้าจอ  browser (window)<br/>
-    หรือ เป็นการขยับตัวเอง  ออกจาก หน้าจอ  browser (window)
+    เป็นการตรึง  ตำแหน่งของ  elment นั้นๆ กับหน้าจอ  window (browser, iframe)<br/>
+    หรือ เป็นการขยับตัวเอง  ออกจากหน้าจอ  window (browser, iframe) เท่าไหร่
     <br/>
     ไม่ไหลตาม scrollbar
 </p>
@@ -879,10 +878,10 @@ li มีค่าต่ำสุด  เพราะมีแค่ type select
                 %>
             </code>
         </pre>
-            <p style="color: red;">
-                ****** ทุกครั้งที่มีการใช้ float  จะต้องมีการ clear float ตบท้าย <u style="font-size: 20pt;">เสมอ</u>
-เพื่อไม่ให้ element ถัดไป  รับผลกระทบจากการใช้ float นั้นด้วย
-            </p>
+        <p style="color: red;">
+            ****** ทุกครั้งที่มีการใช้ float  จะต้องมีการ clear float ตบท้าย <u style="font-size: 20pt;">เสมอ</u>
+        เพื่อไม่ให้ element ถัดไป  ได้รับผลกระทบจากการใช้ float นั้นด้วย
+        </p>
     </div>
 </div>
 <div class="content-right">
@@ -893,12 +892,151 @@ li มีค่าต่ำสุด  เพราะมีแค่ type select
     </div>
 </div>
 <div class="clear"></div>
+<hr/>
+<h1 id="dom">CSS DOM (Document Object Model) <a href="#dom">mark</a></h1>
+<p>
+    ใน HTML element หรือ HTML tag ทุกๆ tag จะมีการจัดโครงสร้าง (structure) ของ CSS เป็นดังนี้
+<div class="DOM-structure">
+    <div style="background-color: rgb(255, 223, 173);">
+        margin
+        <div style="background-color: rgb(255, 239, 126);">
+            border
+            <div style="background-color: rgb(201, 255, 150);">
+                padding
+                <div style="background-color: rgb(205, 240, 255);">
+                    content
+                </div>
 
+            </div>
 
+        </div>
+    </div>
+</div>
+</p>
+<h3>margin</h3>
+<p>
+    คือ ระยะห่างของแต่ละ element ว่าห่างจาก element อื่นเท่าไหร่
+</p>
+<h3>border</h3>
+<p>
+    คือ ความหนา  ของเส้นขอบ element นั้นๆ ว่าหนาเท่าไหร่
+</p>
+<h3>padding</h3>
+<p>
+    คือ ระยะห่าง  ของเส้นขอบ  กับเนื้อหาภายใน element ว่าห่างกันเท่าไหร่
+</p>
+<h3>content</h3>
+<p>
+    คือ ขนาดจริงๆ  ของ element นั้นๆ
+</p>
+<br/>
+<br/>
+<h3>ตัวอย่าง content</h3>
+<div class="content-left">
+    <div class="content-left-content">
+        <pre>
+            <code class="html">
+                <%
+                    JspUtils.readContent(
+                            request.getServletContext().getResourceAsStream("/introduce-css/example17.html"),
+                            out
+                    );
+                %>
+            </code>
+        </pre>
+    </div>
+</div>
+<div class="content-right">
+    <strong>ผลลัพธ์</strong>
+    <div class="example-iframe">
+        <iframe src="example17.html"></iframe>
+        <button class="iframe-reload-button">โหลดผลลัพธ์ใหม่</button>
+    </div>
+</div>
+<div class="clear"></div>
+<h3>ตัวอย่าง content + border</h3>
+<div class="content-left">
+    <div class="content-left-content">
+        <pre>
+            <code class="html">
+                <%
+                    JspUtils.readContent(
+                            request.getServletContext().getResourceAsStream("/introduce-css/example18.html"),
+                            out
+                    );
+                %>
+            </code>
+        </pre>
+    </div>
+</div>
+<div class="content-right">
+    <strong>ผลลัพธ์</strong>
+    <div class="example-iframe">
+        <iframe src="example18.html"></iframe>
+        <button class="iframe-reload-button">โหลดผลลัพธ์ใหม่</button>
+    </div>
+</div>
+<div class="clear"></div>
+<h3>ตัวอย่าง content + border + padding</h3>
+<div class="content-left">
+    <div class="content-left-content">
+        <pre>
+            <code class="html">
+                <%
+                    JspUtils.readContent(
+                            request.getServletContext().getResourceAsStream("/introduce-css/example19.html"),
+                            out
+                    );
+                %>
+            </code>
+        </pre>
+    </div>
+</div>
+<div class="content-right">
+    <strong>ผลลัพธ์</strong>
+    <div class="example-iframe">
+        <iframe src="example19.html" style="height: 400px;"></iframe>
+        <button class="iframe-reload-button">โหลดผลลัพธ์ใหม่</button>
+    </div>
+</div>
+<div class="clear"></div>
+<h3>ตัวอย่าง content + border + padding + margin</h3>
+<div class="content-left">
+    <div class="content-left-content">
+        <pre>
+            <code class="html">
+                <%
+                    JspUtils.readContent(
+                            request.getServletContext().getResourceAsStream("/introduce-css/example20.html"),
+                            out
+                    );
+                %>
+            </code>
+        </pre>
+    </div>
+</div>
+<div class="content-right">
+    <strong>ผลลัพธ์</strong>
+    <div class="example-iframe">
+        <iframe src="example20.html" style="height: 400px;"></iframe>
+        <button class="iframe-reload-button">โหลดผลลัพธ์ใหม่</button>
+    </div>
+</div>
+<div class="clear"></div>
 <style>
     .selector-topic{
         color : red;
         font-size: 16pt;
+    }
+    
+    .DOM-structure{
+        width: 300px;
+    }
+    
+    .DOM-structure div{
+        padding: 10px;
+        border : solid 1px #999;
+        margin: 10px;
     }
 </style>
 
