@@ -893,9 +893,9 @@ li มีค่าต่ำสุด  เพราะมีแค่ type select
 </div>
 <div class="clear"></div>
 <hr/>
-<h1 id="dom">CSS DOM (Document Object Model) <a href="#dom">mark</a></h1>
+<h1 id="dom">CSS DOM (Document Object Model) Structure <a href="#dom">mark</a></h1>
 <p>
-    ใน HTML element หรือ HTML tag ทุกๆ tag จะมีการจัดโครงสร้าง (structure) ของ CSS เป็นดังนี้
+    ใน HTML element หรือ HTML tag ทุกๆ tag จะมีการจัดโครงสร้าง (Structure) ของ CSS เป็นดังนี้
 <div class="DOM-structure">
     <div style="background-color: rgb(255, 223, 173);">
         margin

@@ -1,0 +1,9 @@
+
+<button id="my_button">ลองคลิกที่ปุ่มนี้ดู</button>
+
+<script>
+    var button = document.getElementById("my_button");
+    button.addEventListener('click', function(){
+        alert('คลิกแล้วขึ้นข้อความ : ' + this.id);
+    });
+</script>

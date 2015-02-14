@@ -11,7 +11,7 @@
 <html>
     <head>
         <title>Learn Html Css Javascript / Servet</title>
-        <link href="<%= request.getServletContext().getContextPath()%>/static/third-party/highlight/styles/monokai.css" rel="stylesheet"/>
+        <link href="<%= request.getServletContext().getContextPath()%>/static/third-party/highlight/styles/default.css" rel="stylesheet"/>
         <script src="<%= request.getServletContext().getContextPath()%>/static/third-party/highlight/highlight.pack.js"></script>
         <script src="<%= request.getServletContext().getContextPath()%>/static/third-party/jquery.js"></script>
         <script>hljs.initHighlightingOnLoad();</script>
