@@ -31,6 +31,7 @@
             <li>
                 <a href="introduce-js/">รู้จักกับ Javascript</a>
             </li>
+            <!--
             <li>
                 <a href="introduce-js/">รู้จักกับ jQuery</a>
             </li>
@@ -58,6 +59,7 @@
             <li>
                 <a>รู้จักกับ Listener</a>
             </li>
+            -->
         </ul>
     </body>
 </html>

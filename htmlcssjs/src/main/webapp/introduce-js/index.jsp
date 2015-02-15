@@ -222,6 +222,9 @@ Javascript เป็น dynamic language
 //int                
 var integer = 0;
 
+//boolean
+var bool = true;
+
 //float
 var floatingPoint = 12.05;
 
@@ -273,6 +276,82 @@ window.START = 100;
 <p>
 window เป็น global variable ของ browser<br/> 
 เป็นตัวแปร  ที่เอาไว้เก็บค่า configuration ต่างๆ ของหน้าจอ browser ปัจจุบัน
+</p>
+<hr/>
+<h1 id="variable_type">Variable Type <a href="#variable_type">mark</a></h1>
+<p>
+ถ้าเราบอกว่า javascript เป็น dynamic type
+เราจะสามารถรู้ type ของตัวแปรนั้นๆ ได้ยังไง?    
+</p>
+<pre>
+            <code class="js">           
+var integer = 0;
+
+var bool = true;
+
+var floatingPoint = 12.05;
+
+var string = "Hello World.";
+
+var arr = [10, 20, 40, 80, 100, 120];
+
+var object = {
+    id : 123145,
+    firstName : 'jittagorn',
+    lastName : 'pitakmetagoon'
+};
+
+var page = { 
+    offset : 0,
+    size : 50,
+    contents : [
+        {
+            name : 'apple'
+        },
+        {
+            name : 'orange'
+        },
+        ...
+    ]             
+};     
+
+var myObject = null;
+
+var clazz;
+
+console.log(typeof integer); //number   
+console.log(typeof bool); //boolean
+console.log(typeof floatingPoint); //number
+console.log(typeof string); //string
+console.log(typeof arr); //object
+console.log(typeof object); //object
+console.log(typeof page); //object
+console.log(typeof myObject); //object
+console.log(typeof clazz); //undefined
+            </code>
+</pre>
+<hr/>
+<h1 id="null_undefined">null vs undefined <a href="#null_undefined">mark</a></h1>
+<p>
+javascript  จะมีค่าที่เป็น null และค่าที่เป็น undefined<br/> 
+ซึ่งทั้ง 2 นี้ให้ความหมายใกล้เคียงกัน  แต่ต่างกันตรงที่<br/>
+<br/>
+undefined หมายถึงการไม่ได้ประกาศ  และ type ของตัวแปรนั้นจะเป็น undefined ด้วย<br/>
+null หมายถึงการไม่รู้ค่า  แต่ type ของตัวแปรที่เป็น null จะเป็น object
+<pre>
+            <code class="js">
+ var TestVar;
+ console.log(TestVar); //shows undefined
+ console.log(typeof TestVar); //shows undefined
+            </code>
+</pre>
+<pre>
+            <code class="js">
+ var TestVar = null;
+ console.log(TestVar); //shows null
+ console.log(typeof TestVar); //shows object
+            </code>
+</pre>
 </p>
 <hr/>
 <h1 id="function">ฟังก์ชัน (function) <a href="#function">mark</a></h1>
@@ -399,7 +478,7 @@ myFunct.apply(null, [1,2,3,4,5]);
  <pre>
 <code class="js">
 var myFunct = function(){
-    console.log(arguments);
+    console.log(arguments); //[1, 2, 3, 4, 5]
 
     console.log(arguments[0]); //1
     console.log(arguments[1]); //2
@@ -505,15 +584,18 @@ code ไหนที่มีความจำเป็นต่อ code อื
 </p>
 <hr/>
 <h1 id="boolean">ตรรกศาสตร์ (Boolean) <a href="#boolean">mark</a></h1>
-<p>
-ภาษา Javascript เป็นภาษา ที่ไม่มี  boolean type<br/>
-ตัวแปรทุกตัวใน Javascript จะเป็นจริง (true) ทั้งหมด  ยกเว้น ค่าดังต่อไปนี้ ที่จะเป็นเท็จ (false)<br/>
-1. 0<br/>
-2. null<br/>
-3. undefined
+<p>ตัวแปรทุกตัวใน Javascript จะเป็นจริง (true) ทั้งหมด  ยกเว้น ค่าดังต่อไปนี้ ที่จะเป็นเท็จ (false)<br/>
+1. false<br/>
+2. 0<br/>
+3. null<br/>
+4. undefined
 </p>
     <pre>
 <code class="js">
+    if(true) { //true
+        
+    }
+    
     if(1) { //true
         
     }
@@ -523,6 +605,10 @@ code ไหนที่มีความจำเป็นต่อ code อื
     }
     
     if('hello world') { //true
+    
+    }
+    
+    if(false) { //false
     
     }
     
@@ -570,6 +656,136 @@ if('1' === '1'){ //true
 </code>
 </pre>
 <p>
+<hr/>
+<h1 id="ifelse">if else <a href="#ifelse">mark</a></h1>
+แบบปกติ
+    <pre>
+<code class="js">
+    var bool ...
+    
+    var result; 
+    
+    if(bool){
+        result = 100;
+    }
+    
+    //---------------------------------------------------
+    if (bool){
+        result = 100;
+    } else{
+        result = 200;
+    }
+    
+    //---------------------------------------------------
+    if (bool == 1){
+        result = 100;
+    } else if(bool == 2){
+        result = 200;
+    } else if(bool == 3){
+        result = 300;
+    } else{
+        result = 400;
+    }
+    
+</code>
+    </pre>
+แบบสั้น
+    <pre>
+<code class="js">
+    var bool ...
+    
+    var result; 
+
+    
+    result = bool ? 100 : undefined;
+    
+    //---------------------------------------------------
+    result = bool === 1 ? 100 : 200;
+    
+    //---------------------------------------------------
+    result = bool === 1 ? 100 : bool === 2 ? 200 : bool === 3 ? 300 : 400 
+    
+</code>
+    </pre>
+แบบสั้นกว่า
+    <pre>
+<code class="js">
+    var x = 100;
+    var y = 200;
+    
+    var result = x || y; //100
+</code>
+    </pre>
+    แปลมาจาก
+    <pre>
+<code class="js">
+    if(X !== undefined && X !== null && X !== false && X !== 0){
+        result = X; 
+    }else{
+        result = Y;
+    }
+</code>
+    </pre>
+    <pre>
+<code class="js">
+    var A = undefined;
+    var B = 'javascript';
+    
+    var result = A || B; //javascript
+</code>
+    </pre>
+    แปลมาจาก
+    <pre>
+<code class="js">
+    if(A !== undefined && A !== null && A !== false && A !== 0){
+        result = A; 
+    }else{
+        result = B;
+    }
+    
+</code>
+    </pre>
+<hr/>
+<h1 id="loop">Loop <a href="#loop">mark</a></h1>
+    <pre>
+<code class="js">
+for(var i = 1; i<=10; i++){
+    console.log(i);
+}
+
+var days = [
+    'Sunday', 
+    'Monday', 
+    'Tuesday', 
+    'Wednesday', 
+    'Thursday', 
+    'Friday', 
+    'Saturday'
+];
+
+for(var i=0; i&lt;days.length; i++){
+    console.log(days[i]);
+}
+
+//------------------------------------------------------------------------------
+var counter1 = 10;
+while(counter1 > 0){
+    
+    console.log(counter1);
+
+    counter1 = counter1 - 1;
+}
+
+//------------------------------------------------------------------------------
+var counter2 = 10;
+do {
+    
+    console.log(counter2);
+
+    counter2 = counter2 - 1;
+} while(counter2 > 0);
+</code>
+    </pre>
 <hr/>
 <h1 id="object">วัตถุ (Object) <a href="#object">mark</a></h1>
 <p>
@@ -681,6 +897,7 @@ object.addSkill('ubuntu server');
 object.addSkill('jasper report');
 </code>
 </pre>
+<hr/>
 <h1 id="call_apply">call vs apply <a href="#call_apply">mark</a></h1>
 <p>
 ประโยชน์ข้อหนึ่งของการใช้ call และ apply คือ
@@ -778,4 +995,65 @@ showMessage.apply(context2);
 call และ apply จะทำการเปลี่ยน บริบท  หรือ context  ของ function ที่ถูกเรียก
 ว่าจะให้ใช้งาน function นั้นด้วย context ใด หรือ object ใด
 </p>
+<hr/>
+<h1 id="closure">closure <a href="#closure">mark</a></h1>
+<p>
+closure เป็นเรื่องของ function return function เช่น   
+</p>
+<pre>
+<code class="js">
+var increaseFunc = function(increaseNumber){
+    
+    return function(number){
+        return increaseNumber + number;
+    }
+};
+
+var increaseFunc10 = increaseFunc(10);
+
+increaseFunc10(10); //20
+increaseFunc10(20); //30
+increaseFunc10(33); //43
+
+var increaseFunc100 = increaseFunc(100);
+
+increaseFunc100(10); //120
+increaseFunc100(20); //130
+increaseFunc100(33); //143
+
+</code>
+</pre>
+บางครั้ง  เราก็ใช้ closure สำหรับ hack พฤติกรรม javascript library อื่นๆ ได้เช่นกัน
+<pre>
+<code class="js">
+var framework = {
+
+    process : function(parameter){
+        console.log(parameter);
+    }
+}
+
+framework.process(100);
+//-----------------------------------------------------------------------------
+
+var proxy = function(origin, callback){
+
+    return function(){
+        
+        callback.apply(this, arguments);
+        
+        return origin.apply(this, arguments);
+    }
+};
+
+
+framework.process = proxy(framework.process, function(){
+    console.log('parameters of process is ', arguments);
+});
+
+//-----------------------------------------------------------------------------
+framework.process(999);
+
+</code>
+</pre>
     <%@include file="/template/footer.jsp" %>

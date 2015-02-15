@@ -1,4 +1,4 @@
-<%@page contentType="text/html" pageEncoding="UTF-8"%>
+700000000000000000000000000000000000000000000000000000000<%@page contentType="text/html" pageEncoding="UTF-8"%>
 <%@include file="/template/header.jsp" %>
 
 <h1>รู้จักกับ HTML (Hyper Text Markup Language)</h1>
