@@ -11,193 +11,491 @@ and open the template in the editor.
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
     </head>
     <body>
-        <div class="toolbar">
-            <div class="toolbar-container">
-                <div class="youtube-icon"></div>
-                <input type="text" value="" placeholder=" "/>
-                <div class="clear"></div>
-            </div>
-        </div>
-        <div class="container-wrapper">
-            <div class="container">
+        <style>
+            .clear{
+                clear: both;
+            }
+
+            body{
+                margin: 0;
+                background-color: #DCD6D6;
+                font-family: serif;
+            }
+
+            a{
+                text-decoration: none;
+            }
+
+            a:hover{
+                text-decoration: underline;
+            }
+
+            .toolbar{
+                display:inline;
+                background-color: #ffffff;
+                height: 50px;
+
+                position: fixed;
+                top: 0;
+                left: 0;
+                right: 0;
+
+                z-index: 50;
+            }
+
+            .sidebar{
+                width:100px;
+                background-color: #e9eaed;
+
+                position: fixed;
+                right: 0;
+                top: 43px;
+                bottom: 0;
+
+                z-index: 10;
+
+                border : solid 1px #ccc;
+            }
+
+            .sidebar-footer{
+                position: absolute;
+                bottom: 0;
+                left: 0;
+                right: 0;
+                background-color: #fff;
+                height: 35px;
+                border-top: #DCD6D6 solid 1px;
+            }
+
+            .home-profile{
+                margin-top: 15px;
+            }
+
+            .home-profile [class^=profile]{
+                float : left;
+            }
+
+            .home-profile .profile-image{
+                width: 40px;
+                height: 40px;
+                background-color: #CED0D6;
+            }
+
+            .profile-name{
+                width: 300px;
+                margin-left: 100px;
+                font-weight: bold;
+                font-size: 20pt;
+              
+            }
+
+            .online-item{
+                height: 40px;
+                border-bottom : solid 1px #DEDDDD;
+            }
+
+            .online-item:hover{
+                background-color: #E1E1E1;
+            }
+
+            .online-item [class^=online-item]{
+                float: left;
+            }
+
+            .online-item-image{
+                width: 32px;
+                height: 32px;
+                background-color: #CED0D6;
+                margin: 4px;
+            }
+
+            .online-item-name{
+                font-size: 11pt;
+                color: #444;
+                line-height: 40px;
+                width: 145px;
+            }
+
+            .online-item-status{
+                width: 8px;
+                height: 8px;
+                background-color: rgb(80, 189, 26);
+
+                border-radius: 10px;
+                -moz-border-radius: 10px;
+                -webkot-border-radius: 10px;
+
+                margin-top: 18px;
+                position: relative;
+            }
+
+            .online-item-status span{
+                color: rgb(80, 189, 26);
+                font-size: 8pt;
+                left: 0;
+                text-align: right;
+                width: 40px;
+                margin-left: -45px; 
+                display: inline-block;
+                position: absolute;
+                margin-top: -5px;
+            }
+
+            .toolbar-container,
+            .container {
+                display:inline;
+                width: 1000px;
+                position: relative;
+                left : 10%;
+                margin-left: -588px;
+            }
+
+            .youtube-icon{
+                background-color: #fff;
+                width: 28px;
+                height: 28px;
+
+                border-radius: 3px;
+                -moz-border-radius: 3px;
+                -webkot-border-radius: 3px;
+
+                margin-right: 10px;
+            }
+
+            .toolbar-container input[type=text]{
+                height: 30px;
+                width: 800px;
+
+                border-radius: 10px;
+                -webkit-border-radius: 0px;
+                -moz-border-radius: 0px;
+                -o-border-radius: 5px;
+
+                border : 1px solid #123682;
+            }
+
+            .youtube-icon,
+            .toolbar-container input[type=text]{
+                float: left;
+
+                position: relative;
+                top:10px;
+            }
+
+            .container{
+                min-height: 5000px;
+                margin-top: 43px;
+            }
+
+            .container > div{
+                min-height: 2000px;
+                float: left;
+                margin-right: 8px;
+            }
+
+            .write-post{
+                background-color: #fff;
+                margin-bottom: 10px;
+                margin-top: 10px;
+            }
+
+            .write-post-header{
+                height: 13px;
+                padding: 10px;
+                border-bottom: 1px solid #eee;
+                margin: 0 15px;
+            }
+
+
+            .write-post-content{
+                height: 73px;
+            }
+
+            .write-post-footer{
+                height: 41px;
+                background-color: #f6f7f8;
+                border-top: solid 1px #e9eaed;
+                position: relative;
+            }
+
+           post-buttons{
+                position: fixed;
+                right:0;
+                top : 0;
+                bottom : 0;
+                padding: 7px;
+            }
+
+           post-buttons button{
+                margin- right: 20px;
+                padding: 1px 20px;
+            }
+
+            .write-post-footer .share-with,
+            .write-post-footer .post-button{
+                border-radius: 2px;
+                -webkit-border-radius:10px;
+                -moz-border-radius: 10px;
+                -o-border-radius: 10px;
+
+                font-size: 11pt;
+                line-height: 22px;
+                font-weight: bold;
+                border : solid 1px;
+            }
+
+            .write-post-footer .share-with{
+                background-color: #CED0D6;
+                border-color: #cccccc #c5c6c8 #b6b7b9;
+                color: #4e5665;
+                text-shadow: 0 1px 0 #fff;
+
+                box-shadow: inset 0 -10px 10px rgb(300, 300, 300);
+                -moz-box-shadow: inset 0 -10px 10px rgb(248, 248, 248);
+                -webkit-box-shadow: inset 0 -10px 10px rgb(248, 248, 248);
+            }
+
+            .write-post-footer .post-button{
+                background-color: #4e69a2;
+                border-color: #435a8b #3c5488 #334c83;
+                color: #fff;
+                text-shadow: 0 -1px 0 rgba(0, 0, 0, .2);
+            }
+
+            #leftCol{
+                width: 172px;
+            }
+
+            #newsFeed{
+                width: 200px;
+            }
+
+            #advertist{
+                width: 360px;
+            }
+
+            .adv-item, .newfeed-item{
+                background-color: #2f1e2e;
+                margin-top: 10px;
+
+                position: relative;
+                 left: 1000px;
+            }
+
+            .newfeed-item-content,
+            .adv-item{
+                min-height: 150px;
+            }
+
+            .newfeed-item-control > span{
+                color: #6d84b4;
+                font-size: 11pt;
+                margin-right: 10px;
+            }
+
+            .newfeed-item-control{
+                padding: 10px 15px;
+            }
+
+            .comments{
+                height: 100px;
+                width: 100%;
+                background-color: #f6f7f8;
+                border-top: 1px solid #e1e2e3;
+            }
+
+            .comments .profile-image{
+                width: 32px;
+                height: 32px;
+                background-color: #fff;
+                position: absolute;
+                bottom: 10px;
+                left: 15px;
+                background-color: #CED0D6;
+
+                border-radius: 3px;
+                -webkit-border-radius: 3px;
+                -moz-border-radius: 3px;
+                -o-border-radius: 3px;
+            }
+
+            .newfeed-item-header{
+                padding: 10px 15px;
+               
+            }
+
+            .newfeed-item-header .profile-image{
+                width: 40px;
+                height: 40px;
+                background-color: #CED0D6; 
+                
+            }
+
+            .newfeed-item-header .profile-name a{
+                color : #3b5998;
+                font-size: 12pt;
+                font-weight: bold;
+
+                position: relative;
+                left: 100px;
+            }
+
+            .newfeed-time{
+                color: #999;
+                font-size: 10pt;
+                margin-left: 10px;
+                margin-top: 5px;
+            }
+
+            .newfeed-item-header [class^=profile]{
+                float: left;
+            }
+
+            .newfeed-item-content{
+                padding: 10px;
+            }
+
+            .newfeed-item-image{
+                background-color: #2f1e2e;
+                min-height: 400px;
+               
+            }
+
+            .comments input[type=text]{
+                height: 22px;
+                padding: 5px;
+                border: 1px solid #dcdee3;
+                position: absolute;
+                bottom: 10px;
+                right: 15px;
+                width: 410px;
+                margin-left: 60px;
+            }
+
+            .write-post, .adv-item, .newfeed-item{
+                border-radius: 3px;
+                -webkit-border-radius: 3px;
+                -moz-border-radius: 3px;
+                -o-border-radius: 3px;
+
+                border : solid 1px #E0E0E0;
+                border-bottom-color : #ccc;
+            }
+
+            .home-navigation{
+                margin-top: 40px;
+            }
+
+            .home-navigation-header{
+                color: #aaa;
+                font-weight: bold;
+                padding: 10px 5px;
+                font-size: 10pt;
+            }
+
+            .home-navigation .navigation-icon{
+                width: 16px;
+                height: 16px;
+                position: relative;
+                top : 3px;
+                background-color: #CED0D6;
+            }
+
+            .navigation-item{
+                margin-bottom: 5px;
+            }
+
+            .navigation-item [class^=navigation]{
+                float: left;
+            }
+
+            .navigation-item .navigation-name{
+                width: 130px;
+                margin-left: 10px;
+            }
+            
+            
+            #img_container img{
+                 height: 30px;
+                 margin: auto auto;
+                 
+            }
+            
+     [class^=content]{
+        width: 50%;
+        height: 500px;
+        margin-left: 60px;
+          border : solid 15px #000; 
+    }
+
+    .content-left{
+        float: left;
+        background-color: #2f1e2e;
+    }
+   
+    .container {
+                width: 976px;
+                position: relative;
+                left : 50%;
+                margin-left: -588px;}
+    
+        </style>
+        <div class="content-left">left</div>
+            <div class="toolbar">  
+                <div id="img_container">
+                    <img src="../pic/1.png"  ALIGN=LEFT />
+                </div>
+           
+                <div class="toolbar-container" >   
+                    <input type="text" value=""/>
+                    <div class="clear"></div>
+                </div>
+             </div>    
+        <div class="container">
                 <div id="leftCol">
-                    <div class="home-1">
-                        <div class="home-image"></div>
-                        <div class="home-name">home</div>
-                        <div class="clear"></div>
-                    </div>
+                    
                     <div class="clear"></div>
                     <div class="home-navigation">
-                        <div class="home-navigation-header">
-                            เยี่ยมสุดใน Youtube
-                        </div>
                         <div class="navigation-item">
                             <div class="navigation-icon"></div>
-                            <div class="navigation-name">detial</div>
+                            <div class="navigation-name">navigation</div>
                             <div class="clear"></div>
                         </div>
                         <div class="navigation-item">
                             <div class="navigation-icon"></div>
-                            <div class="navigation-name">detial</div>
+                            <div class="navigation-name">navigation</div>
                             <div class="clear"></div>
                         </div>
                         <div class="navigation-item">
                             <div class="navigation-icon"></div>
-                            <div class="navigation-name">detial</div>
+                            <div class="navigation-name">navigation</div>
                             <div class="clear"></div>
                         </div>
                         <div class="navigation-item">
                             <div class="navigation-icon"></div>
-                            <div class="navigation-name">detial</div>
+                            <div class="navigation-name">navigation</div>
                             <div class="clear"></div>
                         </div>
                         <div class="navigation-item">
                             <div class="navigation-icon"></div>
-                            <div class="navigation-name">detial</div>
+                            <div class="navigation-name">navigation</div>
                             <div class="clear"></div>
-                        </div>
-                    </div>
-                    <div class="home-navigation">
-                        <div class="home-navigation-header">
-                            หาชองทางอื่น
                         </div>
                     </div>
                 </div>
-                <div id="newsFeed">
-                    <div class="write-post">
-                        <div class="write-post-header"></div>
-                        <div class="write-post-content">
-                            <textarea placeholder="what do you think?"></textarea>
-                        </div>
-                        <div class="write-post-footer">
-                            <div class="post-buttons">
-                                <button class="share-with">Friends</button>
-                                <button class="post-button">Post</button>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="newfeed-item">
-                        <div class="newfeed-item-header">
-                            <div class="profile-image"></div>
-                            <div class="profile-name">
-                                <a href="#">facebook user name</a>
-                                <div class="newfeed-time">XXX minute</div>
-                            </div>
-                            <div class="clear"></div>
-                        </div>
-                        <div class="newfeed-item-content">
-
-                        </div>
-                        <div class="newfeed-item-control">
-                            <span>Like</span>
-                            <span>Comments</span>
-                            <span>Share</span>
-                        </div>
-                        <div class="comments">
-                            <div class="profile-image"></div>
-                            <input type="text"/>
-                        </div>
-                    </div>
-                    <div class="newfeed-item">
-                        <div class="newfeed-item-header">
-                            <div class="profile-image"></div>
-                            <div class="profile-name">
-                                <a href="#">facebook user name</a>
-                                <div class="newfeed-time">XXX minute</div>
-                            </div>
-                            <div class="clear"></div>
-                        </div>
-                        <div class="newfeed-item-content">
-                            <div class="newfeed-item-image">
-
-                            </div>
-                        </div>
-                        <div class="newfeed-item-control">
-                            <span>Like</span>
-                            <span>Comments</span>
-                            <span>Share</span>
-                        </div>
-                        <div class="comments">
-                            <div class="profile-image"></div>
-                            <input type="text"/>
-                        </div>
-                    </div>
-                    <div class="newfeed-item">
-                        <div class="newfeed-item-header">
-                            <div class="profile-image"></div>
-                            <div class="profile-name">
-                                <a href="#">facebook user name</a>
-                                <div class="newfeed-time">XXX minute</div>
-                            </div>
-                            <div class="clear"></div>
-                        </div>
-                        <div class="newfeed-item-content">
-
-                        </div>
-                        <div class="newfeed-item-control">
-                            <span>Like</span>
-                            <span>Comments</span>
-                            <span>Share</span>
-                        </div>
-                        <div class="comments">
-                            <div class="profile-image"></div>
-                            <input type="text"/>
-                        </div>
-                    </div>
-                    <div class="newfeed-item">
-                        <div class="newfeed-item-header">
-                            <div class="profile-image"></div>
-                            <div class="profile-name">
-                                <a href="#">facebook user name</a>
-                                <div class="newfeed-time">XXX minute</div>
-                            </div>
-                            <div class="clear"></div>
-                        </div>
-                        <div class="newfeed-item-content">
-                            <div class="newfeed-item-image">
-
-                            </div>
-                        </div>
-                        <div class="newfeed-item-control">
-                            <span>Like</span>
-                            <span>Comments</span>
-                            <span>Share</span>
-                        </div>
-                        <div class="comments">
-                            <div class="profile-image"></div>
-                            <input type="text"/>
-                        </div>
-                    </div>
-                    <div class="newfeed-item">
-                        <div class="newfeed-item-header">
-                            <div class="profile-image"></div>
-                            <div class="profile-name">
-                                <a href="#">facebook user name</a>
-                                <div class="newfeed-time">XXX minute</div>
-                            </div>
-                            <div class="clear"></div>
-                        </div>
-                        <div class="newfeed-item-content">
-
-                        </div>
-                        <div class="newfeed-item-control">
-                            <span>Like</span>
-                            <span>Comments</span>
-                            <span>Share</span>
-                        </div>
-                        <div class="comments">
-                            <div class="profile-image"></div>
-                            <input type="text"/>
-                        </div>
-                    </div>
-                </div>
+                
                 <div id="advertist">
                     <div class="adv-item"></div>
                     <div class="adv-item"></div>
                     <div class="adv-item"></div>
                 </div>
                 <span class="clear"></span>
-            </div>
+        </div>        
+        <div id="advertist">
+            <div class="adv-item"> </div> 
+            <div class="adv-item"></div>
+            <div class="adv-item"></div>
+            
         </div>
     </body>
 </html>
